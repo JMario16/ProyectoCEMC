@@ -3,8 +3,8 @@ package Modelo;
 import java.sql.*;
 
 public class Asigna_ejecuta {
-    
-    //Atributos de la clase Asigna_ejecuta
+
+    // Atributos de la clase Asigna_ejecuta
     private int programas_cognitivos_idprogramas_cognitivos;
     private int pacientes_usuario_idusuario;
     private int entrenadores_usuario_idusuario;
@@ -18,10 +18,13 @@ public class Asigna_ejecuta {
     private Date fecha_fin;
     private String estatus;
 
-    //Constructores
-    public Asigna_ejecuta() {}
+    // Constructores
+    public Asigna_ejecuta() {
+    }
 
-    public Asigna_ejecuta(String metodo_pago, String estatus, String estatus_pago, String folio, String observaciones, int programas_cognitivos_idprogramas_cognitivos, int pacientes_usuario_idusuario, int entrenadores_usuario_idusuario, double monto_pago, Date fecha_pago, Date fecha_inicio, Date fecha_fin) {
+    public Asigna_ejecuta(String metodo_pago, String estatus, String estatus_pago, String folio, String observaciones,
+            int programas_cognitivos_idprogramas_cognitivos, int pacientes_usuario_idusuario,
+            int entrenadores_usuario_idusuario, double monto_pago, Date fecha_pago, Date fecha_inicio, Date fecha_fin) {
         this.metodo_pago = metodo_pago;
         this.estatus = estatus;
         this.estatus_pago = estatus_pago;
@@ -36,13 +39,14 @@ public class Asigna_ejecuta {
         this.fecha_fin = fecha_fin;
     }
 
-    public Asigna_ejecuta(int programas_cognitivos_idprogramas_cognitivos, int pacientes_usuario_idusuario, int entrenadores_usuario_idusuario) {
+    public Asigna_ejecuta(int programas_cognitivos_idprogramas_cognitivos, int pacientes_usuario_idusuario,
+            int entrenadores_usuario_idusuario) {
         this.programas_cognitivos_idprogramas_cognitivos = programas_cognitivos_idprogramas_cognitivos;
         this.pacientes_usuario_idusuario = pacientes_usuario_idusuario;
         this.entrenadores_usuario_idusuario = entrenadores_usuario_idusuario;
     }
-    
-    //Getters y Setters
+
+    // Getters y Setters
     public int getProgramas_cognitivos_idprogramas_cognitivos() {
         return programas_cognitivos_idprogramas_cognitivos;
     }
@@ -140,16 +144,17 @@ public class Asigna_ejecuta {
     }
 
     public void Guardar() throws SQLException {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement Sen = CON.prepareStatement("INSERT INTO asigna_ejecuta values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement Sen = CON
+                .prepareStatement("INSERT INTO asigna_ejecuta values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
         Sen.setInt(1, programas_cognitivos_idprogramas_cognitivos);
         Sen.setInt(2, pacientes_usuario_idusuario);
         Sen.setInt(3, entrenadores_usuario_idusuario);
-        Sen.setDate(4,fecha_pago);
+        Sen.setDate(4, fecha_pago);
         Sen.setDouble(5, monto_pago);
-        Sen.setString(6,metodo_pago);
-        Sen.setString(7, estatus_pago );
+        Sen.setString(6, metodo_pago);
+        Sen.setString(7, estatus_pago);
         Sen.setString(8, folio);
         Sen.setString(9, observaciones);
         Sen.setDate(10, fecha_inicio);
@@ -158,17 +163,18 @@ public class Asigna_ejecuta {
 
         Sen.executeUpdate();
     }
-    
-    public boolean Buscar()throws SQLException {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM asigna_ejecuta where programas_cognitivos_idprogramas_cognitivos = ? AND pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
-        
+
+    public boolean Buscar() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement(
+                "SELECT * FROM asigna_ejecuta where programas_cognitivos_idprogramas_cognitivos = ? AND pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
+
         SQL.setInt(1, programas_cognitivos_idprogramas_cognitivos);
         SQL.setInt(2, pacientes_usuario_idusuario);
         SQL.setInt(3, entrenadores_usuario_idusuario);
         ResultSet RS = SQL.executeQuery();
-        
-        if(RS.next()) {
+
+        if (RS.next()) {
             metodo_pago = RS.getString("metodo_pago");
             estatus_pago = RS.getString("estatus_pago");
             folio = RS.getString("folio");
@@ -181,20 +187,22 @@ public class Asigna_ejecuta {
             programas_cognitivos_idprogramas_cognitivos = RS.getInt("programas_cognitivos_idprogramas_cognitivos");
             entrenadores_usuario_idusuario = RS.getInt("entrenadores_usuario_idusuario");
             monto_pago = RS.getDouble("monto_pago");
-            
+
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-    public void Actualizar()throws SQLException {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement Sen = CON.prepareStatement("UPDATE asigna_ejecuta SET fecha_fin = ?, fecha_inicio = ?, estatus = ?, fecha_pago =  ?, monto_pago = ?, metodo_pago = ?, estatus_pago = ?, folio = ?, observaciones = ? WHERE programas_cognitivos_idprogramas_cognitivos = ? AND pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
-        
-        Sen.setDate(4,fecha_pago);
-        Sen.setString(6,metodo_pago);
+
+    public void Actualizar() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement Sen = CON.prepareStatement(
+                "UPDATE asigna_ejecuta SET fecha_fin = ?, fecha_inicio = ?, estatus = ?, fecha_pago =  ?, monto_pago = ?, metodo_pago = ?, estatus_pago = ?, folio = ?, observaciones = ? WHERE programas_cognitivos_idprogramas_cognitivos = ? AND pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
+
+        Sen.setDate(4, fecha_pago);
+        Sen.setString(6, metodo_pago);
         Sen.setString(3, estatus);
-        Sen.setString(7, estatus_pago );
+        Sen.setString(7, estatus_pago);
         Sen.setString(8, folio);
         Sen.setString(9, observaciones);
         Sen.setDate(2, fecha_inicio);
@@ -206,20 +214,22 @@ public class Asigna_ejecuta {
         Sen.setTimestamp(pacientes_usuario_idusuario, x);
         Sen.executeUpdate();
     }
-    public void Borrar()throws SQLException {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement Sen = CON.prepareStatement("DELETE FROM asigna_ejecuta where programas_cognitivos_idprogramas_cognitivos = ? AND pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
-        
+
+    public void Borrar() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement Sen = CON.prepareStatement(
+                "DELETE FROM asigna_ejecuta where programas_cognitivos_idprogramas_cognitivos = ? AND pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
+
         Sen.setInt(2, pacientes_usuario_idusuario);
         Sen.setInt(1, programas_cognitivos_idprogramas_cognitivos);
         Sen.setInt(3, entrenadores_usuario_idusuario);
         Sen.executeUpdate();
     }
-    
+
     public ResultSet Mostrar() throws SQLException {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement("SELECT * FROM asigna_ejecuta");
-        
+
         ResultSet Res = SQL.executeQuery();
         return Res;
     }
