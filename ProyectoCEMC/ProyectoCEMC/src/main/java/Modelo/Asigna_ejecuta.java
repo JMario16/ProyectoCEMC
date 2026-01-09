@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Asigna_ejecuta {
     
-    //Atributos de la clase pacientes
+    //Atributos de la clase Asigna_ejecuta
     private int programas_cognitivos_idprogramas_cognitivos;
     private int pacientes_usuario_idusuario;
     private int entrenadores_usuario_idusuario;

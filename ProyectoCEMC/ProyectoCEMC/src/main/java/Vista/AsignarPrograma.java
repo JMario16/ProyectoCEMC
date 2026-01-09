@@ -3,6 +3,7 @@ package Vista;
 import Modelo.Asigna_ejecuta;
 import Modelo.Pacientes;
 import Modelo.Programa;
+import java.awt.Color;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,17 +11,23 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class AsignarPrograma extends javax.swing.JFrame {
-
-    private int idEntrenador;
-    
     private ArrayList<Integer> pacienteIds = new ArrayList<>();
     private ArrayList<Integer> programaIds = new ArrayList<>();
+    private int idEntrenador;
+    
+    Color azul = new Color(41, 51, 92);
+    Color hover = new Color(49, 69, 168);
 
     public AsignarPrograma(int idEntrenador) {
         this.idEntrenador = idEntrenador;
         initComponents();
         cargarPacientes();
         cargarProgramas();
+        Btn_Asignar.setFocusPainted(false);
+        Btn_Asignar.setBorderPainted(false);
+        Btn_Asignar.setOpaque(true);
+        Cmb_Pacientes.setFocusable(false);
+        Cmb_Programas.setFocusable(false);
 
         Btn_Asignar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,10 +138,8 @@ public class AsignarPrograma extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al asignar (Verifique fechas YYYY-MM-DD): " + ex.getMessage());
         }
     }
-
     
     @SuppressWarnings("unchecked")
-   
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -145,12 +150,15 @@ public class AsignarPrograma extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         Cmb_Pacientes = new javax.swing.JComboBox<>();
         Cmb_Programas = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         Txt_FechaInicio = new javax.swing.JTextField();
         Txt_FechaFin = new javax.swing.JTextField();
-        Txt_Observaciones = new javax.swing.JTextField();
         Txt_Estatus = new javax.swing.JTextField();
+        Txt_Observaciones = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         Btn_Asignar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         Lbl_Volver = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,58 +178,155 @@ public class AsignarPrograma extends javax.swing.JFrame {
         jLabel1.setText("Asignar Programa");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 200, 50));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 50));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 50));
 
         jPanel3.setBackground(new java.awt.Color(177, 157, 104));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 270, 50));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 170, 50));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
-        jPanel5.setOpaque(false);
-        jPanel5.setLayout(new java.awt.GridLayout(2, 2, 10, 10));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Cmb_Pacientes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Cmb_Pacientes.setForeground(new java.awt.Color(156, 156, 156));
         Cmb_Pacientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Paciente..." }));
-        jPanel5.add(Cmb_Pacientes);
+        Cmb_Pacientes.setBorder(null);
+        jPanel5.add(Cmb_Pacientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 170, 30));
 
+        Cmb_Programas.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Cmb_Programas.setForeground(new java.awt.Color(156, 156, 156));
         Cmb_Programas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Programa..." }));
-        jPanel5.add(Cmb_Programas);
+        Cmb_Programas.setBorder(null);
+        jPanel5.add(Cmb_Programas, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 180, 30));
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 740, 100));
+        jLabel2.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(41, 51, 92));
+        jLabel2.setText("Paciente y programa");
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 460, 100));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
-        jPanel6.setOpaque(false);
-        jPanel6.setLayout(new java.awt.GridLayout(3, 2, 10, 10));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Txt_FechaInicio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_FechaInicio.setForeground(new java.awt.Color(156, 156, 156));
         Txt_FechaInicio.setText("Fecha Inicio (YYYY-MM-DD)");
-        jPanel6.add(Txt_FechaInicio);
+        Txt_FechaInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_FechaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_FechaInicioMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_FechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 210, 30));
 
+        Txt_FechaFin.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_FechaFin.setForeground(new java.awt.Color(156, 156, 156));
         Txt_FechaFin.setText("Fecha Fin (YYYY-MM-DD)");
-        jPanel6.add(Txt_FechaFin);
+        Txt_FechaFin.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_FechaFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_FechaFinMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_FechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 39, 190, 30));
 
-        Txt_Observaciones.setText("Observaciones");
-        jPanel6.add(Txt_Observaciones);
-
+        Txt_Estatus.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_Estatus.setForeground(new java.awt.Color(156, 156, 156));
         Txt_Estatus.setText("Estatus (Activo/Pendiente)");
-        jPanel6.add(Txt_Estatus);
+        Txt_Estatus.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_Estatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_EstatusMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_Estatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 740, 150));
+        Txt_Observaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_Observaciones.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_Observaciones.setText("Observaciones");
+        Txt_Observaciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_Observaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_ObservacionesMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_Observaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 190, 30));
+
+        jLabel3.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(41, 51, 92));
+        jLabel3.setText("Especificaciones");
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 460, 140));
 
         Btn_Asignar.setBackground(new java.awt.Color(41, 51, 92));
+        Btn_Asignar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
         Btn_Asignar.setForeground(new java.awt.Color(250, 250, 250));
         Btn_Asignar.setText("ASIGNAR PROGRAMA");
-        jPanel2.add(Btn_Asignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, 200, 40));
+        Btn_Asignar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Asignar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_AsignarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_AsignarMouseExited(evt);
+            }
+        });
+        jPanel2.add(Btn_Asignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 200, 40));
 
+        Lbl_Volver.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
         Lbl_Volver.setForeground(new java.awt.Color(41, 51, 92));
         Lbl_Volver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_Volver.setText("VOLVER");
-        Lbl_Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel2.add(Lbl_Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 800, 30));
+        Lbl_Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(Lbl_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(Lbl_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 500, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 480));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_AsignarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarMouseEntered
+        Btn_Asignar.setBackground(hover);
+    }//GEN-LAST:event_Btn_AsignarMouseEntered
+
+    private void Btn_AsignarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AsignarMouseExited
+        Btn_Asignar.setBackground(azul);
+    }//GEN-LAST:event_Btn_AsignarMouseExited
+
+    private void Txt_FechaInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_FechaInicioMouseClicked
+        Txt_FechaInicio.setText("");
+    }//GEN-LAST:event_Txt_FechaInicioMouseClicked
+
+    private void Txt_FechaFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_FechaFinMouseClicked
+        Txt_FechaFin.setText("");
+    }//GEN-LAST:event_Txt_FechaFinMouseClicked
+
+    private void Txt_EstatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_EstatusMouseClicked
+        Txt_Estatus.setText("");
+    }//GEN-LAST:event_Txt_EstatusMouseClicked
+
+    private void Txt_ObservacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_ObservacionesMouseClicked
+        Txt_Observaciones.setText("");
+    }//GEN-LAST:event_Txt_ObservacionesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Asignar;
@@ -233,9 +338,12 @@ public class AsignarPrograma extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_FechaInicio;
     private javax.swing.JTextField Txt_Observaciones;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables

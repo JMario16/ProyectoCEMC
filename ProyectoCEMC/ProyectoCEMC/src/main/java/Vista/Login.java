@@ -79,7 +79,6 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
 
-        jPanel3.setBackground(new java.awt.Color(226, 230, 230));
         jPanel3.setToolTipText("");
 
         Lbl_Salir.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -107,8 +106,6 @@ public class Login extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 458, -1, -1));
-
-        jPanel4.setBackground(new java.awt.Color(226, 230, 230));
 
         Btn_CrearUsuario.setBackground(new java.awt.Color(41, 51, 92));
         Btn_CrearUsuario.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -163,7 +160,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(62, 161, -1, -1));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
 
         jPanel5.setBackground(new java.awt.Color(177, 157, 104));
 
