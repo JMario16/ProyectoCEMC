@@ -12,7 +12,7 @@ public class Entrenadores extends Usuario {
     public Entrenadores() {}
 
     public Entrenadores(String especialidad, int usuario_idusuario, String nombre, String ap_paterno, String ap_materno, String correo, String telefono, String direccion, String usuario, String contrasena) {
-        super(nombre, ap_paterno, ap_materno, correo, telefono, direccion, usuario, contrasena);
+        //super(nombre, ap_paterno, ap_materno, correo, telefono, direccion, usuario, contrasena);
         this.especialidad = especialidad;
         this.usuario_idusuario = usuario_idusuario;
     }
@@ -34,7 +34,7 @@ public class Entrenadores extends Usuario {
         this.usuario_idusuario = usuario_idusuario;
     }
     
-    public void Guardar() throws SQLException {
+    public void GuardarEntrenador() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
         PreparedStatement Sen = CON.prepareStatement("INSERT INTO entrenadores VALUES (?, ?)");
         
