@@ -11,6 +11,12 @@ public class Entrenadores extends Usuario {
     //Constructores
     public Entrenadores() {}
 
+    public Entrenadores(String especialidad, String nombre, String ap_paterno, String ap_materno, String correo, String telefono, String direccion, String usuario, String contrasena, String pregunta_recuperacion, String respuesta_recuperacion, String rol) {
+        super(nombre, ap_paterno, ap_materno, correo, telefono, direccion, usuario, contrasena, pregunta_recuperacion, respuesta_recuperacion, rol);
+        this.especialidad = especialidad;
+    }
+
+    
     //Getters y Setters
     public String getEspecialidad() {
         return especialidad;

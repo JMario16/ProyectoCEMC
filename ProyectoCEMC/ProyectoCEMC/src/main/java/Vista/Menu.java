@@ -365,9 +365,9 @@ public class Menu extends javax.swing.JFrame {
         Btn_Crear.setBackground(new java.awt.Color(41, 51, 92));
         Btn_Crear.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
         Btn_Crear.setForeground(new java.awt.Color(250, 250, 250));
-        Btn_Crear.setText("CREAR USUARIO");
+        Btn_Crear.setText("CREAR");
         Btn_Crear.setBorder(null);
-        Btn_Crear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Crear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_Crear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_CrearMouseEntered(evt);
@@ -384,7 +384,7 @@ public class Menu extends javax.swing.JFrame {
         Btn_Consulta.setForeground(new java.awt.Color(250, 250, 250));
         Btn_Consulta.setText("CONSULTA");
         Btn_Consulta.setBorder(null);
-        Btn_Consulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Consulta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_Consulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_ConsultaMouseEntered(evt);
@@ -401,7 +401,7 @@ public class Menu extends javax.swing.JFrame {
         Btn_Actualizar.setForeground(new java.awt.Color(250, 250, 250));
         Btn_Actualizar.setText("ACTUALIZAR DATOS");
         Btn_Actualizar.setBorder(null);
-        Btn_Actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_Actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_ActualizarMouseEntered(evt);
@@ -417,7 +417,7 @@ public class Menu extends javax.swing.JFrame {
         Btn_Borrar.setForeground(new java.awt.Color(250, 250, 250));
         Btn_Borrar.setText("BORRAR");
         Btn_Borrar.setBorder(null);
-        Btn_Borrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Borrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_Borrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_BorrarMouseEntered(evt);
@@ -481,7 +481,7 @@ public class Menu extends javax.swing.JFrame {
         Lbl_Salir.setForeground(new java.awt.Color(41, 51, 92));
         Lbl_Salir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_Salir.setText("SALIR");
-        Lbl_Salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lbl_Salir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Lbl_Salir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Lbl_SalirMouseClicked(evt);

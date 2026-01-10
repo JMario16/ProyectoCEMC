@@ -101,7 +101,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         Lbl_Volver.setForeground(new java.awt.Color(41, 51, 92));
         Lbl_Volver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_Volver.setText("VOLVER");
-        Lbl_Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Lbl_Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Lbl_Volver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Lbl_VolverMouseClicked(evt);
@@ -139,6 +139,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 Txt_UsuarioMousePressed(evt);
             }
         });
+        Txt_Usuario.addActionListener(this::Txt_UsuarioActionPerformed);
         jPanel1.add(Txt_Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 320, 30));
 
         Btn_Sesion.setBackground(new java.awt.Color(41, 51, 92));
@@ -146,7 +147,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         Btn_Sesion.setForeground(new java.awt.Color(250, 250, 250));
         Btn_Sesion.setText("INICIAR SESIÓN");
         Btn_Sesion.setBorder(null);
-        Btn_Sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Btn_Sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_Sesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_SesionMouseEntered(evt);
@@ -168,6 +169,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 Txt_ContrasenaMousePressed(evt);
             }
         });
+        Txt_Contrasena.addActionListener(this::Txt_ContrasenaActionPerformed);
         jPanel1.add(Txt_Contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 320, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 350));
@@ -239,6 +241,16 @@ public class IniciarSesion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.toString());
         }
     }//GEN-LAST:event_Btn_SesionActionPerformed
+
+    private void Txt_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_UsuarioActionPerformed
+        // TODO add your handling code here:
+        Txt_Usuario.setText("");
+    }//GEN-LAST:event_Txt_UsuarioActionPerformed
+
+    private void Txt_ContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_ContrasenaActionPerformed
+        // TODO add your handling code here:
+        Txt_Contrasena.setText("");
+    }//GEN-LAST:event_Txt_ContrasenaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Sesion;
