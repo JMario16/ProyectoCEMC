@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-import Modelo.Genero;
-import Modelo.Pacientes;
+
+import Modelo.Entrenadores;
 import Modelo.Usuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -29,6 +29,12 @@ public class ActEntrenador extends javax.swing.JFrame {
     public ActEntrenador(Usuario usuario, int idAmodificar) {
         this.usuario=usuario;
         initComponents();
+        Btn_Buscar.setFocusPainted(false);
+        Btn_Buscar.setBorderPainted(false);
+        Btn_Buscar.setOpaque(true);
+        Btn_Actualizar.setFocusPainted(false);
+        Btn_Actualizar.setBorderPainted(false);
+        Btn_Actualizar.setOpaque(true);
     }
 
     /**
@@ -489,8 +495,8 @@ public class ActEntrenador extends javax.swing.JFrame {
                         .addComponent(jLabel6))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

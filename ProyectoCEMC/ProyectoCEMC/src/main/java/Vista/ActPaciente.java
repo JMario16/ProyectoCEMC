@@ -28,6 +28,15 @@ public class ActPaciente extends javax.swing.JFrame {
     public ActPaciente(Usuario usuario, int idAeditar) {//edicion de admin
         this.usuario=usuario;
         initComponents();
+        Btn_Buscar.setFocusPainted(false);
+        Btn_Buscar.setBorderPainted(false);
+        Btn_Buscar.setOpaque(true);
+        Btn_Actualizar.setFocusPainted(false);
+        Btn_Actualizar.setBorderPainted(false);
+        Btn_Actualizar.setOpaque(true);
+        Btn_Tratamientos.setFocusPainted(false);
+        Btn_Tratamientos.setBorderPainted(false);
+        Btn_Tratamientos.setOpaque(true);
     }
 
     /**
@@ -519,7 +528,7 @@ public class ActPaciente extends javax.swing.JFrame {
         Btn_Tratamientos.setBackground(new java.awt.Color(41, 51, 92));
         Btn_Tratamientos.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
         Btn_Tratamientos.setForeground(new java.awt.Color(250, 250, 250));
-        Btn_Tratamientos.setText("AÑADIR TRATAMIENTO");
+        Btn_Tratamientos.setText("MODIFICAR TRATAMIENTO");
         Btn_Tratamientos.setBorder(null);
         Btn_Tratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Btn_Tratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
