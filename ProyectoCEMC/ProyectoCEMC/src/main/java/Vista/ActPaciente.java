@@ -8,6 +8,7 @@ import Modelo.Genero;
 import Modelo.Pacientes;
 import Modelo.Usuario;
 import java.awt.Color;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
@@ -23,10 +24,10 @@ public class ActPaciente extends javax.swing.JFrame {
      * Creates new form ActPaciente
      */
 
-    public ActPaciente(Usuario usuario) {//autoedicion
+    public ActPaciente(Usuario usuario) throws SQLException {//autoedicion
         this(usuario, -1);        
     }
-    public ActPaciente(Usuario usuario, int idAeditar) {//edicion de admin
+    public ActPaciente(Usuario usuario, int idAeditar) throws SQLException {//edicion de admin
         this.usuario=usuario;
         initComponents();
         Btn_Actualizar.setFocusPainted(false);
@@ -35,18 +36,32 @@ public class ActPaciente extends javax.swing.JFrame {
         Btn_Tratamientos.setFocusPainted(false);
         Btn_Tratamientos.setBorderPainted(false);
         Btn_Tratamientos.setOpaque(true);
-        Txt_Nombre.setText(usuario.getNombre());
-        Txt_ApePaterno.setText(usuario.getAp_paterno());
-        Txt_ApeMaterno.setText(usuario.getAp_materno());
-        Txt_Contrasena.setText(usuario.getContrasena());
-        Txt_Correo.setText(usuario.getCorreo());
-        Txt_Direccion.setText(usuario.getDireccion());
-        Txt_Telefono.setText(usuario.getTelefono());
-        Txt_Usuario.setText(usuario.getUsuario());
-        Txt_PregRecuperacion.setText(usuario.getPregunta_recuperacion());
-        Txt_RespRecuperacion.setText(usuario.getRespuesta_recuperacion());
-        //int edad = paciente.getEdad();
-        //Txt_Edad.setText(String.valueOf(edad));
+        Pacientes p= new Pacientes();
+        if (idAeditar != -1){
+            p.setIdusuario(idAeditar);
+        }else{
+            p.setIdusuario(this.usuario.getIdusuario());
+        }
+        p.Buscar();
+        int edad = p.getEdad();
+        Txt_Edad.setText(String.valueOf(edad));
+        Txt_Genero.setText(p.getGenero());
+        Txt_Alergias.setText(p.getAlergias());
+        Txt_AntecedentesMedicos.setText(p.getAntecedentes_medicos());
+        Txt_Escolaridad.setText(p.getEscolaridad());
+        Txt_Ocupacion.setText(p.getOcupacion());
+        Txt_Observaciones.setText(p.getObservaciones());
+        Txt_EstadoTratamiento.setText(p.getEstado_tratamiento());
+        Txt_Nombre.setText(p.getNombre());
+        Txt_ApePaterno.setText(p.getAp_paterno());
+        Txt_ApeMaterno.setText(p.getAp_materno());
+        Txt_Contrasena.setText(p.getContrasena());
+        Txt_Correo.setText(p.getCorreo());
+        Txt_Direccion.setText(p.getDireccion());
+        Txt_Telefono.setText(p.getTelefono());
+        Txt_Usuario.setText(p.getUsuario());
+        Txt_PregRecuperacion.setText(p.getPregunta_recuperacion());
+        Txt_RespRecuperacion.setText(p.getRespuesta_recuperacion());
     }
 
     /**

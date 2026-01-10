@@ -775,6 +775,8 @@ public class Menu extends javax.swing.JFrame {
         } else if ("Paciente".equals(seleccion)) {
             // autoedicion
             if (usuario.getRol().equalsIgnoreCase("Paciente")) {
+                Modelo.Pacientes pa =new Modelo.Pacientes();
+                //Lo sigo modificando OMAR
                 ActPaciente v = new ActPaciente(usuario);
                 v.setVisible(true);
             } else {
