@@ -7,6 +7,7 @@ package Vista;
 import Modelo.Entrenadores;
 import Modelo.Usuario;
 import java.awt.Color;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 /**
  *
@@ -22,25 +23,34 @@ public class ActEntrenador extends javax.swing.JFrame {
     /**
      * Creates new form ActEntrenador
      */
-    public ActEntrenador(Usuario usuario) {
+    public ActEntrenador(Usuario usuario) throws SQLException {
         this(usuario, -1);
     }
-    public ActEntrenador(Usuario usuario, int idAmodificar) {
+    public ActEntrenador(Usuario usuario, int idAmodificar) throws SQLException {
         this.usuario=usuario;
         initComponents();
         Btn_Actualizar.setFocusPainted(false);
         Btn_Actualizar.setBorderPainted(false);
         Btn_Actualizar.setOpaque(true);
-        Txt_Nombre.setText(usuario.getNombre());
-        Txt_ApePaterno.setText(usuario.getAp_paterno());
-        Txt_ApeMaterno.setText(usuario.getAp_materno());
-        Txt_Contrasena.setText(usuario.getContrasena());
-        Txt_Correo.setText(usuario.getCorreo());
-        Txt_Direccion.setText(usuario.getDireccion());
-        Txt_Telefono.setText(usuario.getTelefono());
-        Txt_Usuario.setText(usuario.getUsuario());
-        Txt_PregRecuperacion.setText(usuario.getPregunta_recuperacion());
-        Txt_RespRecuperacion.setText(usuario.getRespuesta_recuperacion());
+        
+        Entrenadores e = new Entrenadores();
+        if (idAmodificar != -1){
+            e.setIdusuario(idAmodificar);
+        }else{
+            e.setIdusuario(this.usuario.getIdusuario());
+        }
+        e.Buscar();
+        Txt_Especialidad.setText(e.getEspecialidad());
+        Txt_Nombre.setText(e.getNombre());
+        Txt_ApePaterno.setText(e.getAp_paterno());
+        Txt_ApeMaterno.setText(e.getAp_materno());
+        Txt_Contrasena.setText(e.getContrasena());
+        Txt_Correo.setText(e.getCorreo());
+        Txt_Direccion.setText(e.getDireccion());
+        Txt_Telefono.setText(e.getTelefono());
+        Txt_Usuario.setText(e.getUsuario());
+        Txt_PregRecuperacion.setText(e.getPregunta_recuperacion());
+        Txt_RespRecuperacion.setText(e.getRespuesta_recuperacion());
     }
 
     /**

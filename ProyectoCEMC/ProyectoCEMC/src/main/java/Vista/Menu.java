@@ -857,7 +857,16 @@ public class Menu extends javax.swing.JFrame {
                 MostrarEntrenadores v = new MostrarEntrenadores(usuario);
                 v.setVisible(true);
             }
+            case "Mostrar entrenador" -> {
+                MostrarEntrenadores v = new MostrarEntrenadores(usuario);
+                v.setVisible(true);
+            }
             case "Mostrar asignaciones de programa" -> {
+                MostrarAsignaciones v = new MostrarAsignaciones(usuario);
+                v.setVisible(true);
+            }
+            
+            case "Mostrar programas asignados" -> {
                 MostrarAsignaciones v = new MostrarAsignaciones(usuario);
                 v.setVisible(true);
             }
