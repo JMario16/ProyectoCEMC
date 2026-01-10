@@ -10,7 +10,7 @@ public class Menu extends javax.swing.JFrame {
     private Usuario usuario;
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
-        
+
     public Menu(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
@@ -29,9 +29,13 @@ public class Menu extends javax.swing.JFrame {
         Btn_Continuar1.setFocusPainted(false);
         Btn_Continuar1.setBorderPainted(false);
         Btn_Continuar1.setOpaque(true);
+        Btn_Continuar1.setOpaque(true);
         Cmb_Crear.setFocusable(false);
+        initCustomDialogs(); // Inicializa dialogos
+        initListeners();
+        configurarRoleAccess();
     }
-    
+
     private void configurarRoleAccess() {
         if (usuario == null)
             return;
@@ -40,20 +44,62 @@ public class Menu extends javax.swing.JFrame {
         if (role == null)
             role = "";
 
-        if ("Administrador".equalsIgnoreCase(role)) {
-            
-        } else if ("Entrenador".equalsIgnoreCase(role)) {
-            
-        } else if ("Paciente".equalsIgnoreCase(role)) {
-            
-        } else {
-            
-        }
+        // Reset para configurar por rol
+        Cmb_Crear.removeAllItems();
+        Cmb_Consulta.removeAllItems();
 
-        
+        if ("Administrador".equalsIgnoreCase(role)) {
+            // Admin tiene acceso a todooo
+            populateCombo(Cmb_Crear, "Entrenador", "Paciente", "Programa cognitivo", "Asignar programa",
+                    "Añadir paciente");
+            populateCombo(Cmb_Consulta, "Buscar usuario", "Buscar programa cognitivo", "Buscar asignación de programa",
+                    "Mostrar usuarios", "Mostrar entrenadores", "Mostrar pacientes", "Mostrar programas cognitivos",
+                    "Mostrar asignaciones de programa");
+            if (Cmb_Actualizar != null) {
+                Cmb_Actualizar.removeAllItems();
+                populateCombo(Cmb_Actualizar, "Entrenador", "Paciente", "Programa cognitivo", "Asignación de programa");
+            }
+            if (Cmb_Borrar != null) {
+                Cmb_Borrar.removeAllItems();
+                populateCombo(Cmb_Borrar, "Usuario", "Entrenador", "Paciente", "Programa cognitivo",
+                        "Asignación de programa");
+            }
+        } else if ("Entrenador".equalsIgnoreCase(role)) {
+            populateCombo(Cmb_Crear, "Programa cognitivo", "Asignar programa", "Añadir paciente");
+            populateCombo(Cmb_Consulta, "Buscar programa cognitivo", "Buscar usuario", "Buscar asignación de programa",
+                    "Mostrar pacientes", "Mostrar programas cognitivos", "Mostrar asignaciones de programa");
+            if (Cmb_Actualizar != null) {
+                Cmb_Actualizar.removeAllItems();
+                populateCombo(Cmb_Actualizar, "Entrenador", "Programa cognitivo", "Asignación de programa");
+            }
+            if (Cmb_Borrar != null) {
+                Cmb_Borrar.removeAllItems();
+                populateCombo(Cmb_Borrar, "Programa cognitivo", "Asignación de programa");
+            }
+        } else if ("Paciente".equalsIgnoreCase(role)) {
+            Btn_Crear.setEnabled(false); // Paciente no crea ni maiz
+            populateCombo(Cmb_Consulta, "Buscar asignación de programa", "Mostrar entrenador",
+                    "Mostrar programas asignados");
+            if (Cmb_Actualizar != null) {
+                Cmb_Actualizar.removeAllItems();
+                populateCombo(Cmb_Actualizar, "Paciente");
+            }
+            if (Cmb_Borrar != null) {
+                Cmb_Borrar.removeAllItems();
+                populateCombo(Cmb_Borrar, "Paciente");
+            }
+        }
     }
+
+    private void populateCombo(javax.swing.JComboBox<String> cmb, String... items) {
+        for (String item : items) {
+            cmb.addItem(item);
+        }
+    }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         Dlg_Crear = new javax.swing.JDialog();
@@ -107,13 +153,13 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_VolverCrear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
+                jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_VolverCrear, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
         jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_VolverCrear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
+                jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_VolverCrear, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE));
 
         jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 400, 40));
 
@@ -122,13 +168,11 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
+                jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 30, Short.MAX_VALUE));
         jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
-        );
+                jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 310, Short.MAX_VALUE));
 
         jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 310));
 
@@ -137,13 +181,11 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
-        );
+                jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 370, Short.MAX_VALUE));
         jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
+                jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 30, Short.MAX_VALUE));
 
         jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, 30));
 
@@ -157,7 +199,8 @@ public class Menu extends javax.swing.JFrame {
 
         Cmb_Crear.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Cmb_Crear.setForeground(new java.awt.Color(156, 156, 156));
-        Cmb_Crear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrenador", "Paciente", "Programa cognitivo", "Asignar programa" }));
+        Cmb_Crear.setModel(new javax.swing.DefaultComboBoxModel<>(
+                new String[] { "Entrenador", "Paciente", "Programa cognitivo", "Asignar programa" }));
         Cmb_Crear.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jPanel6.add(Cmb_Crear, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 180, 30));
 
@@ -173,15 +216,15 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout Dlg_CrearLayout = new javax.swing.GroupLayout(Dlg_Crear.getContentPane());
         Dlg_Crear.getContentPane().setLayout(Dlg_CrearLayout);
         Dlg_CrearLayout.setHorizontalGroup(
-            Dlg_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+                Dlg_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE));
         Dlg_CrearLayout.setVerticalGroup(
-            Dlg_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Dlg_CrearLayout.createSequentialGroup()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+                Dlg_CrearLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(Dlg_CrearLayout.createSequentialGroup()
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)));
 
         Dlg_Consulta.setTitle("Consultas");
 
@@ -193,13 +236,11 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
+                jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 30, Short.MAX_VALUE));
         jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
-        );
+                jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 310, Short.MAX_VALUE));
 
         jPanel7.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 310));
 
@@ -208,13 +249,11 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 370, Short.MAX_VALUE)
-        );
+                jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 370, Short.MAX_VALUE));
         jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
+                jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 30, Short.MAX_VALUE));
 
         jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, 30));
 
@@ -232,13 +271,13 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_VolverCrear1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
+                jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_VolverCrear1, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE));
         jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_VolverCrear1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
+                jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_VolverCrear1, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE));
 
         jPanel7.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 400, 40));
 
@@ -252,7 +291,10 @@ public class Menu extends javax.swing.JFrame {
 
         Cmb_Consulta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Cmb_Consulta.setForeground(new java.awt.Color(156, 156, 156));
-        Cmb_Consulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar usuario", "Buscar programa cognitivo", "Buscar asignación de programa", "Mostrar usuarios", "Mostrar entrenadores", "Mostrar pacientes", "Mostrar programas cognitivos", "Mostrar asignaciones de programa" }));
+        Cmb_Consulta.setModel(
+                new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar usuario", "Buscar programa cognitivo",
+                        "Buscar asignación de programa", "Mostrar usuarios", "Mostrar entrenadores",
+                        "Mostrar pacientes", "Mostrar programas cognitivos", "Mostrar asignaciones de programa" }));
         Cmb_Consulta.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         jPanel8.add(Cmb_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 180, 30));
 
@@ -268,13 +310,13 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout Dlg_ConsultaLayout = new javax.swing.GroupLayout(Dlg_Consulta.getContentPane());
         Dlg_Consulta.getContentPane().setLayout(Dlg_ConsultaLayout);
         Dlg_ConsultaLayout.setHorizontalGroup(
-            Dlg_ConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                Dlg_ConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         Dlg_ConsultaLayout.setVerticalGroup(
-            Dlg_ConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                Dlg_ConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú");
@@ -289,13 +331,11 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
-        );
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 140, Short.MAX_VALUE));
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 50, Short.MAX_VALUE));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 140, 50));
 
@@ -309,16 +349,16 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(113, Short.MAX_VALUE)));
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 50));
 
@@ -332,6 +372,7 @@ public class Menu extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_CrearMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Btn_CrearMouseExited(evt);
             }
@@ -348,6 +389,7 @@ public class Menu extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_ConsultaMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Btn_ConsultaMouseExited(evt);
             }
@@ -364,6 +406,7 @@ public class Menu extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_ActualizarMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Btn_ActualizarMouseExited(evt);
             }
@@ -379,6 +422,7 @@ public class Menu extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_BorrarMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Btn_BorrarMouseExited(evt);
             }
@@ -387,34 +431,47 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Btn_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Btn_Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Btn_Borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(Btn_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout
+                                                .createSequentialGroup()
+                                                .addGap(56, 56, 56)
+                                                .addGroup(jPanel4Layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(Btn_Consulta,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel4Layout
+                                                                .createParallelGroup(
+                                                                        javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(Btn_Borrar,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(Btn_Actualizar,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addContainerGap(56, Short.MAX_VALUE)));
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(Btn_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Btn_Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Btn_Borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(Btn_Crear, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Btn_Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Btn_Actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Btn_Borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(55, Short.MAX_VALUE)));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, 300));
 
@@ -434,85 +491,84 @@ public class Menu extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_Salir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-        );
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_Salir, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE));
         jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-        );
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_Salir, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 458, 460, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Btn_CrearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CrearMouseEntered
+    private void Btn_CrearMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_CrearMouseEntered
         Btn_Crear.setBackground(hover);
-    }//GEN-LAST:event_Btn_CrearMouseEntered
+    }// GEN-LAST:event_Btn_CrearMouseEntered
 
-    private void Btn_CrearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_CrearMouseExited
+    private void Btn_CrearMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_CrearMouseExited
         Btn_Crear.setBackground(azul);
-    }//GEN-LAST:event_Btn_CrearMouseExited
+    }// GEN-LAST:event_Btn_CrearMouseExited
 
-    private void Btn_ConsultaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ConsultaMouseEntered
+    private void Btn_ConsultaMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_ConsultaMouseEntered
         Btn_Consulta.setBackground(hover);
-    }//GEN-LAST:event_Btn_ConsultaMouseEntered
+    }// GEN-LAST:event_Btn_ConsultaMouseEntered
 
-    private void Btn_ConsultaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ConsultaMouseExited
+    private void Btn_ConsultaMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_ConsultaMouseExited
         Btn_Consulta.setBackground(azul);
-    }//GEN-LAST:event_Btn_ConsultaMouseExited
+    }// GEN-LAST:event_Btn_ConsultaMouseExited
 
-    private void Btn_ActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ActualizarMouseEntered
+    private void Btn_ActualizarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_ActualizarMouseEntered
         Btn_Actualizar.setBackground(hover);
-    }//GEN-LAST:event_Btn_ActualizarMouseEntered
+    }// GEN-LAST:event_Btn_ActualizarMouseEntered
 
-    private void Btn_ActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ActualizarMouseExited
+    private void Btn_ActualizarMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_ActualizarMouseExited
         Btn_Actualizar.setBackground(azul);
-    }//GEN-LAST:event_Btn_ActualizarMouseExited
+    }// GEN-LAST:event_Btn_ActualizarMouseExited
 
-    private void Btn_BorrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BorrarMouseEntered
+    private void Btn_BorrarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_BorrarMouseEntered
         Btn_Borrar.setBackground(hover);
-    }//GEN-LAST:event_Btn_BorrarMouseEntered
+    }// GEN-LAST:event_Btn_BorrarMouseEntered
 
-    private void Btn_BorrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BorrarMouseExited
+    private void Btn_BorrarMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_BorrarMouseExited
         Btn_Borrar.setBackground(azul);
-    }//GEN-LAST:event_Btn_BorrarMouseExited
+    }// GEN-LAST:event_Btn_BorrarMouseExited
 
-    private void Lbl_SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_SalirMouseClicked
+    private void Lbl_SalirMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Lbl_SalirMouseClicked
         System.exit(0);
-    }//GEN-LAST:event_Lbl_SalirMouseClicked
+    }// GEN-LAST:event_Lbl_SalirMouseClicked
 
-    private void Lbl_VolverCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverCrearMouseClicked
+    private void Lbl_VolverCrearMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Lbl_VolverCrearMouseClicked
         Dlg_Crear.dispose();
-    }//GEN-LAST:event_Lbl_VolverCrearMouseClicked
+    }// GEN-LAST:event_Lbl_VolverCrearMouseClicked
 
-    private void Btn_CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_CrearActionPerformed
+    private void Btn_CrearActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Btn_CrearActionPerformed
         Dlg_Crear.pack();
         Dlg_Crear.setLocationRelativeTo(this);
         Dlg_Crear.setVisible(true);
-    }//GEN-LAST:event_Btn_CrearActionPerformed
+    }// GEN-LAST:event_Btn_CrearActionPerformed
 
-    private void Lbl_VolverCrear1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverCrear1MouseClicked
+    private void Lbl_VolverCrear1MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Lbl_VolverCrear1MouseClicked
         Dlg_Consulta.dispose();
-    }//GEN-LAST:event_Lbl_VolverCrear1MouseClicked
+    }// GEN-LAST:event_Lbl_VolverCrear1MouseClicked
 
-    private void Btn_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ConsultaActionPerformed
+    private void Btn_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Btn_ConsultaActionPerformed
         Dlg_Consulta.pack();
         Dlg_Consulta.setLocationRelativeTo(this);
         Dlg_Consulta.setVisible(true);
-    }//GEN-LAST:event_Btn_ConsultaActionPerformed
+    }// GEN-LAST:event_Btn_ConsultaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
@@ -547,4 +603,247 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
+    // Custom Dialogs para Actualizar y Borrar
+    private javax.swing.JDialog Dlg_Actualizar;
+    private javax.swing.JComboBox<String> Cmb_Actualizar;
+    private javax.swing.JButton Btn_Continuar3;
+
+    private javax.swing.JDialog Dlg_Borrar_Dialog; 
+    private javax.swing.JComboBox<String> Cmb_Borrar; 
+    private javax.swing.JButton Btn_Continuar4;
+
+    private void initCustomDialogs() {
+        // Dlg_Actualizar
+        Dlg_Actualizar = new javax.swing.JDialog();
+        Dlg_Actualizar.setTitle("Actualizar Datos");
+        Cmb_Actualizar = new javax.swing.JComboBox<>();
+        Btn_Continuar3 = new javax.swing.JButton("CONTINUAR");
+        setupDialog(Dlg_Actualizar, Cmb_Actualizar, Btn_Continuar3);
+
+        // Dlg_Borrar
+        Dlg_Borrar_Dialog = new javax.swing.JDialog();
+        Dlg_Borrar_Dialog.setTitle("Borrar Datos");
+        Cmb_Borrar = new javax.swing.JComboBox<>();
+        Btn_Continuar4 = new javax.swing.JButton("CONTINUAR");
+        setupDialog(Dlg_Borrar_Dialog, Cmb_Borrar, Btn_Continuar4);
+
+        // Listeners para abrir dialogos
+        Btn_Actualizar.addActionListener(e -> {
+            Dlg_Actualizar.pack();
+            Dlg_Actualizar.setLocationRelativeTo(this);
+            Dlg_Actualizar.setVisible(true);
+        });
+
+        Btn_Borrar.addActionListener(e -> {
+            Dlg_Borrar_Dialog.pack();
+            Dlg_Borrar_Dialog.setLocationRelativeTo(this);
+            Dlg_Borrar_Dialog.setVisible(true);
+        });
+
+        // Listeners para "Continuar" en los dialogos
+        Btn_Continuar3.addActionListener(this::Btn_Continuar3ActionPerformed);
+        Btn_Continuar4.addActionListener(this::Btn_Continuar4ActionPerformed);
+    }
+
+    private void setupDialog(javax.swing.JDialog dialog, javax.swing.JComboBox box, javax.swing.JButton btn) {
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setBackground(new java.awt.Color(250, 250, 250));
+        panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        // Header
+        javax.swing.JPanel header = new javax.swing.JPanel();
+        header.setBackground(new java.awt.Color(41, 51, 92));
+        panel.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 310));
+
+        javax.swing.JPanel top = new javax.swing.JPanel();
+        top.setBackground(new java.awt.Color(177, 157, 104));
+        panel.add(top, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, 30));
+
+        // Contenido
+        javax.swing.JPanel content = new javax.swing.JPanel();
+        content.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
+        content.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        javax.swing.JLabel lbl = new javax.swing.JLabel("Seleccione una opción:");
+        lbl.setFont(new java.awt.Font("Roboto Condensed", 0, 14));
+        lbl.setForeground(new java.awt.Color(41, 51, 92));
+        content.add(lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        box.setFont(new java.awt.Font("Roboto", 0, 12));
+        box.setForeground(new java.awt.Color(156, 156, 156));
+        content.add(box, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 180, 30));
+
+        panel.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 270, 110));
+
+        // Button
+        btn.setBackground(new java.awt.Color(41, 51, 92));
+        btn.setFont(new java.awt.Font("Roboto Condensed", 0, 14));
+        btn.setForeground(new java.awt.Color(250, 250, 250));
+        btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panel.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 160, 40));
+
+        // Footer (Volver)
+        javax.swing.JLabel lblVolver = new javax.swing.JLabel("VOLVER", javax.swing.SwingConstants.CENTER);
+        lblVolver.setFont(new java.awt.Font("Roboto Condensed", 0, 14));
+        lblVolver.setForeground(new java.awt.Color(41, 51, 92));
+        lblVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVolver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dialog.dispose();
+            }
+        });
+
+        javax.swing.JPanel footer = new javax.swing.JPanel(); // Just a container
+        footer.setLayout(new java.awt.BorderLayout());
+        footer.add(lblVolver, java.awt.BorderLayout.CENTER);
+        panel.add(footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 400, 40));
+
+        dialog.add(panel);
+        dialog.pack();
+    }
+
+    // botones 
+    private void Btn_Continuar3ActionPerformed(java.awt.event.ActionEvent evt) {
+        String seleccion = (String) Cmb_Actualizar.getSelectedItem();
+        if (seleccion == null)
+            return;
+
+        
+
+        if ("Entrenador".equals(seleccion) || "Paciente".equals(seleccion)) {
+            // If user is editing themselves
+            if (usuario.getRol().equalsIgnoreCase(seleccion)) {
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "Funcionalidad 'Editar Perfil' abrirá la vista de usuario pronto.");
+                // Todo: Omar
+            } else {
+                String idStr = javax.swing.JOptionPane
+                        .showInputDialog("Ingrese ID del " + seleccion + " a actualizar:");
+                if (idStr != null && !idStr.isEmpty()) {
+                    // Todo: Actualizar la vista de omar
+                    javax.swing.JOptionPane.showMessageDialog(this,
+                            "Funcionalidad 'Editar Usuario por ID' no implementada.");
+                }
+            }
+        } else if ("Programa cognitivo".equals(seleccion)) {
+            String idStr = javax.swing.JOptionPane.showInputDialog("Ingrese ID del Programa a actualizar:");
+            if (idStr != null && !idStr.isEmpty()) {
+                try {
+                    int id = Integer.parseInt(idStr);
+                    Modelo.Programa p = new Modelo.Programa();
+                    p.setIdprogramas_cognitivos(id);
+                    if (p.Buscar()) {
+                        CrearPrograma v = new CrearPrograma(usuario, p);
+                        v.setVisible(true);
+                        Dlg_Actualizar.dispose();
+                    } else {
+                        javax.swing.JOptionPane.showMessageDialog(this, "Programa no encontrado.");
+                    }
+                } catch (NumberFormatException e) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
+                } catch (java.sql.SQLException e) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Error de base de datos: " + e.getMessage());
+                }
+            }
+        } else if ("Asignación de programa".equals(seleccion)) {
+            String idStr = javax.swing.JOptionPane.showInputDialog("Ingrese ID de la Asignación a actualizar:");
+            // Todo: 3 id? nueva vista?
+        }
+    }
+
+    private void Btn_Continuar4ActionPerformed(java.awt.event.ActionEvent evt) {
+        String seleccion = (String) Cmb_Borrar.getSelectedItem();
+        if (seleccion == null)
+            return;
+
+        try {
+            if ("Paciente".equals(seleccion) && "Paciente".equalsIgnoreCase(usuario.getRol())) {
+                // Autoborrado
+                int confirm = javax.swing.JOptionPane.showConfirmDialog(this,
+                        "¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.",
+                        "Confirmar eliminación", javax.swing.JOptionPane.YES_NO_OPTION);
+                if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                    Modelo.Pacientes p = new Modelo.Pacientes();
+                    p.setUsuario_idusuario(usuario.getIdusuario());
+                    p.Borrar_paciente(); 
+
+                    usuario.Borrar(); 
+                    javax.swing.JOptionPane.showMessageDialog(this, "Cuenta eliminada. Adiós.");
+                    System.exit(0);
+                }
+            } else {
+                // Borrado por id
+                String idStr = javax.swing.JOptionPane.showInputDialog("Ingrese ID del " + seleccion + " a borrar:");
+                if (idStr == null || idStr.isEmpty())
+                    return;
+                int id = Integer.parseInt(idStr);
+
+                if ("Usuario".equals(seleccion) || "Entrenador".equals(seleccion) || "Paciente".equals(seleccion)) {
+                    Modelo.Usuario u = new Modelo.Usuario();
+                    u.setIdusuario(id);
+                    u.Borrar();
+                    javax.swing.JOptionPane.showMessageDialog(this, "Usuario eliminado.");
+                } else if ("Programa cognitivo".equals(seleccion)) {
+                    Modelo.Programa p = new Modelo.Programa();
+                    p.setIdprogramas_cognitivos(id);
+                    p.Borrar();
+                    javax.swing.JOptionPane.showMessageDialog(this, "Programa eliminado.");
+                } else if ("Asignación de programa".equals(seleccion)) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this,
+                            "Borrar Asignación requiere selección compleaja. Implementación pendiente.");
+                }
+            }
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
+        } catch (java.sql.SQLException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error de base de datos: " + e.getMessage());
+        }
+        Dlg_Borrar_Dialog.dispose();
+    }
+
+    private void initListeners() {
+        Btn_Continuar1.addActionListener(this::Btn_Continuar1ActionPerformed);
+        Btn_Continuar2.addActionListener(this::Btn_Continuar2ActionPerformed);
+    }
+
+    private void Btn_Continuar1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String seleccion = (String) Cmb_Crear.getSelectedItem();
+        if (seleccion == null)
+            return;
+
+        if ( "Paciente".equals(seleccion)) {
+            
+            CrearUsuario v = new CrearUsuario();
+            v.setVisible(true);
+            
+        } else if ("Programa cognitivo".equals(seleccion)) {
+            CrearPrograma v = new CrearPrograma(usuario);
+            v.setVisible(true);
+        } else if ("Asignar programa".equals(seleccion)) {
+            AsignarPrograma v = new AsignarPrograma(usuario);
+            v.setVisible(true);
+        }
+        Dlg_Crear.dispose();
+    }
+
+    private void Btn_Continuar2ActionPerformed(java.awt.event.ActionEvent evt) {
+        String seleccion = (String) Cmb_Consulta.getSelectedItem();
+        if (seleccion == null)
+            return;
+
+        if ("Mostrar pacientes".equals(seleccion)) {
+            MisPacientes v = new MisPacientes(usuario);
+            v.setVisible(true);
+        } else if ("Mostrar entrenadores".equals(seleccion)) {
+            // Por implementar
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Funcionalidad 'Mostrar entrenadores' no implementada aún.");
+        } else if ("Buscar programa cognitivo".equals(seleccion)) {
+            // por implementar
+            javax.swing.JOptionPane.showMessageDialog(this, "Funcionalidad 'Buscar programa' no implementada aún.");
+        }
+        // Anadir otros casos
+        Dlg_Consulta.dispose();
+    }
 }
