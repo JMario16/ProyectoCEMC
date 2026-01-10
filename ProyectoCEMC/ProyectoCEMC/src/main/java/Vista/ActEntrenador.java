@@ -22,7 +22,12 @@ public class ActEntrenador extends javax.swing.JFrame {
     /**
      * Creates new form ActEntrenador
      */
-    public ActEntrenador() {
+    public ActEntrenador(Usuario usuario) {
+        this.usuario=usuario;
+        initComponents();
+    }
+    public ActEntrenador(Usuario usuario, int idAmodificar) {
+        this.usuario=usuario;
         initComponents();
     }
 
