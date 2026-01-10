@@ -142,17 +142,18 @@ public class Pacientes extends Usuario {
         Sen.setString(3, genero);
         Sen.setString(4, escolaridad);
         Sen.setString(5, ocupacion);
-        if (antecedentes_medicos.contains("Ingrese sus antecedentes")){
+        //Verificar para atributos que pueden ser null
+        if (antecedentes_medicos.contains("Ingrese sus antecedentes") || antecedentes_medicos.isEmpty()){
             Sen.setNull(6, Types.VARCHAR);
         } else {
             Sen.setString(6, antecedentes_medicos);
         }
-        if (alergias.contains("Ingrese sus alergias")){
+        if (alergias.contains("Ingrese sus alergias") || alergias.isEmpty()){
             Sen.setNull(7, Types.VARCHAR);
         } else {
             Sen.setString(7, alergias);
         }
-        if (observaciones.contains("Observaciones")){
+        if (observaciones.contains("Observaciones") || observaciones.isEmpty()){
             Sen.setNull(8, Types.VARCHAR);
         } else {
             Sen.setString(8, observaciones);

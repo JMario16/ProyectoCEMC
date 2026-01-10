@@ -833,7 +833,7 @@ public class Menu extends javax.swing.JFrame {
             return;
 
         if ("Mostrar pacientes".equals(seleccion)) {
-            MisPacientes v = new MisPacientes(usuario);
+            MostrarPacientes v = new MostrarPacientes(usuario);
             v.setVisible(true);
         } else if ("Mostrar entrenadores".equals(seleccion)) {
             // Por implementar

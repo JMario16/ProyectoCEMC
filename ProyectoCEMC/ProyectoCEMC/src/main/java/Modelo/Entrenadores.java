@@ -79,7 +79,7 @@ public class Entrenadores extends Usuario {
         Sen.executeUpdate();
     }
     
-    public ResultSet Mostrar() throws SQLException{
+    public ResultSet Mostrar_entrenadores() throws SQLException{
        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
        PreparedStatement SQL = CON.prepareStatement(
                "SELECT idusuario,"
@@ -90,7 +90,6 @@ public class Entrenadores extends Usuario {
                        + "telefono,"
                        + "direccion,"
                        + "usuario,"
-                       + "rol,"
                        + "estatus,"
                        + "fecha_registro,"
                        + "especialidad "

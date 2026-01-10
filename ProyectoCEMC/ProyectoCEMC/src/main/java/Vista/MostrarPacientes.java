@@ -7,16 +7,17 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class MisPacientes extends javax.swing.JFrame {
+public class MostrarPacientes extends javax.swing.JFrame {
 
     private Usuario usuario;
 
     // Default Constructor for IDE preview
-    public MisPacientes() {
+    public MostrarPacientes() {
         initComponents();
+        setTitle("Mostrar Pacientes");
     }
 
-    public MisPacientes(Usuario usuario) {
+    public MostrarPacientes(Usuario usuario) {
         this.usuario=usuario;
         initComponents();
         cargarTabla();
@@ -54,7 +55,7 @@ public class MisPacientes extends javax.swing.JFrame {
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -79,7 +80,7 @@ public class MisPacientes extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Roboto Condensed", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(250, 250, 250));
-        jLabel1.setText("Mis Pacientes");
+        jLabel1.setText("Mostrar Pacientes");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 200, 50));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 50));
@@ -88,28 +89,41 @@ public class MisPacientes extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 270, 50));
 
+        Tbl_Pacientes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tbl_Pacientes.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][] {
+            new Object [][] {
 
-                },
-                new String[] {
-                        "ID", "Nombre", "Apellidos"
-                }) {
-            Class[] types = new Class[] {
-                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            },
+            new String [] {
+                "ID", "Nombre", "Apellidos"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean[] {
-                    false, false, false
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
+                return types [columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
+                return canEdit [columnIndex];
             }
         });
+        javax.swing.table.DefaultTableCellRenderer headerRenderer =
+        new javax.swing.table.DefaultTableCellRenderer();
+
+        headerRenderer.setFont(new java.awt.Font("Roboto", java.awt.Font.BOLD, 14));
+        headerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
+
+        for (int i = 0; i < Tbl_Pacientes.getColumnModel().getColumnCount(); i++) {
+            Tbl_Pacientes.getColumnModel()
+            .getColumn(i)
+            .setHeaderRenderer(headerRenderer);
+        }
         jScrollPane1.setViewportView(Tbl_Pacientes);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 760, 350));

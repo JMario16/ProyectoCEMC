@@ -270,4 +270,14 @@ public class Usuario {
        ResultSet Res = SQL.executeQuery();
        return Res;
     }
+    
+    public void ActualizarUltimoAcceso() throws SQLException {
+        //Calcular ultimo acceso 
+        this.ultimo_acceso = LocalDateTime.now();
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
+        PreparedStatement Sen = CON.prepareStatement("UPDATE usuario SET ultimo_acceso = ? WHERE idusuario = ?");
+        Sen.setTimestamp(1, Timestamp.valueOf(ultimo_acceso));
+        Sen.setInt(2, idusuario);
+        Sen.executeUpdate();
+    }
 }

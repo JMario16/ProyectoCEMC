@@ -1,4 +1,5 @@
 package Controlador;
+import Vista.*;
 import Vista.Login;
 
 public class ProyectoCEMC {
