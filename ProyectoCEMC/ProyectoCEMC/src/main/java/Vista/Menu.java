@@ -808,10 +808,8 @@ public class Menu extends javax.swing.JFrame {
             return;
 
         if ("Añadir paciente".equals(seleccion)) {
-
             AnadirPaciente v = new AnadirPaciente();
             v.setVisible(true);
-
         } else if ("Programa cognitivo".equals(seleccion)) {
             CrearPrograma v = new CrearPrograma(usuario);
             v.setVisible(true);
@@ -820,8 +818,9 @@ public class Menu extends javax.swing.JFrame {
             v.setVisible(true);
         } else if ("Crear Paciente".equals(seleccion)){
             CrearPaciente v = new CrearPaciente(usuario);
+        } else if ("Crear entrenaodr". equals(seleccion)){
+            CrearEntrenador v = new CrearEntrenador(usuario);
         }
-        
         Dlg_Crear.dispose();
     }
 
