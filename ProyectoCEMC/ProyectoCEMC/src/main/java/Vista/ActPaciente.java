@@ -3,25 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
-import Modelo.*;
+
+import Modelo.Genero;
+import Modelo.Pacientes;
+import Modelo.Usuario;
 import java.awt.Color;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
-/**
- *
- * @author max30
- */
-public class CrearEntrenador extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearEntrenador.class.getName());
+
+
+public class ActPaciente extends javax.swing.JFrame {
     private Usuario usuario;
     private Menu Menu;
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ActPaciente.class.getName());
+
     /**
-     * Creates new form CrearEntrenador
+     * Creates new form ActPaciente
      */
-    public CrearEntrenador() {
+    public ActPaciente() {
         initComponents();
     }
 
@@ -54,16 +54,21 @@ public class CrearEntrenador extends javax.swing.JFrame {
         Txt_Correo = new javax.swing.JTextField();
         Txt_Telefono = new javax.swing.JTextField();
         Txt_Direccion = new javax.swing.JTextField();
-        Btn_Guardar = new javax.swing.JButton();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        Txt_Especialidad = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        Txt_AntecedentesMedicos = new javax.swing.JTextField();
+        Txt_Observaciones = new javax.swing.JTextField();
+        Txt_Alergias = new javax.swing.JTextField();
+        Txt_EstadoTratamiento = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         Txt_Usuario = new javax.swing.JTextField();
         Txt_Contrasena = new javax.swing.JTextField();
         Txt_PregRecuperacion = new javax.swing.JTextField();
         Txt_RespRecuperacion = new javax.swing.JTextField();
+        Btn_Tratamientos = new javax.swing.JButton();
+        Btn_Actualizar = new javax.swing.JButton();
+        Btn_Buscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,7 +80,7 @@ public class CrearEntrenador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto Condensed", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(250, 250, 250));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Crear Paciente");
+        jLabel1.setText("Actualizar Paciente");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -336,65 +341,91 @@ public class CrearEntrenador extends javax.swing.JFrame {
 
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 210, 170));
 
-        Btn_Guardar.setBackground(new java.awt.Color(41, 51, 92));
-        Btn_Guardar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
-        Btn_Guardar.setForeground(new java.awt.Color(250, 250, 250));
-        Btn_Guardar.setText("GUARDAR");
-        Btn_Guardar.setBorder(null);
-        Btn_Guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Btn_Guardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Btn_GuardarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Btn_GuardarMouseExited(evt);
-            }
-        });
-        Btn_Guardar.addActionListener(this::Btn_GuardarActionPerformed);
-        jPanel2.add(Btn_Guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, 110, 30));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
+        jLabel4.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(41, 51, 92));
+        jLabel4.setText("Datos médicos");
 
-        jLabel6.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(41, 51, 92));
-        jLabel6.setText("Datos de Entrenador");
-
-        Txt_Especialidad.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Especialidad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Especialidad.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Especialidad.setText("Ingrese su especialidad");
-        Txt_Especialidad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Especialidad.addMouseListener(new java.awt.event.MouseAdapter() {
+        Txt_AntecedentesMedicos.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_AntecedentesMedicos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_AntecedentesMedicos.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_AntecedentesMedicos.setText("Ingrese sus antecedentes");
+        Txt_AntecedentesMedicos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_AntecedentesMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Txt_EspecialidadMousePressed(evt);
+                Txt_AntecedentesMedicosMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+        Txt_Observaciones.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_Observaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_Observaciones.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_Observaciones.setText("Observaciones");
+        Txt_Observaciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_Observaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Txt_ObservacionesMousePressed(evt);
+            }
+        });
+
+        Txt_Alergias.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_Alergias.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_Alergias.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_Alergias.setText("Ingrese sus alergias");
+        Txt_Alergias.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_Alergias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Txt_AlergiasMousePressed(evt);
+            }
+        });
+
+        Txt_EstadoTratamiento.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_EstadoTratamiento.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_EstadoTratamiento.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_EstadoTratamiento.setText("Estado de su tratamiento");
+        Txt_EstadoTratamiento.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_EstadoTratamiento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Txt_EstadoTratamientoMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txt_AntecedentesMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Txt_Alergias, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Txt_EstadoTratamiento, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(Txt_Observaciones))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_AntecedentesMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_Observaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_Alergias, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_EstadoTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 350, 130));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 390, 130));
 
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
@@ -478,19 +509,78 @@ public class CrearEntrenador extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 350, 130));
+
+        Btn_Tratamientos.setBackground(new java.awt.Color(41, 51, 92));
+        Btn_Tratamientos.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        Btn_Tratamientos.setForeground(new java.awt.Color(250, 250, 250));
+        Btn_Tratamientos.setText("AÑADIR TRATAMIENTO");
+        Btn_Tratamientos.setBorder(null);
+        Btn_Tratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_Tratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_TratamientosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_TratamientosMouseExited(evt);
+            }
+        });
+        Btn_Tratamientos.addActionListener(this::Btn_TratamientosActionPerformed);
+        jPanel2.add(Btn_Tratamientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 190, 30));
+
+        Btn_Actualizar.setBackground(new java.awt.Color(41, 51, 92));
+        Btn_Actualizar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        Btn_Actualizar.setForeground(new java.awt.Color(250, 250, 250));
+        Btn_Actualizar.setText("ACTUALIZAR");
+        Btn_Actualizar.setBorder(null);
+        Btn_Actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_Actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_ActualizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_ActualizarMouseExited(evt);
+            }
+        });
+        Btn_Actualizar.addActionListener(this::Btn_ActualizarActionPerformed);
+        jPanel2.add(Btn_Actualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, 110, 30));
+
+        Btn_Buscar.setBackground(new java.awt.Color(41, 51, 92));
+        Btn_Buscar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        Btn_Buscar.setForeground(new java.awt.Color(250, 250, 250));
+        Btn_Buscar.setText("BUSCAR");
+        Btn_Buscar.setBorder(null);
+        Btn_Buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_Buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_BuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_BuscarMouseExited(evt);
+            }
+        });
+        Btn_Buscar.addActionListener(this::Btn_BuscarActionPerformed);
+        jPanel2.add(Btn_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 410, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -549,6 +639,22 @@ public class CrearEntrenador extends javax.swing.JFrame {
         Txt_Direccion.setText("");
     }//GEN-LAST:event_Txt_DireccionMousePressed
 
+    private void Txt_AntecedentesMedicosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_AntecedentesMedicosMousePressed
+        Txt_AntecedentesMedicos.setText("");
+    }//GEN-LAST:event_Txt_AntecedentesMedicosMousePressed
+
+    private void Txt_ObservacionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_ObservacionesMousePressed
+        Txt_Observaciones.setText("");
+    }//GEN-LAST:event_Txt_ObservacionesMousePressed
+
+    private void Txt_AlergiasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_AlergiasMousePressed
+        Txt_Alergias.setText("");
+    }//GEN-LAST:event_Txt_AlergiasMousePressed
+
+    private void Txt_EstadoTratamientoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_EstadoTratamientoMousePressed
+        Txt_EstadoTratamiento.setText("");
+    }//GEN-LAST:event_Txt_EstadoTratamientoMousePressed
+
     private void Txt_UsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_UsuarioMousePressed
         Txt_Usuario.setText("");
     }//GEN-LAST:event_Txt_UsuarioMousePressed
@@ -565,64 +671,51 @@ public class CrearEntrenador extends javax.swing.JFrame {
         Txt_RespRecuperacion.setText("");
     }//GEN-LAST:event_Txt_RespRecuperacionMousePressed
 
-    private void Btn_GuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarMouseEntered
-        Btn_Guardar.setBackground(hover);
-    }//GEN-LAST:event_Btn_GuardarMouseEntered
+    private void Btn_TratamientosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_TratamientosMouseEntered
+        Btn_Tratamientos.setBackground(hover);
+    }//GEN-LAST:event_Btn_TratamientosMouseEntered
 
-    private void Btn_GuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarMouseExited
-        Btn_Guardar.setBackground(azul);
-    }//GEN-LAST:event_Btn_GuardarMouseExited
+    private void Btn_TratamientosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_TratamientosMouseExited
+        Btn_Tratamientos.setBackground(azul);
+    }//GEN-LAST:event_Btn_TratamientosMouseExited
 
-    private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarActionPerformed
-        try {
-            if (!Txt_Usuario.getText().isEmpty() && !Txt_ApeMaterno.getText().isEmpty()
-                && !Txt_ApePaterno.getText().isEmpty() && !Txt_Contrasena.getText().isEmpty() && !Txt_Correo.getText().isEmpty()
-                && !Txt_Direccion.getText().isEmpty() && !Txt_Edad.getText().isEmpty() && !Txt_Escolaridad.getText().isEmpty()&& !Txt_Genero.getText().isEmpty() && !Txt_Nombre.getText().isEmpty() && !Txt_Ocupacion.getText().isEmpty()
-                && !Txt_PregRecuperacion.getText().isEmpty() && !Txt_RespRecuperacion.getText().isEmpty() && !Txt_Telefono.getText().isEmpty()){
-                String ApePaterno = Txt_ApePaterno.getText().trim();
-                String ApeMaterno = Txt_ApeMaterno.getText().trim();
-                String Contrasena = Txt_Contrasena.getText().trim();
-                String Correo = Txt_Correo.getText().trim();
-                String Direccion = Txt_Direccion.getText().trim();
-                String Especialidad = Txt_Especialidad.getText().trim();
+    private void Btn_TratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_TratamientosActionPerformed
+        //Dlg_Tratamientos.pack();
+        //Dlg_Tratamientos.setLocationRelativeTo(this);
+        //Dlg_Tratamientos.setVisible(true);
+    }//GEN-LAST:event_Btn_TratamientosActionPerformed
 
-                String Nombre = Txt_Nombre.getText().trim();
-                String PregRecuperacion = Txt_PregRecuperacion.getText().trim();
-                String RespRecuperacion = Txt_RespRecuperacion.getText().trim();
-                String Telefono = Txt_Telefono.getText().trim();
-                String Usuario = Txt_Usuario.getText().trim();
-                boolean encontrado = false;
-                
-                if (encontrado == false){
-                    JOptionPane.showMessageDialog(this,"Ingrese un genero valido");
-                } else {
-                    //Instanciar usuario
-                    Usuario usuario = new Usuario(Nombre,ApePaterno,ApeMaterno,Correo,Telefono,Direccion,Usuario,Contrasena,PregRecuperacion,RespRecuperacion,"Paciente");
-                    Entrenadores entrenador = new Entrenadores(Especialidad,Nombre,ApePaterno,ApeMaterno,Correo,Telefono,Direccion,Usuario,Contrasena,PregRecuperacion,RespRecuperacion,"Paciente");
-                    // Guardar usuario
-                    int aux = usuario.Guardar();
-                    //Añadir claves foraneas
-                    entrenador.setUsuario_idusuario(aux);
-                    //Guardar paciente
-                    entrenador.Guardar_entrenador();
-                    JOptionPane.showMessageDialog(this,"GUARDADO EXITOSAMENTE");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this,"Por favor, ingrese todos los campos");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this,ex.toString());
-        }
-    }//GEN-LAST:event_Btn_GuardarActionPerformed
+    private void Btn_ActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ActualizarMouseEntered
+        Btn_Actualizar.setBackground(hover);
+    }//GEN-LAST:event_Btn_ActualizarMouseEntered
 
-    private void Txt_EspecialidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_EspecialidadMousePressed
+    private void Btn_ActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ActualizarMouseExited
+        Btn_Actualizar.setBackground(azul);
+    }//GEN-LAST:event_Btn_ActualizarMouseExited
+
+    private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
+        
+    }//GEN-LAST:event_Btn_ActualizarActionPerformed
+
+    private void Btn_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseEntered
         // TODO add your handling code here:
-        Txt_Especialidad.setText("");
-    }//GEN-LAST:event_Txt_EspecialidadMousePressed
-  
+    }//GEN-LAST:event_Btn_BuscarMouseEntered
+
+    private void Btn_BuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_BuscarMouseExited
+
+    private void Btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btn_BuscarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Btn_Guardar;
+    private javax.swing.JButton Btn_Actualizar;
+    private javax.swing.JButton Btn_Buscar;
+    private javax.swing.JButton Btn_Tratamientos;
     private javax.swing.JLabel Lbl_Volver;
+    private javax.swing.JTextField Txt_Alergias;
+    private javax.swing.JTextField Txt_AntecedentesMedicos;
     private javax.swing.JTextField Txt_ApeMaterno;
     private javax.swing.JTextField Txt_ApePaterno;
     private javax.swing.JTextField Txt_Contrasena;
@@ -630,9 +723,10 @@ public class CrearEntrenador extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_Direccion;
     private javax.swing.JTextField Txt_Edad;
     private javax.swing.JTextField Txt_Escolaridad;
-    private javax.swing.JTextField Txt_Especialidad;
+    private javax.swing.JTextField Txt_EstadoTratamiento;
     private javax.swing.JTextField Txt_Genero;
     private javax.swing.JTextField Txt_Nombre;
+    private javax.swing.JTextField Txt_Observaciones;
     private javax.swing.JTextField Txt_Ocupacion;
     private javax.swing.JTextField Txt_PregRecuperacion;
     private javax.swing.JTextField Txt_RespRecuperacion;
@@ -641,15 +735,15 @@ public class CrearEntrenador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }
