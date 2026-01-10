@@ -63,7 +63,7 @@ public class ActPaciente extends javax.swing.JFrame {
         Txt_PregRecuperacion.setText(p.getPregunta_recuperacion());
         Txt_RespRecuperacion.setText(p.getRespuesta_recuperacion());
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -607,6 +607,7 @@ public class ActPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverMouseClicked
+        this.dispose();
         Menu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Lbl_VolverMouseClicked

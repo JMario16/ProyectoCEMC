@@ -7,9 +7,10 @@ import javax.swing.JOptionPane;
 
 public class CrearPaciente extends javax.swing.JFrame {
     private Usuario usuario;
+    private Menu Menu;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearPaciente.class.getName());
     private ArrayList<Tratamientos> tratamientos = new ArrayList<>();
-    private Login login;
+    
     
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
@@ -29,10 +30,6 @@ public class CrearPaciente extends javax.swing.JFrame {
         setTitle("Crear Paciente");
     }
     
-    public void setLogin(Login login) {
-        this.login = login;
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -729,7 +726,8 @@ public class CrearPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverMouseClicked
-        login.setVisible(true);
+        this.dispose();
+        Menu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Lbl_VolverMouseClicked
 
