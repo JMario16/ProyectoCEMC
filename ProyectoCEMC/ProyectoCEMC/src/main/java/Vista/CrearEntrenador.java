@@ -21,7 +21,8 @@ public class CrearEntrenador extends javax.swing.JFrame {
     /**
      * Creates new form CrearEntrenador
      */
-    public CrearEntrenador() {
+    public CrearEntrenador(Usuario usuario) {
+        this.usuario= usuario;
         initComponents();
         Btn_Guardar.setFocusPainted(false);
         Btn_Guardar.setBorderPainted(false);

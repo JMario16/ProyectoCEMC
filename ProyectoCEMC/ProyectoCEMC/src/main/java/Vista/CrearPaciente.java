@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class CrearPaciente extends javax.swing.JFrame {
+    private Usuario usuario;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearPaciente.class.getName());
     private ArrayList<Tratamientos> tratamientos = new ArrayList<>();
     private Login login;
@@ -13,7 +14,8 @@ public class CrearPaciente extends javax.swing.JFrame {
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
     
-    public CrearPaciente() {
+    public CrearPaciente(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
         Btn_Guardar.setFocusPainted(false);
         Btn_Guardar.setBorderPainted(false);

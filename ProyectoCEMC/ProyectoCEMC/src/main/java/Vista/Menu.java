@@ -2,6 +2,7 @@ package Vista;
 
 import Modelo.Usuario;
 import java.awt.Color;
+import java.sql.SQLException;
 
 public class Menu extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu.class.getName());
@@ -643,7 +644,14 @@ public class Menu extends javax.swing.JFrame {
         });
 
         // Listeners para "Continuar" en los dialogos
-        Btn_Continuar3.addActionListener(this::Btn_Continuar3ActionPerformed);
+        Btn_Continuar3.addActionListener(e -> {
+            try {
+                Btn_Continuar3ActionPerformed(e);
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
         Btn_Continuar4.addActionListener(this::Btn_Continuar4ActionPerformed);
     }
 
@@ -705,13 +713,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // botones
-    private void Btn_Continuar3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void Btn_Continuar3ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         String seleccion = (String) Cmb_Actualizar.getSelectedItem();
         if (seleccion == null)
             return;
-
-
-        
 
         if ("Entrenador".equals(seleccion)) {
             // If user is editing themselves
@@ -831,15 +836,17 @@ public class Menu extends javax.swing.JFrame {
 
             AnadirPaciente v = new AnadirPaciente(usuario);
             v.setVisible(true);
-
         } else if ("Programa cognitivo".equals(seleccion)) {
             CrearPrograma v = new CrearPrograma(usuario);
             v.setVisible(true);
         } else if ("Asignar programa".equals(seleccion)) {
             AsignarPrograma v = new AsignarPrograma(usuario);
             v.setVisible(true);
+        } else if ("Crear Paciente".equals(seleccion)){
+            CrearPaciente v = new CrearPaciente(usuario);
+        } else if ("Crear entrenaodr". equals(seleccion)){
+            CrearEntrenador v = new CrearEntrenador(usuario);
         }
-        
         Dlg_Crear.dispose();
     }
 
