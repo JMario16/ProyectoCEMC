@@ -23,6 +23,9 @@ public class CrearEntrenador extends javax.swing.JFrame {
      */
     public CrearEntrenador() {
         initComponents();
+        Btn_Guardar.setFocusPainted(false);
+        Btn_Guardar.setBorderPainted(false);
+        Btn_Guardar.setOpaque(true);
     }
 
     /**
