@@ -731,7 +731,8 @@ public class Menu extends javax.swing.JFrame {
                     v.setVisible(true);
                 }
 
-            } Dlg_Actualizar.dispose();
+            }
+            Dlg_Actualizar.dispose();
         } else if ("Programa cognitivo".equals(seleccion)) {
             String idStr = javax.swing.JOptionPane.showInputDialog("Ingrese ID del Programa a actualizar:");
             if (idStr != null && !idStr.isEmpty()) {
@@ -753,23 +754,35 @@ public class Menu extends javax.swing.JFrame {
                 }
             }
         } else if ("Asignación de programa".equals(seleccion)) {
-            String idStr = javax.swing.JOptionPane.showInputDialog("Ingrese ID del paciente asociado a la Asignación a actualizar:");
-            if (idStr != null && !idStr.isEmpty()) {
-                try {
-                    int id = Integer.parseInt(idStr);
-                    Modelo.Programa p = new Modelo.Programa();
-                    p.setIdprogramas_cognitivos(id);
-                    if (p.Buscar()) {
-                        CrearPrograma v = new CrearPrograma(usuario, p);
+            String idStr = javax.swing.JOptionPane
+                    .showInputDialog("Ingrese ID del paciente asociado a la Asignación a actualizar:");
+            if (usuario.getRol().equalsIgnoreCase("Entrenador")) {
+                if (idStr != null && !idStr.isEmpty()) {
+                    try {
+                        int id = Integer.parseInt(idStr);
+                        AsignarPrograma v = new AsignarPrograma(usuario, id);
                         v.setVisible(true);
                         Dlg_Actualizar.dispose();
-                    } else {
-                        javax.swing.JOptionPane.showMessageDialog(this, "Programa no encontrado.");
+                    } catch (NumberFormatException e) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
                     }
-                } catch (NumberFormatException e) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
-                } catch (java.sql.SQLException e) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Error de base de datos: " + e.getMessage());
+                }
+            } else {
+                String idStr2 = javax.swing.JOptionPane
+                        .showInputDialog("Ingrese ID del Entrenador asociado a la Asignación a actualizar:");
+                if (idStr2 != null && !idStr2.isEmpty() && idStr != null && !idStr.isEmpty()) {
+                    try {
+                        int id = Integer.parseInt(idStr);
+                        int id2 = Integer.parseInt(idStr2);
+                        Usuario e = new Usuario();
+                        e.setIdusuario(id2);
+                        e.Buscar();
+                        AsignarPrograma v = new AsignarPrograma(e, id);
+                        v.setVisible(true);
+                        Dlg_Actualizar.dispose();
+                    } catch (NumberFormatException e) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
+                    }
                 }
             }
         } else if ("Paciente".equals(seleccion)) {
@@ -784,41 +797,43 @@ public class Menu extends javax.swing.JFrame {
                     ActPaciente v = new ActPaciente(usuario, Integer.parseInt(idStr));
                     v.setVisible(true);
                 }
-            }Dlg_Actualizar.dispose();
+            }
+            Dlg_Actualizar.dispose();
         }
     }
 
     private void Btn_Continuar4ActionPerformed(java.awt.event.ActionEvent evt) {
         String seleccion = (String) Cmb_Borrar.getSelectedItem();
-        if (seleccion == null) return;
+        if (seleccion == null)
+            return;
 
-        if("Programa cognitivo".equals(seleccion)) {
+        if ("Programa cognitivo".equals(seleccion)) {
             BorrarPrograma borrarPrograma = new BorrarPrograma();
             borrarPrograma.setMenu(this);
             borrarPrograma.setVisible(true);
             this.setVisible(false);
-        }else if ("Usuario".equals(seleccion)) {
+        } else if ("Usuario".equals(seleccion)) {
             BorrarUsuario borrarUsuario = new BorrarUsuario();
             borrarUsuario.setMenu(this);
             borrarUsuario.setVisible(true);
             this.setVisible(false);
-        }else if ("Paciente".equals(seleccion)) {
+        } else if ("Paciente".equals(seleccion)) {
             BorrarPaciente borrarPaciente = new BorrarPaciente();
             borrarPaciente.setMenu(this);
             borrarPaciente.setVisible(true);
             this.setVisible(false);
-        }else if ("Entrenador".equals(seleccion)) {
+        } else if ("Entrenador".equals(seleccion)) {
             BorrarEntrenador borrarEntrenador = new BorrarEntrenador();
             borrarEntrenador.setMenu(this);
             borrarEntrenador.setVisible(true);
             this.setVisible(false);
-        }else if ("Asignación de programa".equals(seleccion)) {
+        } else if ("Asignación de programa".equals(seleccion)) {
             BorrarAsigna borrarAsigna = new BorrarAsigna();
             borrarAsigna.setMenu(this);
             borrarAsigna.setVisible(true);
             this.setVisible(false);
         }
-        
+
         Dlg_Borrar_Dialog.dispose();
     }
 
@@ -842,9 +857,9 @@ public class Menu extends javax.swing.JFrame {
         } else if ("Asignar programa".equals(seleccion)) {
             AsignarPrograma v = new AsignarPrograma(usuario);
             v.setVisible(true);
-        } else if ("Crear Paciente".equals(seleccion)){
+        } else if ("Crear Paciente".equals(seleccion)) {
             CrearPaciente v = new CrearPaciente(usuario);
-        } else if ("Crear entrenaodr". equals(seleccion)){
+        } else if ("Crear entrenaodr".equals(seleccion)) {
             CrearEntrenador v = new CrearEntrenador(usuario);
         }
         Dlg_Crear.dispose();
@@ -872,7 +887,7 @@ public class Menu extends javax.swing.JFrame {
                 MostrarAsignaciones v = new MostrarAsignaciones(usuario);
                 v.setVisible(true);
             }
-            
+
             case "Mostrar programas asignados" -> {
                 MostrarAsignaciones v = new MostrarAsignaciones(usuario);
                 v.setVisible(true);
@@ -919,7 +934,7 @@ public class Menu extends javax.swing.JFrame {
             default -> {
             }
         }// Anadir otros casos
-        
+
         Dlg_Consulta.dispose();
     }
 }

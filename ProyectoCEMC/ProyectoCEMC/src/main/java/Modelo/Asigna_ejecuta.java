@@ -194,6 +194,33 @@ public class Asigna_ejecuta {
         }
     }
 
+    public boolean Buscar_paciente_entrenador() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement(
+                "SELECT * FROM asigna_ejecuta where pacientes_usuario_idusuario = ? AND entrenadores_usuario_idusuario = ?");
+
+        SQL.setInt(1, pacientes_usuario_idusuario);
+        SQL.setInt(2, entrenadores_usuario_idusuario);
+        ResultSet RS = SQL.executeQuery();
+
+        if (RS.next()) {
+            metodo_pago = RS.getString("metodo_pago");
+            estatus_pago = RS.getString("estatus_pago");
+            folio = RS.getString("folio");
+            observaciones = RS.getString("observaciones");
+            estatus = RS.getString("estatus");
+            fecha_pago = RS.getDate("fecha_pago");
+            fecha_inicio = RS.getDate("fecha_inicio");
+            fecha_fin = RS.getDate("fecha_fin");
+            pacientes_usuario_idusuario = RS.getInt("pacientes_usuario_idusuario");
+            programas_cognitivos_idprogramas_cognitivos = RS.getInt("programas_cognitivos_idprogramas_cognitivos");
+            entrenadores_usuario_idusuario = RS.getInt("entrenadores_usuario_idusuario");
+            monto_pago = RS.getDouble("monto_pago");
+
+            return true;
+        } else {
+         return Re    }
+
     public void Actualizar() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement Sen = CON.prepareStatement(
