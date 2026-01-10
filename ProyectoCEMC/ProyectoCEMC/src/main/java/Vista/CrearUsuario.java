@@ -7,8 +7,7 @@ import javax.swing.JOptionPane;
 
 public class CrearUsuario extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearUsuario.class.getName());
-    private ArrayList<String> medicacion = new ArrayList<>();
-    private ArrayList<String> descripcion = new ArrayList<>();
+    private ArrayList<Tratamientos> tratamientos = new ArrayList<>();
     private Login login;
     
     Color azul = new Color(41, 51, 92);
@@ -854,16 +853,21 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_GuardarTratamientosMouseExited
 
     private void Btn_OtroTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_OtroTratamientoActionPerformed
-        medicacion.add(Txt_TratamientosMedicacion.getText());
-        descripcion.add(Txt_TratamientosDescripcion.getText());
+        if(!(Txt_TratamientosMedicacion.getText().equals("Ingrese la medicación")) && !(Txt_TratamientosDescripcion.getText().equals("Ingrese una descripción"))) {
+            tratamientos.add(new Tratamientos(Txt_TratamientosMedicacion.getText(),Txt_TratamientosDescripcion.getText()));
+        } else {
+            JOptionPane.showMessageDialog(this,"Por favor, ingrese los campos");
+        }
         Txt_TratamientosMedicacion.setText("Ingrese la medicación");
         Txt_TratamientosDescripcion.setText("Ingrese una descripción");
     }//GEN-LAST:event_Btn_OtroTratamientoActionPerformed
 
     private void Btn_GuardarTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarTratamientosActionPerformed
         if(!(Txt_TratamientosMedicacion.getText().equals("Ingrese la medicación")) && !(Txt_TratamientosDescripcion.getText().equals("Ingrese una descripción"))) {
-            medicacion.add(Txt_TratamientosMedicacion.getText());
-            descripcion.add(Txt_TratamientosDescripcion.getText());
+            tratamientos.add(new Tratamientos(Txt_TratamientosMedicacion.getText(),Txt_TratamientosDescripcion.getText()));
+            JOptionPane.showMessageDialog(this,"Tratamientos guardados exitosamente");
+        } else {
+            JOptionPane.showMessageDialog(this,"Por favor, ingrese los campos");
         }
                 
         Dlg_Tratamientos.dispose();
@@ -913,6 +917,11 @@ public class CrearUsuario extends javax.swing.JFrame {
                     paciente.setUsuario_idusuario(aux);
                     //Guardar paciente
                     paciente.Guardar_paciente();
+                    //Guardar tratamientos del paciente
+                    for (int i=0; i<tratamientos.size(); i++){
+                        tratamientos.get(i).setPacientes_usuario_idusuario(aux);
+                        tratamientos.get(i).Guardar();
+                    }
                     JOptionPane.showMessageDialog(this,"GUARDADO EXITOSAMENTE");
                 }          
             } else {

@@ -220,6 +220,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                     if(String.valueOf(Txt_Contrasena.getPassword()).equals(usuario.getContrasena())) {
                         Menu menu = new Menu(usuario);
                         menu.setVisible(true);
+                        usuario.ActualizarUltimoAcceso();
                         this.dispose();
                     }else {
                         JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
