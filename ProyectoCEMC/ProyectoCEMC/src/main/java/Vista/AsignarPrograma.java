@@ -16,20 +16,26 @@ public class AsignarPrograma extends javax.swing.JFrame {
     private ArrayList<Integer> pacienteIds = new ArrayList<>();
     private ArrayList<Integer> programaIds = new ArrayList<>();
     private int idEntrenador;
-    private Asigna_ejecuta asignacion = new Asigna_ejecuta();
+    private Integer idPaciente;
+    private Integer idPrograma;
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
 
     public AsignarPrograma(Usuario usuario) {
         this(usuario, null);
     }
-    public AsignarPrograma(Usuario usuario, Asigna_ejecuta asignacion) {
+
+    public AsignarPrograma(Usuario usuario, Integer idPaciente) {
         this.usuario = usuario;
-        this.asignacion=asignacion;
+        this.idEntrenador = usuario.getIdusuario();
+        this.idPaciente = idPaciente;
         initComponents();
-        if (asignacion == null){
+        if (idPaciente == null) {
             cargarPacientes();
             cargarProgramas();
+        } else {
+            cargarPaciente(idPaciente);
+            cargarProgramasPaciente(idPaciente, idEntrenador);
         }
         Btn_Asignar.setFocusPainted(false);
         Btn_Asignar.setBorderPainted(false);
@@ -56,23 +62,23 @@ public class AsignarPrograma extends javax.swing.JFrame {
 
     private void cargarPacientes() {
         Pacientes modeloPacientes = new Pacientes();
-            try {
-                ResultSet rs = modeloPacientes.MostrarPorEntrenador(this.usuario.getIdusuario());
-                Cmb_Pacientes.removeAllItems();
-                pacienteIds.clear();
+        try {
+            ResultSet rs = modeloPacientes.MostrarPorEntrenador(this.usuario.getIdusuario());
+            Cmb_Pacientes.removeAllItems();
+            pacienteIds.clear();
 
-                Cmb_Pacientes.addItem("Seleccionar Paciente...");
-                pacienteIds.add(-1); // Dummy ID for index 0
+            Cmb_Pacientes.addItem("Seleccionar Paciente...");
+            pacienteIds.add(-1); // Dummy ID for index 0
 
-                while (rs.next()) {
-                    int id = rs.getInt("idusuario");
-                    String nombre = rs.getString("nombre") + " " + rs.getString("ap_paterno");
-                    Cmb_Pacientes.addItem(nombre);
-                    pacienteIds.add(id);
-                }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
+            while (rs.next()) {
+                Integer id = rs.getInt("idusuario");
+                String nombre = rs.getString("nombre") + " " + rs.getString("ap_paterno");
+                Cmb_Pacientes.addItem(nombre);
+                pacienteIds.add(id);
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
+        }
     }
 
     private void cargarProgramas() {
@@ -96,6 +102,46 @@ public class AsignarPrograma extends javax.swing.JFrame {
         }
     }
 
+    private void cargarPaciente(Integer idPaciente) {
+        Pacientes modeloPacientes = new Pacientes();
+        try {
+            modeloPacientes.setUsuario_idusuario(idPaciente);
+            modeloPacientes.Buscar_paciente();
+            ResultSet rs = modeloPacientes.Mostrar_paciente();
+            Cmb_Pacientes.removeAllItems();
+            pacienteIds.clear();
+
+            Cmb_Pacientes.addItem(rs.getString("nombre") + " " + rs.getString("ap_paterno"));
+            pacienteIds.add(rs.getInt("idusuario"));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
+        }
+    }
+
+    private void cargarProgramasPaciente(Integer idPaciente, Integer idEntrenador) {
+        Asigna_ejecuta modeloAsigna_ejecuta = new Asigna_ejecuta();
+        try {
+            modeloAsigna_ejecuta.setPacientes_usuario_idusuario(idPaciente);
+            modeloAsigna_ejecuta.setEntrenadores_usuario_idusuario(idEntrenador);
+            ResultSet rs = modeloAsigna_ejecuta.Buscar_paciente_entrenador();
+            Cmb_Programas.removeAllItems();
+            programaIds.clear();
+
+            Cmb_Programas.addItem("Seleccionar Programa...");
+            programaIds.add(-1);
+
+            while (rs.next()) {
+                int id = rs.getInt("idprogramas_cognitivos");
+                String nombre = rs.getString("nombre");
+                String version = rs.getString("version");
+                Cmb_Programas.addItem(nombre + " - " + version);
+                programaIds.add(id);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar programas: " + ex.getMessage());
+        }
+    }
+
     private void Btn_AsignarActionPerformed(java.awt.event.ActionEvent evt) {
         int indexPaciente = Cmb_Pacientes.getSelectedIndex();
         int indexPrograma = Cmb_Programas.getSelectedIndex();
@@ -106,39 +152,87 @@ public class AsignarPrograma extends javax.swing.JFrame {
         }
 
         try {
-            int idPaciente = pacienteIds.get(indexPaciente);
-            int idPrograma = programaIds.get(indexPrograma);
 
-            String fechaInicioStr = Txt_FechaInicio.getText();
-            String fechaFinStr = Txt_FechaFin.getText();
-            String observaciones = Txt_Observaciones.getText();
-            String estatus = Txt_Estatus.getText();
+            if (idPaciente != null) {
+                Asigna_ejecuta asignacion = new Asigna_ejecuta();
+                asignacion.setPacientes_usuario_idusuario(idPaciente);
+                asignacion.setProgramas_cognitivos_idprogramas_cognitivos(programaIds.get(indexPrograma));
+                asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
+                asignacion.Buscar();
 
-            Date fechaInicio = Date
-                    .valueOf(fechaInicioStr.equals("Fecha Inicio (YYYY-MM-DD)") ? java.time.LocalDate.now().toString()
-                            : fechaInicioStr);
-            Date fechaFin = Date.valueOf(
-                    fechaFinStr.equals("Fecha Fin (YYYY-MM-DD)") ? java.time.LocalDate.now().plusMonths(1).toString()
-                            : fechaFinStr);
+                Txt_FechaInicio.setText(asignacion.getFecha_inicio().toString());
+                Txt_FechaFin.setText(asignacion.getFecha_fin().toString());
+                Txt_Observaciones.setText(asignacion.getObservaciones());
+                Txt_Estatus.setText(asignacion.getEstatus());
 
-            Asigna_ejecuta asignacion = new Asigna_ejecuta();
-            asignacion.setPacientes_usuario_idusuario(idPaciente);
-            asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idPrograma);
-            asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
-            asignacion.setFecha_inicio(fechaInicio);
-            asignacion.setFecha_fin(fechaFin);
-            asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
-            asignacion.setEstatus(estatus.equals("Estatus (Activo/Pendiente)") ? "Asignado" : estatus);
+                String fechaInicioStr = Txt_FechaInicio.getText();
+                String fechaFinStr = Txt_FechaFin.getText();
+                String observaciones = Txt_Observaciones.getText();
+                String estatus = Txt_Estatus.getText();
 
-            asignacion.setFecha_pago(Date.valueOf(java.time.LocalDate.now()));
-            asignacion.setMonto_pago(0.0);
-            asignacion.setMetodo_pago("Pendiente");
-            asignacion.setEstatus_pago("Pendiente");
-            asignacion.setFolio("N/A");
+                Date fechaInicio = Date
+                        .valueOf(fechaInicioStr.equals("Fecha Inicio (YYYY-MM-DD)")
+                                ? java.time.LocalDate.now().toString()
+                                : fechaInicioStr);
+                Date fechaFin = Date.valueOf(
+                        fechaFinStr.equals("Fecha Fin (YYYY-MM-DD)")
+                                ? java.time.LocalDate.now().plusMonths(1).toString()
+                                : fechaFinStr);
 
-            asignacion.Guardar();
-            JOptionPane.showMessageDialog(this, "Programa asignado exitosamente.");
-            this.dispose();
+                asignacion.setPacientes_usuario_idusuario(idPaciente);
+                asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idPrograma);
+                asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
+                asignacion.setFecha_inicio(fechaInicio);
+                asignacion.setFecha_fin(fechaFin);
+                asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
+                asignacion.setEstatus(estatus.equals("Estatus (Activo/Pendiente)") ? "Asignado" : estatus);
+
+                asignacion.setFecha_pago(Date.valueOf(java.time.LocalDate.now()));
+                asignacion.setMonto_pago(0.0);
+                asignacion.setMetodo_pago("Pendiente");
+                asignacion.setEstatus_pago("Pendiente");
+                asignacion.setFolio("N/A");
+
+                asignacion.Guardar();
+                JOptionPane.showMessageDialog(this, "Programa actualizado exitosamente.");
+                this.dispose();
+            } else {
+                int idPaciente = pacienteIds.get(indexPaciente);
+                int idPrograma = programaIds.get(indexPrograma);
+
+                String fechaInicioStr = Txt_FechaInicio.getText();
+                String fechaFinStr = Txt_FechaFin.getText();
+                String observaciones = Txt_Observaciones.getText();
+                String estatus = Txt_Estatus.getText();
+
+                Date fechaInicio = Date
+                        .valueOf(fechaInicioStr.equals("Fecha Inicio (YYYY-MM-DD)")
+                                ? java.time.LocalDate.now().toString()
+                                : fechaInicioStr);
+                Date fechaFin = Date.valueOf(
+                        fechaFinStr.equals("Fecha Fin (YYYY-MM-DD)")
+                                ? java.time.LocalDate.now().plusMonths(1).toString()
+                                : fechaFinStr);
+
+                Asigna_ejecuta asignacion = new Asigna_ejecuta();
+                asignacion.setPacientes_usuario_idusuario(idPaciente);
+                asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idPrograma);
+                asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
+                asignacion.setFecha_inicio(fechaInicio);
+                asignacion.setFecha_fin(fechaFin);
+                asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
+                asignacion.setEstatus(estatus.equals("Estatus (Activo/Pendiente)") ? "Asignado" : estatus);
+
+                asignacion.setFecha_pago(Date.valueOf(java.time.LocalDate.now()));
+                asignacion.setMonto_pago(0.0);
+                asignacion.setMetodo_pago("Pendiente");
+                asignacion.setEstatus_pago("Pendiente");
+                asignacion.setFolio("N/A");
+
+                asignacion.Guardar();
+                JOptionPane.showMessageDialog(this, "Programa asignado exitosamente.");
+                this.dispose();
+            }
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al asignar (Verifique fechas YYYY-MM-DD): " + ex.getMessage());
