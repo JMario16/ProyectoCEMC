@@ -204,10 +204,26 @@ public class Programa {
         sql.executeUpdate();
     }
     
-    public ResultSet Mostrar() throws SQLException {
+    //Metodo para mostrar cuando el usuario actual es admin
+    public ResultSet Mostrar_admin() throws SQLException {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
         PreparedStatement sql = con.prepareStatement("SELECT * FROM programas_cognitivos");
         
+        ResultSet res = sql.executeQuery();
+        return res;
+    }
+    
+    //Metodo para mostra cuando el usuario actual es entrenador
+    public ResultSet Mostrar_entrenador(int id_entrenador) throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
+        PreparedStatement sql = con.prepareStatement(
+        "SELECT DISTINCT pc.*\n" +
+        "FROM programas_cognitivos pc\n" +
+        "JOIN asigna_ejecuta ae\n" +
+        "  ON pc.idprogramas_cognitivos = ae.programas_cognitivos_idprogramas_cognitivos\n" +
+        "WHERE ae.entrenadores_usuario_idusuario = ?");
+        
+        sql.setInt(1, id_entrenador);
         ResultSet res = sql.executeQuery();
         return res;
     }

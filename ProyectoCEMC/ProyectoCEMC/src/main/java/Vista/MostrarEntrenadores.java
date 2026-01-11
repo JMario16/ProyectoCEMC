@@ -20,6 +20,7 @@ public class MostrarEntrenadores extends javax.swing.JFrame {
     public MostrarEntrenadores(Usuario usuario) {
         this.usuario=usuario;
         initComponents();
+        setTitle("Mostrar Entrenadores");
         cargarTabla();
 
         Lbl_Volver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -39,7 +40,13 @@ public class MostrarEntrenadores extends javax.swing.JFrame {
 
         Entrenadores modeloEntrenadores = new Entrenadores();
         try {
-            ResultSet rs = modeloEntrenadores.Mostrar_entrenadores();
+            ResultSet rs;
+            if (this.usuario.getRol().equals("Paciente")){
+                rs = modeloEntrenadores.Mostrar_paciente(this.usuario.getIdusuario());
+            } else {
+                rs = modeloEntrenadores.Mostrar_admin();
+            }
+            
             while (rs.next()) {
                 int id = rs.getInt("idusuario");
                 String nombre = rs.getString("nombre");

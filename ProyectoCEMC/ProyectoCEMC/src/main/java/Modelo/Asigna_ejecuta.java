@@ -242,11 +242,32 @@ public class Asigna_ejecuta {
         Sen.executeUpdate();
     }
 
-    public ResultSet Mostrar() throws SQLException {
+    //Método para cuando el usuario es admin
+    public ResultSet Mostrar_admin() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement("SELECT * FROM asigna_ejecuta");
 
         ResultSet Res = SQL.executeQuery();
         return Res;
+    }
+    
+    //Método para cuando el usuario es paciente
+    public ResultSet Mostrar_paciente (int idusuario) throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM asigna_ejecuta WHERE pacientes_usuario_idusuario = ?");
+        SQL.setInt(1, idusuario);
+        
+        ResultSet Res = SQL.executeQuery();
+        return Res;       
+    }
+    
+    //Método para cuando el usuario es entrenador
+    public ResultSet Mostrar_entrenador (int idusuario) throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM asigna_ejecuta WHERE entrenadores_usuario_idusuario = ?");
+        SQL.setInt(1, idusuario);
+        
+        ResultSet Res = SQL.executeQuery();
+        return Res;       
     }
 }

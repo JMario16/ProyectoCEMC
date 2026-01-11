@@ -230,7 +230,7 @@ public class Pacientes extends Usuario {
         Sen.executeUpdate();
     }
 
-    public ResultSet Mostrar_paciente() throws SQLException {
+    public ResultSet Mostrar_admin() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement(
                 "SELECT idusuario,"
@@ -241,17 +241,10 @@ public class Pacientes extends Usuario {
                         + "telefono,"
                         + "direccion,"
                         + "usuario,"
-                        + "rol,"
-                        + "estatus,"
-                        + "fecha_registro,"
                         + "edad,"
                         + "genero,"
                         + "escolaridad,"
                         + "ocupacion,"
-                        + "antecedentes_medicos,"
-                        + "alergias,"
-                        + "observaciones,"
-                        + "estado_tratamiento,"
                         + "fecha_ingreso "
                         + "FROM usuario JOIN pacientes "
                         + "ON (usuario.idusuario = pacientes.usuario_idusuario)");
@@ -259,14 +252,26 @@ public class Pacientes extends Usuario {
         return Res;
     }
 
-    public ResultSet MostrarPorEntrenador(int idEntrenador) throws SQLException {
+    public ResultSet Mostrar_entrenador(int idEntrenador) throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement(
-                "SELECT idusuario, nombre, ap_paterno, ap_materno "
-                        + "FROM usuario JOIN pacientes "
-                        + "ON (usuario.idusuario = pacientes.usuario_idusuario) "
-                        + "WHERE pacientes.entrenadores_usuario_idusuario = ?");
-
+                "SELECT idusuario, " +
+                        "nombre, " +
+                        "ap_paterno, " +
+                        "ap_materno, " +
+                        "correo, " +
+                        "telefono, " +
+                        "direccion, " +
+                        "usuario, " +
+                        "edad, " +
+                        "genero, " +
+                        "escolaridad, " +
+                        "ocupacion, " +
+                        "fecha_ingreso " +
+                        "FROM usuario JOIN asigna_ejecuta " +
+                        "ON (usuario.idusuario = asigna_ejecuta.pacientes_usuario_idusuario) " +
+                        "JOIN pacientes ON (usuario.idusuario = pacientes.usuario_idusuario)" +
+                        "WHERE asigna_ejecuta.entrenadores_usuario_idusuario = ?");
         SQL.setInt(1, idEntrenador);
         ResultSet Res = SQL.executeQuery();
         return Res;

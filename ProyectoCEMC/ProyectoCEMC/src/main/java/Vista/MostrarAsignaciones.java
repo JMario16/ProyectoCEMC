@@ -20,6 +20,7 @@ public class MostrarAsignaciones extends javax.swing.JFrame {
     public MostrarAsignaciones(Usuario usuario) {
         this.usuario=usuario;
         initComponents();
+        setTitle("Mostrar Asignaciones de Programas");
         cargarTabla();
 
         Lbl_Volver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -39,7 +40,21 @@ public class MostrarAsignaciones extends javax.swing.JFrame {
 
         Asigna_ejecuta modeloAsignaciones = new Asigna_ejecuta();
         try {
-            ResultSet rs = modeloAsignaciones.Mostrar();
+            ResultSet rs;
+            switch (this.usuario.getRol()) {
+                case "Paciente":
+                    //Método para mostrar solo programas asignados al paciente
+                    rs = modeloAsignaciones.Mostrar_paciente(this.usuario.getIdusuario());
+                    break;
+                case "Entrenador":
+                    //Método para mostrar solo asignaciones hechas por el entrenador
+                    rs = modeloAsignaciones.Mostrar_entrenador(this.usuario.getIdusuario());
+                    break;
+                default:
+                    //Mostrar todos los campos de la tabla
+                    rs = modeloAsignaciones.Mostrar_admin();
+                    break;
+            }
             while (rs.next()) {
                 int idprograma = rs.getInt("programas_cognitivos_idprogramas_cognitivos");
                 int idpaciente = rs.getInt("pacientes_usuario_idusuario");

@@ -42,7 +42,7 @@ public class AnadirPaciente extends javax.swing.JFrame {
 
         Pacientes modeloPacientes = new Pacientes();
         try {
-            ResultSet rs = modeloPacientes.MostrarPorEntrenador(this.usuario.getIdusuario());
+            ResultSet rs = modeloPacientes.Mostrar_entrenador(this.usuario.getIdusuario());
             while (rs.next()) {
                 int id = rs.getInt("idusuario");
                 String nombre = rs.getString("nombre");

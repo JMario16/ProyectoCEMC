@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Entrenadores;
+import Modelo.Programa;
 import Modelo.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,9 +38,14 @@ public class MostrarProgramasCognitivos extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) Tbl_ProgramasCongnitivos.getModel();
         model.setRowCount(0); // Clear existing data
 
-        Entrenadores modeloEntrenadores = new Entrenadores();
+        Programa modeloProgramas = new Programa();
         try {
-            ResultSet rs = modeloEntrenadores.Mostrar_entrenadores();
+            ResultSet rs;
+            if (this.usuario.getRol().equals("Entrenador")){
+                rs = modeloProgramas.Mostrar_entrenador(this.usuario.getIdusuario());
+            } else {
+                rs = modeloProgramas.Mostrar_admin();
+            }
             while (rs.next()) {
                 int id = rs.getInt("idprogramas_cognitivos");
                 String nombre = rs.getString("nombre");

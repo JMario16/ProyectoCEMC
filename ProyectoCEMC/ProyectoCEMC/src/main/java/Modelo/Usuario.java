@@ -260,21 +260,32 @@ public class Usuario {
         }
     }
 
-    public void Actualizar() throws SQLException {
+    public boolean Actualizar() {
+    try {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+
         PreparedStatement Sen = CON.prepareStatement(
-                "UPDATE usuario SET nombre = ?, ap_paterno = ?, ap_materno = ?, correo = ?, telefono = ?, direccion = ?, usuario = ?, contrasena = ?, estatus = ? WHERE idusuario = ?");
+            "UPDATE usuario SET nombre=?, ap_paterno=?, ap_materno=?, correo=?, contrasena=?, direccion=?, telefono=?, usuario=?, pregunta_recuperacion=?, respuesta_recuperacion=? WHERE idusuario=?");
+
         Sen.setString(1, nombre);
         Sen.setString(2, ap_paterno);
         Sen.setString(3, ap_materno);
         Sen.setString(4, correo);
-        Sen.setString(5, telefono);
+        Sen.setString(5, contrasena);
         Sen.setString(6, direccion);
-        Sen.setString(7, usuario);
-        Sen.setString(8, contrasena);
-        Sen.setString(9, estatus);
-        Sen.setInt(10, idusuario);
+        Sen.setString(7, telefono);
+        Sen.setString(8, usuario);
+        Sen.setString(9, pregunta_recuperacion);
+        Sen.setString(10, respuesta_recuperacion);
+        Sen.setInt(11, idusuario);
+
         Sen.executeUpdate();
+        return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        return false;
+        }
     }
 
     public void Borrar() throws SQLException {

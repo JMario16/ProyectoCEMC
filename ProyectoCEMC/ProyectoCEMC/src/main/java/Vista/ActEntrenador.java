@@ -45,7 +45,7 @@ public class ActEntrenador extends javax.swing.JFrame {
         }
         e.Buscar();
         System.out.println("ID: " + e.getIdusuario());
-System.out.println("Nombre: " + e.getEspecialidad());
+        System.out.println("Nombre: " + e.getEspecialidad());
 
         Txt_Especialidad.setText(e.getEspecialidad());
         Txt_Nombre.setText(e.getNombre());
@@ -535,23 +535,42 @@ System.out.println("Nombre: " + e.getEspecialidad());
     }//GEN-LAST:event_Btn_ActualizarMouseExited
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        if(Txt_Nombre.getText().trim().isEmpty() || Txt_ApePaterno.getText().trim().isEmpty() || Txt_ApeMaterno.getText().trim().isEmpty() || Txt_Correo.getText().trim().isEmpty() ||
-                Txt_Contrasena.getText().trim().isEmpty() || Txt_Direccion.getText().trim().isEmpty() || Txt_Telefono.getText().trim().isEmpty() || Txt_Usuario.getText().trim().isEmpty() ||
-                Txt_PregRecuperacion.getText().trim().isEmpty() || Txt_RespRecuperacion.getText().trim().isEmpty() || Txt_Especialidad.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados");
-            return;
-        }
-        String nom = Txt_Nombre.getText().trim();
-        String ApPat = Txt_ApePaterno.getText().trim();
-        String ApMat = Txt_ApeMaterno.getText().trim();
-        String Email = Txt_Correo.getText().trim();
-        String Contra = Txt_Contrasena.getText().trim();
-        String Dire = Txt_Direccion.getText().trim();
-        String Tel= Txt_Telefono.getText().trim();
-        String Usuario = Txt_Usuario.getText().trim();
-        String PreRec= Txt_PregRecuperacion.getText().trim();
-        String ResRec= Txt_RespRecuperacion.getText().trim();
-        String Espe= Txt_Especialidad.getText().trim();
+
+    if (Txt_Nombre.getText().trim().isEmpty() ||
+        Txt_ApePaterno.getText().trim().isEmpty() ||
+        Txt_ApeMaterno.getText().trim().isEmpty() ||
+        Txt_Correo.getText().trim().isEmpty() ||
+        Txt_Contrasena.getText().trim().isEmpty() ||
+        Txt_Direccion.getText().trim().isEmpty() ||
+        Txt_Telefono.getText().trim().isEmpty() ||
+        Txt_Usuario.getText().trim().isEmpty() ||
+        Txt_PregRecuperacion.getText().trim().isEmpty() ||
+        Txt_RespRecuperacion.getText().trim().isEmpty() ||
+        Txt_Especialidad.getText().trim().isEmpty()) {
+
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados");
+        return;
+    }
+        e.setNombre(Txt_Nombre.getText().trim());
+        e.setAp_paterno(Txt_ApePaterno.getText().trim());
+        e.setAp_materno(Txt_ApeMaterno.getText().trim());
+        e.setCorreo(Txt_Correo.getText().trim());
+        e.setContrasena(Txt_Contrasena.getText().trim());
+        e.setDireccion(Txt_Direccion.getText().trim());
+        e.setTelefono(Txt_Telefono.getText().trim());
+        e.setUsuario(Txt_Usuario.getText().trim());
+        e.setPregunta_recuperacion(Txt_PregRecuperacion.getText().trim());
+        e.setRespuesta_recuperacion(Txt_RespRecuperacion.getText().trim());
+        e.setEspecialidad(Txt_Especialidad.getText().trim());
+
+        boolean actUsuario = e.Actualizar();
+        boolean actEntrenador = e.ActualizarEntrenador();
+
+    if (actUsuario && actEntrenador) {
+        JOptionPane.showMessageDialog(this, "Datos actualizados correctamente");
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al actualizar los datos");
+    }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void Txt_EspecialidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_EspecialidadMousePressed

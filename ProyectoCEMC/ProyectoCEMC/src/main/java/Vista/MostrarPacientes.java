@@ -20,6 +20,7 @@ public class MostrarPacientes extends javax.swing.JFrame {
     public MostrarPacientes(Usuario usuario) {
         this.usuario=usuario;
         initComponents();
+        setTitle("Mostrar Pacientes");
         cargarTabla();
 
         Lbl_Volver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -39,13 +40,27 @@ public class MostrarPacientes extends javax.swing.JFrame {
 
         Pacientes modeloPacientes = new Pacientes();
         try {
-            ResultSet rs = modeloPacientes.MostrarPorEntrenador(this.usuario.getIdusuario());
+            ResultSet rs;
+            if (this.usuario.getRol().equals("Entrenador")){
+                rs = modeloPacientes.Mostrar_entrenador(this.usuario.getIdusuario());
+            } else {
+                rs = modeloPacientes.Mostrar_admin();
+            }
             while (rs.next()) {
                 int id = rs.getInt("idusuario");
                 String nombre = rs.getString("nombre");
                 String apellidos = rs.getString("ap_paterno") + " " + rs.getString("ap_materno");
+                String correo = rs.getString("correo");
+                String telefono = rs.getString("telefono");
+                String direccion = rs.getString("direccion");
+                String usuario1 = rs.getString("usuario");
+                int edad = rs.getInt("edad");
+                String genero = rs.getString("genero");
+                String escolaridad = rs.getString("escolaridad");
+                String ocupacion = rs.getString("ocupacion");
+                String fecha_ingreso = rs.getString("fecha_ingreso");
 
-                model.addRow(new Object[] { id, nombre, apellidos });
+                model.addRow(new Object[] { id, nombre, apellidos, correo, telefono, direccion, usuario1, edad, genero, escolaridad, ocupacion, fecha_ingreso });
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
@@ -83,11 +98,11 @@ public class MostrarPacientes extends javax.swing.JFrame {
         jLabel1.setText("Mostrar Pacientes");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 200, 50));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 50));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 50));
 
         jPanel3.setBackground(new java.awt.Color(177, 157, 104));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 0, 270, 50));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 420, 50));
 
         Tbl_Pacientes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tbl_Pacientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -95,14 +110,14 @@ public class MostrarPacientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellidos"
+                "ID", "Nombre", "Apellidos", "Correo", "Telefono", "Direccion", "Usuario", "Edad", "Genero", "Escolaridad", "Ocupacion", "Fecha ingreso"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -126,15 +141,15 @@ public class MostrarPacientes extends javax.swing.JFrame {
         }
         jScrollPane1.setViewportView(Tbl_Pacientes);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 760, 350));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1030, 350));
 
         Lbl_Volver.setForeground(new java.awt.Color(41, 51, 92));
         Lbl_Volver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Lbl_Volver.setText("VOLVER");
         Lbl_Volver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel2.add(Lbl_Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 800, 30));
+        jPanel2.add(Lbl_Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 1070, 30));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 500));
 
         pack();
         setLocationRelativeTo(null);
