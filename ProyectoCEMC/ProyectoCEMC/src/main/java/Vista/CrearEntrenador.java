@@ -602,14 +602,23 @@ public class CrearEntrenador extends javax.swing.JFrame {
                 if (!encontrado){
                     JOptionPane.showMessageDialog(this,"Ingrese un genero valido");
                 } else {
-                    //Instanciar usuario
-                    Usuario usuario = new Usuario(Nombre,ApePaterno,ApeMaterno,Correo,Telefono,Direccion,Usuario,Contrasena,PregRecuperacion,RespRecuperacion,"Entrenador");
-                    Entrenadores entrenador = new Entrenadores(Especialidad,Nombre,ApePaterno,ApeMaterno,Correo,Telefono,Direccion,Usuario,Contrasena,PregRecuperacion,RespRecuperacion,"Entrenador");
-                    // Guardar usuario
-                    int aux = usuario.Guardar();
-                    //Añadir claves foraneas
-                    entrenador.setUsuario_idusuario(aux);
-                    //Guardar paciente
+                    // Instanciar SOLO entrenador (que ya es Usuario)
+                    Entrenadores entrenador = new Entrenadores(
+                        Especialidad,
+                        Nombre,
+                        ApePaterno,
+                        ApeMaterno,
+                        Correo,
+                        Telefono,
+                        Direccion,
+                        Usuario,
+                        Contrasena,
+                        PregRecuperacion,
+                        RespRecuperacion,
+                        "Entrenador"
+                    );
+
+                    // Guardar entrenador (guarda usuario + entrenador)
                     entrenador.Guardar_entrenador();
                     JOptionPane.showMessageDialog(this,"GUARDADO EXITOSAMENTE");
                 }
