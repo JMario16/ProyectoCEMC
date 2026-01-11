@@ -957,7 +957,7 @@ public class ActPaciente extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al guardar los tratamientos");
-        }
+        }DialogModTrata.dispose();
     }//GEN-LAST:event_Btn_GuardarTratamientosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
