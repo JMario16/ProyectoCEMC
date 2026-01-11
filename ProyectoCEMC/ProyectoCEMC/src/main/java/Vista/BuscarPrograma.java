@@ -1,6 +1,9 @@
 package Vista;
 
+import Modelo.Programa;
+import Modelo.Usuario;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class BuscarPrograma extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscarPrograma.class.getName());
@@ -24,15 +27,23 @@ public class BuscarPrograma extends javax.swing.JFrame {
     
     public void setMenu(Menu menu) {
         this.menu = menu;
-        if(this.menu.getUsuario().getRol().equals("Administrador")) {
-            Btn_MasInfo.setEnabled(true);
-        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Dlg_MasInfo = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        Lbl_VolverTratamientos = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        Txt_NombreEntrenador = new javax.swing.JTextField();
+        Txt_UsuarioEntrenador = new javax.swing.JTextField();
+        Txt_IdEntrenador = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -59,6 +70,132 @@ public class BuscarPrograma extends javax.swing.JFrame {
         Txt_Version = new javax.swing.JTextField();
         Txt_FechaActualizacion = new javax.swing.JTextField();
         Btn_Buscar = new javax.swing.JButton();
+
+        Dlg_MasInfo.setTitle("Información");
+
+        jPanel9.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Lbl_VolverTratamientos.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        Lbl_VolverTratamientos.setForeground(new java.awt.Color(41, 51, 92));
+        Lbl_VolverTratamientos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_VolverTratamientos.setText("VOLVER");
+        Lbl_VolverTratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Lbl_VolverTratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Lbl_VolverTratamientosMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lbl_VolverTratamientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lbl_VolverTratamientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 400, 40));
+
+        jPanel11.setBackground(new java.awt.Color(41, 51, 92));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 310));
+
+        jPanel12.setBackground(new java.awt.Color(177, 157, 104));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, 30));
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
+
+        jLabel6.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(41, 51, 92));
+        jLabel6.setText("Creado por");
+
+        Txt_NombreEntrenador.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_NombreEntrenador.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_NombreEntrenador.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_NombreEntrenador.setText("Nombre");
+        Txt_NombreEntrenador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_NombreEntrenador.setEnabled(false);
+
+        Txt_UsuarioEntrenador.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_UsuarioEntrenador.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_UsuarioEntrenador.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_UsuarioEntrenador.setText("Usuario");
+        Txt_UsuarioEntrenador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_UsuarioEntrenador.setEnabled(false);
+
+        Txt_IdEntrenador.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_IdEntrenador.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_IdEntrenador.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_IdEntrenador.setText("ID");
+        Txt_IdEntrenador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_IdEntrenador.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Txt_IdEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(Txt_NombreEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_UsuarioEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Txt_NombreEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Txt_UsuarioEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Txt_IdEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel9.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 210, 170));
+
+        javax.swing.GroupLayout Dlg_MasInfoLayout = new javax.swing.GroupLayout(Dlg_MasInfo.getContentPane());
+        Dlg_MasInfo.getContentPane().setLayout(Dlg_MasInfoLayout);
+        Dlg_MasInfoLayout.setHorizontalGroup(
+            Dlg_MasInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        Dlg_MasInfoLayout.setVerticalGroup(
+            Dlg_MasInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Buscar programa cognitivo");
@@ -407,7 +544,21 @@ public class BuscarPrograma extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_LimpiarMouseExited
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
+        Txt_Nombre.setText("Nombre");
+        Txt_Nivel.setText("Nivel");
+        Txt_Tipo.setText("Tipo");
+        Txt_Descripcion.setText("Descripción");
+        Txt_Duracion.setText("Duración");
+        Txt_NumSesiones.setText("Número de sesiones");
+        Txt_Costo.setText("Costo");
+        Txt_Objetivos.setText("Objetivos");
 
+        Txt_Version.setText("Versión");
+        Txt_FechaActualizacion.setText("Fecha actualización");
+
+        Txt_IdPrograma.setText("Ingrese el ID del programa");
+
+        Btn_MasInfo.setEnabled(false);
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Btn_MasInfoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_MasInfoMouseEntered
@@ -419,7 +570,9 @@ public class BuscarPrograma extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_MasInfoMouseExited
 
     private void Btn_MasInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_MasInfoActionPerformed
-        // Mostrar info del entrenador
+        Dlg_MasInfo.pack();
+        Dlg_MasInfo.setLocationRelativeTo(this);
+        Dlg_MasInfo.setVisible(true);
     }//GEN-LAST:event_Btn_MasInfoActionPerformed
 
     private void Txt_IdProgramaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_IdProgramaMousePressed
@@ -435,41 +588,135 @@ public class BuscarPrograma extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_BuscarMouseExited
 
     private void Btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BuscarActionPerformed
-        if(menu.getUsuario().getRol().equals("Paciente")) {
-            // Buscar programas del paciente
-        }else if(menu.getUsuario().getRol().equals("Entrenador")) {
-            // Buscar programas del entrenador
+        if(menu.getUsuario().getRol().equals("Entrenador")) {
+            buscarEntrenador();
         }else{
-            // Buscar normal
+            buscarAdmin();
         }
     }//GEN-LAST:event_Btn_BuscarActionPerformed
 
+    private void Lbl_VolverTratamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverTratamientosMouseClicked
+        Dlg_MasInfo.dispose();
+    }//GEN-LAST:event_Lbl_VolverTratamientosMouseClicked
+
+    private void buscarAdmin() {
+        try {
+            if(Txt_IdPrograma.getText().isEmpty() && Txt_IdPrograma.getText().equals("Ingrese el ID del programa")) {
+                JOptionPane.showMessageDialog(this, "Falta datos por ingresar.");
+            }else {
+                Programa programa = new Programa();
+                programa.setIdprogramas_cognitivos(Integer.parseInt(Txt_IdPrograma.getText()));
+                boolean resultado1 = programa.Buscar();
+                
+                Usuario usuario = new Usuario();
+                usuario.setIdusuario(programa.getEntrenadores_usuario_idusuario());
+                boolean resultado2 = usuario.Buscar_id();
+                
+                if(resultado2==true) {
+                    Btn_MasInfo.setEnabled(true);
+                }
+
+                if(resultado1==true) {
+                    Txt_Nombre.setText(programa.getNombre());
+                    Txt_Nivel.setText(programa.getNivel());
+                    Txt_Tipo.setText(programa.getTipo());
+                    Txt_Descripcion.setText(programa.getDescripcion());
+                    Txt_Duracion.setText(String.valueOf(programa.getDuracion_semanas()));
+                    Txt_NumSesiones.setText(String.valueOf(programa.getNumero_sesiones()));
+                    Txt_Costo.setText(String.valueOf(programa.getCosto()));
+                    Txt_Objetivos.setText(programa.getObjetivos());
+                    
+                    Txt_Version.setText(String.valueOf(programa.getVersion()));
+                    Txt_FechaActualizacion.setText(String.valueOf(programa.getFecha_actualizacion()));
+                    
+                    Txt_IdPrograma.setText(String.valueOf(programa.getIdprogramas_cognitivos()));
+                    
+                    Txt_NombreEntrenador.setText(usuario.getNombre());
+                    Txt_UsuarioEntrenador.setText(usuario.getUsuario());
+                    Txt_IdEntrenador.setText(String.valueOf(usuario.getIdusuario()));
+
+                    JOptionPane.showMessageDialog(this, "Se encontro el programa.");
+                }else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el programa.");
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
+    }
+    
+    private void buscarEntrenador() {
+        try {
+            if(Txt_IdPrograma.getText().isEmpty() && Txt_IdPrograma.getText().equals("Ingrese el ID del programa")) {
+                JOptionPane.showMessageDialog(this, "Falta datos por ingresar.");
+            }else {
+                Programa programa = new Programa();
+                programa.setIdprogramas_cognitivos(Integer.parseInt(Txt_IdPrograma.getText()));
+                programa.setEntrenadores_usuario_idusuario(menu.getUsuario().getIdusuario());
+                boolean resultado = programa.Buscar_entrenador();
+
+                if(resultado==true) {
+                    Txt_Nombre.setText(programa.getNombre());
+                    Txt_Nivel.setText(programa.getNivel());
+                    Txt_Tipo.setText(programa.getTipo());
+                    Txt_Descripcion.setText(programa.getDescripcion());
+                    Txt_Duracion.setText(String.valueOf(programa.getDuracion_semanas()));
+                    Txt_NumSesiones.setText(String.valueOf(programa.getNumero_sesiones()));
+                    Txt_Costo.setText(String.valueOf(programa.getCosto()));
+                    Txt_Objetivos.setText(programa.getObjetivos());
+                    
+                    Txt_Version.setText(String.valueOf(programa.getVersion()));
+                    Txt_FechaActualizacion.setText(String.valueOf(programa.getFecha_actualizacion()));
+                    
+                    Txt_IdPrograma.setText(String.valueOf(programa.getIdprogramas_cognitivos()));
+
+                    JOptionPane.showMessageDialog(this, "Se encontro el programa.");
+                }else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el programa.");
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Buscar;
     private javax.swing.JButton Btn_Limpiar;
     private javax.swing.JButton Btn_MasInfo;
+    private javax.swing.JDialog Dlg_MasInfo;
     private javax.swing.JLabel Lbl_Volver;
+    private javax.swing.JLabel Lbl_VolverTratamientos;
     private javax.swing.JTextField Txt_Costo;
     private javax.swing.JTextField Txt_Descripcion;
     private javax.swing.JTextField Txt_Duracion;
     private javax.swing.JTextField Txt_FechaActualizacion;
+    private javax.swing.JTextField Txt_IdEntrenador;
     private javax.swing.JTextField Txt_IdPrograma;
     private javax.swing.JTextField Txt_Nivel;
     private javax.swing.JTextField Txt_Nombre;
+    private javax.swing.JTextField Txt_NombreEntrenador;
     private javax.swing.JTextField Txt_NumSesiones;
     private javax.swing.JTextField Txt_Objetivos;
     private javax.swing.JTextField Txt_Tipo;
+    private javax.swing.JTextField Txt_UsuarioEntrenador;
     private javax.swing.JTextField Txt_Version;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }

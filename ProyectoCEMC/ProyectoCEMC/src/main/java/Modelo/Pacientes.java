@@ -11,7 +11,6 @@ import java.sql.*;
  */
 public class Pacientes extends Usuario {
     // Atributos de la clase pacientes
-    private int usuario_idusuario;
     private int edad;
     private String genero;
     private String escolaridad;
@@ -50,11 +49,11 @@ public class Pacientes extends Usuario {
     // Getters y Setters
 
     public int getUsuario_idusuario() {
-        return usuario_idusuario;
+        return idusuario;
     }
 
     public void setUsuario_idusuario(int usuario_idusuario) {
-        this.usuario_idusuario = usuario_idusuario;
+        this.idusuario = usuario_idusuario;
     }
 
     public int getEdad() {
@@ -138,33 +137,44 @@ public class Pacientes extends Usuario {
     }
 
     public void Guardar_paciente() throws SQLException {
+        int id = super.Guardar(); // Guarda en usuario
+        this.idusuario = id; // Usa el mismo ID
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
-        PreparedStatement Sen = CON.prepareStatement("INSERT INTO pacientes VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)");
+        PreparedStatement Sen = CON.prepareStatement(
+                "INSERT INTO pacientes (usuario_idusuario, edad, genero, escolaridad, ocupacion, antecedentes_medicos, alergias, observaciones, estado_tratamiento, fecha_ingreso, entrenadores_usuario_idusuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         Sen.setInt(1, idusuario);
         Sen.setInt(2, edad);
         Sen.setString(3, genero);
         Sen.setString(4, escolaridad);
         Sen.setString(5, ocupacion);
         // Verificar para atributos que pueden ser null
-        if (antecedentes_medicos.contains("Ingrese sus antecedentes") || antecedentes_medicos.isEmpty()) {
+        if (antecedentes_medicos == null || antecedentes_medicos.contains("Ingrese sus antecedentes")
+                || antecedentes_medicos.isEmpty()) {
             Sen.setNull(6, Types.VARCHAR);
         } else {
             Sen.setString(6, antecedentes_medicos);
         }
-        if (alergias.contains("Ingrese sus alergias") || alergias.isEmpty()) {
+        if (alergias == null || alergias.contains("Ingrese sus alergias") || alergias.isEmpty()) {
             Sen.setNull(7, Types.VARCHAR);
         } else {
             Sen.setString(7, alergias);
         }
-        if (observaciones.contains("Observaciones") || observaciones.isEmpty()) {
+        if (observaciones == null || observaciones.contains("Observaciones") || observaciones.isEmpty()) {
             Sen.setNull(8, Types.VARCHAR);
         } else {
             Sen.setString(8, observaciones);
         }
         Sen.setString(9, estado_tratamiento);
         Sen.setDate(10, fecha_ingreso);
-        Sen.setNull(11, java.sql.Types.INTEGER);
-        Sen.executeUpdate();
+        if (entrenadores_usuario_idusuario != -1 && entrenadores_usuario_idusuario != 0) {
+            Sen.setInt(11, entrenadores_usuario_idusuario);
+        } else {
+            Sen.setNull(11, java.sql.Types.INTEGER);
+        }
+        int rows = Sen.executeUpdate();
+        if (rows == 0) {
+            throw new SQLException("No se pudo insertar el paciente en la tabla pacientes.");
+        }
     }
 
     @Override
@@ -175,11 +185,45 @@ public class Pacientes extends Usuario {
         return false;
     }
 
+    @Override
+    public boolean BuscarPorUsuario() throws SQLException {
+        if (super.BuscarPorUsuario()) {
+            return Buscar_paciente();
+        }
+        return false;
+    }
+
     public boolean Buscar_paciente() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement("SELECT * FROM pacientes WHERE usuario_idusuario = ?");
         SQL.setInt(1, idusuario);
         ResultSet RS = SQL.executeQuery();
+        if (RS.next()) {
+            idusuario = RS.getInt("usuario_idusuario");
+            edad = RS.getInt("edad");
+            genero = RS.getString("genero");
+            escolaridad = RS.getString("escolaridad");
+            ocupacion = RS.getString("ocupacion");
+            antecedentes_medicos = RS.getString("antecedentes_medicos");
+            alergias = RS.getString("alergias");
+            observaciones = RS.getString("observaciones");
+            estado_tratamiento = RS.getString("estado_tratamiento");
+            fecha_ingreso = RS.getDate("fecha_ingreso");
+            entrenadores_usuario_idusuario = RS.getInt("entrenadores_usuario_idusuario");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+        public boolean Buscar_paciente_entrenador() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM pacientes WHERE usuario_idusuario = ? AND entrenadores_usuario_idusuario=?");
+        
+        SQL.setInt(1, idusuario);
+        SQL.setInt(2, entrenadores_usuario_idusuario);
+        ResultSet RS = SQL.executeQuery();
+        
         if (RS.next()) {
             usuario_idusuario = RS.getInt("usuario_idusuario");
             edad = RS.getInt("edad");
@@ -214,10 +258,10 @@ public class Pacientes extends Usuario {
             Sen.setInt(9, idusuario);
             Sen.executeUpdate();
 
-                return true;
+            return true;
         } catch (SQLException e) {
-           e.printStackTrace();
-        return false;
+            e.printStackTrace();
+            return false;
         }
     }
 

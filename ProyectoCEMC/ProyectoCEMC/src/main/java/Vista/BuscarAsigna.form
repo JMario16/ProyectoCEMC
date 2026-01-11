@@ -298,7 +298,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JTextField" name="Txt_MetPago">
+            <Component class="javax.swing.JTextField" name="Txt_MetodoPago">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -483,7 +483,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Txt_IdEntrenador" min="-2" pref="203" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="Txt_IdAsignacion" min="-2" pref="223" max="-2" attributes="0"/>
+                              <Component id="Txt_IdPrograma" min="-2" pref="223" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -500,7 +500,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Txt_IdPaciente" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="Txt_IdEntrenador" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="Txt_IdAsignacion" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="Txt_IdPrograma" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
@@ -563,7 +563,7 @@
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Txt_IdEntrenadorMousePressed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="Txt_IdAsignacion">
+            <Component class="javax.swing.JTextField" name="Txt_IdPrograma">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="fa" red="fa" type="rgb"/>
@@ -574,7 +574,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="9c" green="9c" red="9c" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Ingrese el ID de la asignaci&#xf3;n"/>
+                <Property name="text" type="java.lang.String" value="Ingrese el ID del programa"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
                     <EmptyBorder bottom="1" left="5" right="1" top="1"/>
@@ -582,7 +582,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Txt_IdAsignacionMousePressed"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Txt_IdProgramaMousePressed"/>
               </Events>
             </Component>
           </SubComponents>

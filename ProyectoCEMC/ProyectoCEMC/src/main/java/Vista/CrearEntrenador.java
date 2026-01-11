@@ -24,6 +24,7 @@ public class CrearEntrenador extends javax.swing.JFrame {
     public CrearEntrenador() {
         
         initComponents();
+        jLabel1.setText("Crear Entrenador");
         Btn_Guardar.setFocusPainted(false);
         Btn_Guardar.setBorderPainted(false);
         Btn_Guardar.setOpaque(true);
@@ -79,7 +80,7 @@ public class CrearEntrenador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto Condensed", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(250, 250, 250));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Crear Paciente");
+        jLabel1.setText("Crear Entrenador");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

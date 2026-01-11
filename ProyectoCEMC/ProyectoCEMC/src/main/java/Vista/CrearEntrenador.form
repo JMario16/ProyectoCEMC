@@ -85,7 +85,7 @@
                   <Color blue="fa" green="fa" red="fa" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Crear Paciente"/>
+                <Property name="text" type="java.lang.String" value="Crear Entrenador"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -55,7 +55,7 @@ public class Menu extends javax.swing.JFrame {
             // Admin tiene acceso a todooo
             populateCombo(Cmb_Crear, "Entrenador", "Paciente", "Programa cognitivo", "Asignar programa",
                     "Añadir paciente");
-            populateCombo(Cmb_Consulta, "Buscar usuario", "Buscar programa cognitivo", "Buscar asignación de programa",
+            populateCombo(Cmb_Consulta, "Buscar usuario", "Buscar paciente", "Buscar entrenador", "Buscar programa cognitivo", "Buscar asignación de programa",
                     "Mostrar usuarios", "Mostrar entrenadores", "Mostrar pacientes", "Mostrar programas cognitivos",
                     "Mostrar asignaciones de programa");
             if (Cmb_Actualizar != null) {
@@ -69,7 +69,7 @@ public class Menu extends javax.swing.JFrame {
             }
         } else if ("Entrenador".equalsIgnoreCase(role)) {
             populateCombo(Cmb_Crear, "Programa cognitivo", "Asignar programa", "Añadir paciente");
-            populateCombo(Cmb_Consulta, "Buscar programa cognitivo", "Buscar usuario", "Buscar asignación de programa",
+            populateCombo(Cmb_Consulta, "Buscar programa cognitivo", "Buscar paciente", "Buscar asignación de programa",
                     "Mostrar pacientes", "Mostrar programas cognitivos", "Mostrar asignaciones de programa");
             if (Cmb_Actualizar != null) {
                 Cmb_Actualizar.removeAllItems();

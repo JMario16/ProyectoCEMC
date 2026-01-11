@@ -176,6 +176,33 @@ public class Programa {
             return false;
         }
     }
+
+    public boolean Buscar_entrenador() throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
+        PreparedStatement sql = con.prepareStatement("SELECT * FROM programas_cognitivos WHERE idprogramas_cognitivos=?, entrenadores_usuario_idusuario=?");
+        
+        sql.setInt(1, idprogramas_cognitivos);
+        sql.setInt(2, entrenadores_usuario_idusuario);
+        ResultSet rs = sql.executeQuery();
+        
+        if(rs.next()) {
+            idprogramas_cognitivos = rs.getInt("idprogramas_cognitivos");
+            nombre = rs.getString("nombre");
+            descripcion = rs.getString("descripcion");
+            tipo = rs.getString("tipo");
+            nivel = rs.getString("nivel");
+            duracion_semanas = rs.getInt("duracion_semanas");
+            costo = rs.getDouble("costo");
+            objetivos = rs.getString("objetivos");
+            version = rs.getString("version");
+            fecha_actualizacion = rs.getDate("fecha_actualizacion");
+            entrenadores_usuario_idusuario = rs.getInt("entrenadores_usuario_idusuario");
+            
+            return true;
+        }else {
+            return false;
+        }
+    }
     
     public void Actualizar() throws SQLException {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");

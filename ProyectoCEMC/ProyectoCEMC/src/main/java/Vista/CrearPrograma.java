@@ -1,4 +1,5 @@
 package Vista;
+
 import Modelo.Programa;
 import Modelo.Usuario;
 import java.sql.Date;
@@ -16,7 +17,7 @@ public class CrearPrograma extends javax.swing.JFrame {
 
     public CrearPrograma(Usuario usuario, Programa programaEdicion) {
         this.usuario = usuario;
-        this.programaEdicion = programaEdicion; //Usar la misma vista al editar programa
+        this.programaEdicion = programaEdicion; // Usar la misma vista al editar programa
         initComponents();
         if (programaEdicion != null) {
             cargarDatos();
@@ -37,21 +38,22 @@ public class CrearPrograma extends javax.swing.JFrame {
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {
         this.dispose();
     }
-    //esto es para usar la misma vista desde actualizar programa, trucha
+
+    // esto es para usar la misma vista desde actualizar programa, trucha
     private void cargarDatos() {
         jLabel1.setText("Actualizar Programa");
         setTitle("Actualizar Programa");
         Btn_Guardar.setText("ACTUALIZAR PROGRAMA");
 
-        Txt_Nombre.setText(programaEdicion.getNombre());
-        Txt_Tipo.setText(programaEdicion.getTipo());
-        Txt_Nivel.setText(programaEdicion.getNivel());
-        Txt_Version.setText(programaEdicion.getVersion());
-        Txt_Objetivos.setText(programaEdicion.getObjetivos());
-        Txt_Descripcion.setText(programaEdicion.getDescripcion());
-        Txt_Duracion.setText(String.valueOf(programaEdicion.getDuracion_semanas()));
-        Txt_Sesiones.setText(String.valueOf(programaEdicion.getNumero_sesiones()));
-        Txt_Costo.setText(String.valueOf(programaEdicion.getCosto()));
+        Txt_Nombre.setText("Nombre: " + programaEdicion.getNombre());
+        Txt_Tipo.setText("Tipo: " + programaEdicion.getTipo());
+        Txt_Nivel.setText("Nivel: " + programaEdicion.getNivel());
+        Txt_Version.setText("Version: " + programaEdicion.getVersion());
+        Txt_Objetivos.setText("Objetivos: " + programaEdicion.getObjetivos());
+        Txt_Descripcion.setText("Descripcion: " + programaEdicion.getDescripcion());
+        Txt_Duracion.setText("Duracion: " + String.valueOf(programaEdicion.getDuracion_semanas()));
+        Txt_Sesiones.setText("Sesiones: " + String.valueOf(programaEdicion.getNumero_sesiones()));
+        Txt_Costo.setText("Costo: " + String.valueOf(programaEdicion.getCosto()));
     }
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {
