@@ -477,6 +477,7 @@ System.out.println("Nombre: " + e.getNombre());
     }// </editor-fold>//GEN-END:initComponents
 
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverMouseClicked
+        this.dispose();
         Menu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Lbl_VolverMouseClicked
@@ -534,7 +535,23 @@ System.out.println("Nombre: " + e.getNombre());
     }//GEN-LAST:event_Btn_ActualizarMouseExited
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
-        
+        if(Txt_Nombre.getText().trim().isEmpty() || Txt_ApePaterno.getText().trim().isEmpty() || Txt_ApeMaterno.getText().trim().isEmpty() || Txt_Correo.getText().trim().isEmpty() ||
+                Txt_Contrasena.getText().trim().isEmpty() || Txt_Direccion.getText().trim().isEmpty() || Txt_Telefono.getText().trim().isEmpty() || Txt_Usuario.getText().trim().isEmpty() ||
+                Txt_PregRecuperacion.getText().trim().isEmpty() || Txt_RespRecuperacion.getText().trim().isEmpty() || Txt_Especialidad.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados");
+            return;
+        }
+        String nom = Txt_Nombre.getText().trim();
+        String ApPat = Txt_ApePaterno.getText().trim();
+        String ApMat = Txt_ApeMaterno.getText().trim();
+        String Email = Txt_Correo.getText().trim();
+        String Contra = Txt_Contrasena.getText().trim();
+        String Dire = Txt_Direccion.getText().trim();
+        String Tel= Txt_Telefono.getText().trim();
+        String Usuario = Txt_Usuario.getText().trim();
+        String PreRec= Txt_PregRecuperacion.getText().trim();
+        String ResRec= Txt_RespRecuperacion.getText().trim();
+        String Espe= Txt_Especialidad.getText().trim();
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void Txt_EspecialidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_EspecialidadMousePressed
