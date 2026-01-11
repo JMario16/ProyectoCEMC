@@ -3,6 +3,8 @@ package Vista;
 import Modelo.*;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 public class CrearPaciente extends javax.swing.JFrame {
@@ -992,6 +994,9 @@ public class CrearPaciente extends javax.swing.JFrame {
 
                     // Guardar paciente (guarda usuario + paciente)
                     paciente.Guardar_paciente();
+                    this.usuario.setIdusuario(paciente.getIdusuario()); //usuario para inicializar menu directo despues de crear usuario.
+                    this.usuario.Buscar();
+
 
                     // Guardar tratamientos asociados
                     int idPaciente = paciente.getIdusuario();
