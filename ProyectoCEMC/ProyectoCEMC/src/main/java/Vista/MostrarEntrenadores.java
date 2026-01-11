@@ -103,6 +103,8 @@ public class MostrarEntrenadores extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 330, 50));
 
+        Tbl_Entrenadores.setBackground(new java.awt.Color(204, 204, 204));
+        Tbl_Entrenadores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tbl_Entrenadores.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tbl_Entrenadores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,6 +129,8 @@ public class MostrarEntrenadores extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Tbl_Entrenadores.setRowHeight(30);
+        Tbl_Entrenadores.setSelectionBackground(new java.awt.Color(153, 153, 255));
         javax.swing.table.DefaultTableCellRenderer headerRenderer =
         new javax.swing.table.DefaultTableCellRenderer();
 

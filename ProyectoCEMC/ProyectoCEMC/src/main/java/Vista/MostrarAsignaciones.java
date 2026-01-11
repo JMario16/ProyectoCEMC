@@ -113,6 +113,8 @@ public class MostrarAsignaciones extends javax.swing.JFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 390, 50));
 
+        Tbl_Asignaciones.setBackground(new java.awt.Color(204, 204, 204));
+        Tbl_Asignaciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Tbl_Asignaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tbl_Asignaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,6 +139,8 @@ public class MostrarAsignaciones extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Tbl_Asignaciones.setRowHeight(30);
+        Tbl_Asignaciones.setSelectionBackground(new java.awt.Color(102, 102, 255));
         javax.swing.table.DefaultTableCellRenderer headerRenderer =
         new javax.swing.table.DefaultTableCellRenderer();
 
