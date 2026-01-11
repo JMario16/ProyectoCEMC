@@ -225,7 +225,7 @@ public class Pacientes extends Usuario {
         ResultSet RS = SQL.executeQuery();
         
         if (RS.next()) {
-            usuario_idusuario = RS.getInt("usuario_idusuario");
+            idusuario = RS.getInt("usuario_idusuario");
             edad = RS.getInt("edad");
             genero = RS.getString("genero");
             escolaridad = RS.getString("escolaridad");
