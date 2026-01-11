@@ -252,7 +252,7 @@ public class Pacientes extends Usuario {
         return Res;
     }
 
-    public ResultSet MostrarPorEntrenador(int idEntrenador) throws SQLException {
+    public ResultSet Mostrar_entrenador(int idEntrenador) throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement(
                 "SELECT idusuario, " +
