@@ -8,8 +8,9 @@ import Modelo.Genero;
 import Modelo.Pacientes;
 import Modelo.Usuario;
 import java.awt.Color;
-import java.sql.SQLException;
+import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ActPaciente extends javax.swing.JFrame {
@@ -75,6 +76,16 @@ public class ActPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        DialogModTrata = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        Lbl_VolverTratamientos = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        Btn_GuardarTratamientos = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -109,6 +120,108 @@ public class ActPaciente extends javax.swing.JFrame {
         Txt_RespRecuperacion = new javax.swing.JTextField();
         Btn_Tratamientos = new javax.swing.JButton();
         Btn_Actualizar = new javax.swing.JButton();
+
+        jPanel9.setBackground(new java.awt.Color(250, 250, 250));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Lbl_VolverTratamientos.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        Lbl_VolverTratamientos.setForeground(new java.awt.Color(41, 51, 92));
+        Lbl_VolverTratamientos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Lbl_VolverTratamientos.setText("VOLVER");
+        Lbl_VolverTratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Lbl_VolverTratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Lbl_VolverTratamientosMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lbl_VolverTratamientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Lbl_VolverTratamientos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 400, 40));
+
+        jPanel11.setBackground(new java.awt.Color(41, 51, 92));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 310));
+
+        jPanel12.setBackground(new java.awt.Color(177, 157, 104));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 370, 30));
+
+        Btn_GuardarTratamientos.setBackground(new java.awt.Color(41, 51, 92));
+        Btn_GuardarTratamientos.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        Btn_GuardarTratamientos.setForeground(new java.awt.Color(250, 250, 250));
+        Btn_GuardarTratamientos.setText("MODIFICAR");
+        Btn_GuardarTratamientos.setBorder(null);
+        Btn_GuardarTratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Btn_GuardarTratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                Btn_GuardarTratamientosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                Btn_GuardarTratamientosMouseExited(evt);
+            }
+        });
+        Btn_GuardarTratamientos.addActionListener(this::Btn_GuardarTratamientosActionPerformed);
+        jPanel9.add(Btn_GuardarTratamientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 110, 40));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] { "ID", "Medicacion", "Descripción" }
+        ) {
+            public boolean isCellEditable(int row, int column) {
+                return column != 0; // ID no editable
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 350, 190));
+
+        jLabel6.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(41, 51, 92));
+        jLabel6.setText("Tratamientos");
+        jPanel9.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+
+        javax.swing.GroupLayout DialogModTrataLayout = new javax.swing.GroupLayout(DialogModTrata.getContentPane());
+        DialogModTrata.getContentPane().setLayout(DialogModTrataLayout);
+        DialogModTrataLayout.setHorizontalGroup(
+            DialogModTrataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        DialogModTrataLayout.setVerticalGroup(
+            DialogModTrataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -703,9 +816,39 @@ public class ActPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_TratamientosMouseExited
 
     private void Btn_TratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_TratamientosActionPerformed
-        //Dlg_Tratamientos.pack();
-        //Dlg_Tratamientos.setLocationRelativeTo(this);
-        //Dlg_Tratamientos.setVisible(true);
+        DialogModTrata.pack();
+        DialogModTrata.setLocationRelativeTo(this);
+        DialogModTrata.setVisible(true);
+        try {
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/centro_mental", "root", ""
+            );
+
+            PreparedStatement ps = con.prepareStatement(
+                "SELECT t.idtratamiento, t.medicacion, t.descripcion " +
+                "FROM tratamientos t " +
+                "JOIN paciente_tratamiento pt ON t.id_tratamiento = pt.idtratamiento " +
+                "WHERE pt.id_paciente = ?"
+            );
+
+            ps.setInt(1, p.getIdusuario());
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getInt("idtratamiento"),
+                    rs.getString("medicacion"),
+                    rs.getString("descripcion")
+                });
+        }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_Btn_TratamientosActionPerformed
 
     private void Btn_ActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_ActualizarMouseEntered
@@ -774,10 +917,56 @@ public class ActPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
+    private void Lbl_VolverTratamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverTratamientosMouseClicked
+        DialogModTrata.dispose();
+    }//GEN-LAST:event_Lbl_VolverTratamientosMouseClicked
+
+    private void Btn_GuardarTratamientosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarTratamientosMouseEntered
+        Btn_GuardarTratamientos.setBackground(hover);
+    }//GEN-LAST:event_Btn_GuardarTratamientosMouseEntered
+
+    private void Btn_GuardarTratamientosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_GuardarTratamientosMouseExited
+        Btn_GuardarTratamientos.setBackground(azul);
+    }//GEN-LAST:event_Btn_GuardarTratamientosMouseExited
+    
+    private void Btn_GuardarTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarTratamientosActionPerformed
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/centro_mental", "root", ""
+            );
+
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                int idTratamiento = (int) modelo.getValueAt(i, 0);
+                String medicacion = modelo.getValueAt(i, 1).toString();
+                String descripcion = modelo.getValueAt(i, 2).toString();
+
+                PreparedStatement ps = con.prepareStatement(
+                    "UPDATE tratamientos SET medicacion=?, descripcion=? WHERE idtratamiento=?"
+                );
+
+                ps.setString(1, medicacion);
+                ps.setString(2, descripcion);
+                ps.setInt(3, idTratamiento);
+                ps.executeUpdate();
+            }
+
+            JOptionPane.showMessageDialog(this, "Tratamientos actualizados correctamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar los tratamientos");
+        }
+    }//GEN-LAST:event_Btn_GuardarTratamientosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
+    private javax.swing.JButton Btn_GuardarTratamientos;
     private javax.swing.JButton Btn_Tratamientos;
+    private javax.swing.JDialog DialogModTrata;
     private javax.swing.JLabel Lbl_Volver;
+    private javax.swing.JLabel Lbl_VolverTratamientos;
     private javax.swing.JTextField Txt_Alergias;
     private javax.swing.JTextField Txt_AntecedentesMedicos;
     private javax.swing.JTextField Txt_ApeMaterno;
@@ -801,7 +990,11 @@ public class ActPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -809,5 +1002,8 @@ public class ActPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

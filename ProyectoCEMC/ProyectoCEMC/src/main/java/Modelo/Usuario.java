@@ -232,6 +232,36 @@ public class Usuario {
         }
     }
 
+    public boolean Buscar_id() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM usuario WHERE idusuario = ?");
+
+        SQL.setInt(1, idusuario);
+        ResultSet RS = SQL.executeQuery();
+
+        if (RS.next()) {
+            idusuario = RS.getInt("idusuario");
+            nombre = RS.getString("nombre");
+            ap_paterno = RS.getString("ap_paterno");
+            ap_materno = RS.getString("ap_materno");
+            correo = RS.getString("correo");
+            telefono = RS.getString("telefono");
+            direccion = RS.getString("direccion");
+            usuario = RS.getString("usuario");
+            contrasena = RS.getString("contrasena");
+            pregunta_recuperacion = RS.getString("pregunta_recuperacion");
+            respuesta_recuperacion = RS.getString("respuesta_recuperacion");
+            rol = RS.getString("rol");
+            estatus = RS.getString("estatus");
+            fecha_registro = RS.getDate("fecha_registro");
+            ultimo_acceso = RS.getTimestamp("ultimo_acceso").toLocalDateTime();
+            intentos_fallidos = RS.getInt("intentos_fallidos");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean BuscarPorUsuario() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement SQL = CON.prepareStatement("SELECT * FROM usuario WHERE usuario = ?");

@@ -216,6 +216,32 @@ public class Pacientes extends Usuario {
         }
     }
 
+        public boolean Buscar_paciente_entrenador() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM pacientes WHERE usuario_idusuario = ? AND entrenadores_usuario_idusuario=?");
+        
+        SQL.setInt(1, idusuario);
+        SQL.setInt(2, entrenadores_usuario_idusuario);
+        ResultSet RS = SQL.executeQuery();
+        
+        if (RS.next()) {
+            usuario_idusuario = RS.getInt("usuario_idusuario");
+            edad = RS.getInt("edad");
+            genero = RS.getString("genero");
+            escolaridad = RS.getString("escolaridad");
+            ocupacion = RS.getString("ocupacion");
+            antecedentes_medicos = RS.getString("antecedentes_medicos");
+            alergias = RS.getString("alergias");
+            observaciones = RS.getString("observaciones");
+            estado_tratamiento = RS.getString("estado_tratamiento");
+            fecha_ingreso = RS.getDate("fecha_ingreso");
+            entrenadores_usuario_idusuario = RS.getInt("entrenadores_usuario_idusuario");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean Actualizar_paciente() throws SQLException {
         try {
             Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");

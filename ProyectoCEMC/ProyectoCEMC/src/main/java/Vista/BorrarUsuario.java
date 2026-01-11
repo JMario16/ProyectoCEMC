@@ -1,6 +1,10 @@
 package Vista;
 
+import Modelo.Tratamientos;
+import Modelo.Usuario;
 import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class BorrarUsuario extends javax.swing.JFrame {    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BorrarUsuario.class.getName());
@@ -41,10 +45,6 @@ public class BorrarUsuario extends javax.swing.JFrame {
         Txt_Nombre = new javax.swing.JTextField();
         Txt_ApePaterno = new javax.swing.JTextField();
         Txt_ApeMaterno = new javax.swing.JTextField();
-        Txt_Edad = new javax.swing.JTextField();
-        Txt_Genero = new javax.swing.JTextField();
-        Txt_Escolaridad = new javax.swing.JTextField();
-        Txt_Ocupacion = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Txt_Correo = new javax.swing.JTextField();
@@ -52,14 +52,15 @@ public class BorrarUsuario extends javax.swing.JFrame {
         Txt_Direccion = new javax.swing.JTextField();
         Btn_Limpiar = new javax.swing.JButton();
         Btn_Buscar = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        Txt_Contrasena = new javax.swing.JTextField();
-        Txt_RespRecuperacion = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Txt_Usuario = new javax.swing.JTextField();
         Btn_Borrar = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        Txt_Contrasena = new javax.swing.JTextField();
+        Txt_RespRecuperacion = new javax.swing.JTextField();
+        Txt_IdUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Borrar usuario");
@@ -159,34 +160,6 @@ public class BorrarUsuario extends javax.swing.JFrame {
         Txt_ApeMaterno.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         Txt_ApeMaterno.setEnabled(false);
 
-        Txt_Edad.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Edad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Edad.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Edad.setText("Edad");
-        Txt_Edad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Edad.setEnabled(false);
-
-        Txt_Genero.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Genero.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Genero.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Genero.setText("Género");
-        Txt_Genero.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Genero.setEnabled(false);
-
-        Txt_Escolaridad.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Escolaridad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Escolaridad.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Escolaridad.setText("Escolaridad");
-        Txt_Escolaridad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Escolaridad.setEnabled(false);
-
-        Txt_Ocupacion.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Ocupacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Ocupacion.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Ocupacion.setText("Ocupación");
-        Txt_Ocupacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Ocupacion.setEnabled(false);
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -195,19 +168,11 @@ public class BorrarUsuario extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Txt_Ocupacion, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(Txt_Nombre)
-                            .addComponent(Txt_Edad, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(Txt_Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Txt_Genero, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(Txt_Escolaridad, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Txt_ApePaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Txt_ApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Txt_ApePaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Txt_ApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -223,18 +188,10 @@ public class BorrarUsuario extends javax.swing.JFrame {
                     .addComponent(Txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Txt_ApePaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Txt_ApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_Genero, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Ocupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_Escolaridad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 530, 170));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 530, 90));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
@@ -327,54 +284,6 @@ public class BorrarUsuario extends javax.swing.JFrame {
         Btn_Buscar.addActionListener(this::Btn_BuscarActionPerformed);
         jPanel2.add(Btn_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 110, 40));
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
-
-        jLabel5.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(41, 51, 92));
-        jLabel5.setText("Datos de cuenta");
-
-        Txt_Contrasena.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Contrasena.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Contrasena.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Contrasena.setText("Contraseña");
-        Txt_Contrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Contrasena.setEnabled(false);
-
-        Txt_RespRecuperacion.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_RespRecuperacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_RespRecuperacion.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_RespRecuperacion.setText("Respuesta de recuperación");
-        Txt_RespRecuperacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_RespRecuperacion.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 500, 90));
-
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
         jLabel4.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -401,7 +310,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,7 +322,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, 240, 90));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, 210, 90));
 
         Btn_Borrar.setBackground(new java.awt.Color(41, 51, 92));
         Btn_Borrar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -433,6 +342,64 @@ public class BorrarUsuario extends javax.swing.JFrame {
         });
         Btn_Borrar.addActionListener(this::Btn_BorrarActionPerformed);
         jPanel2.add(Btn_Borrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 110, 40));
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
+
+        jLabel5.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(41, 51, 92));
+        jLabel5.setText("Datos de cuenta");
+
+        Txt_Contrasena.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_Contrasena.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_Contrasena.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_Contrasena.setText("Contraseña");
+        Txt_Contrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_Contrasena.setEnabled(false);
+
+        Txt_RespRecuperacion.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_RespRecuperacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_RespRecuperacion.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_RespRecuperacion.setText("Respuesta de recuperación");
+        Txt_RespRecuperacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_RespRecuperacion.setEnabled(false);
+
+        Txt_IdUsuario.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_IdUsuario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_IdUsuario.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_IdUsuario.setText("ID del usuario");
+        Txt_IdUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_IdUsuario.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Txt_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 530, 90));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -466,7 +433,21 @@ public class BorrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_LimpiarMouseExited
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
+        Txt_Nombre.setText("Nombre");
+        Txt_ApePaterno.setText("Primer apellido");
+        Txt_ApeMaterno.setText("Segundo apellido");
 
+        Txt_Correo.setText("Correo");
+        Txt_Telefono.setText("Teléfono");
+        Txt_Direccion.setText("Dirección");
+
+        Txt_Contrasena.setText("Contraseña");
+        Txt_RespRecuperacion.setText("Respuesta de recuperación");
+        Txt_IdUsuario.setText(String.valueOf("ID del usuario"));
+        
+        Btn_Borrar.setEnabled(false);
+
+        Txt_Usuario.setText("Ingrese el usuario");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Btn_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseEntered
@@ -478,7 +459,39 @@ public class BorrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_BuscarMouseExited
 
     private void Btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BuscarActionPerformed
+        try {
+            if(Txt_Usuario.getText().isEmpty() && Txt_Usuario.getText().equals("Ingrese el usuario")) {
+                JOptionPane.showMessageDialog(this, "Falta datos por ingresar.");
+            }else {
+                Usuario usuario = new Usuario();
+                usuario.setUsuario(Txt_Usuario.getText());
+                boolean resultado = usuario.Buscar();
+                
+                if(resultado==true) {
+                    Txt_Nombre.setText(usuario.getNombre());
+                    Txt_ApePaterno.setText(usuario.getAp_paterno());
+                    Txt_ApeMaterno.setText(usuario.getAp_materno());
 
+                    Txt_Correo.setText(usuario.getCorreo());
+                    Txt_Telefono.setText(usuario.getTelefono());
+                    Txt_Direccion.setText(usuario.getDireccion());
+
+                    Txt_Contrasena.setText(usuario.getContrasena());
+                    Txt_RespRecuperacion.setText(usuario.getRespuesta_recuperacion());
+                    Txt_IdUsuario.setText(String.valueOf(usuario.getIdusuario()));
+
+                    Txt_Usuario.setText(usuario.getUsuario());
+                    
+                    Btn_Borrar.setEnabled(true);
+                    
+                    JOptionPane.showMessageDialog(this, "Se encontro el usuario.");
+                }else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el usuario.");
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
     }//GEN-LAST:event_Btn_BuscarActionPerformed
 
     private void Txt_UsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_UsuarioMousePressed
@@ -494,7 +507,23 @@ public class BorrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_BorrarMouseExited
 
     private void Btn_BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BorrarActionPerformed
-        // TODO add your handling code here:
+        Usuario usuario = new Usuario();
+        usuario.setUsuario(Txt_Usuario.getText());
+        
+        try {
+            boolean resultado = usuario.Buscar();
+            
+            if(resultado==true) {
+                usuario.setEstatus("Eliminada");
+                usuario.Actualizar();
+                
+                JOptionPane.showMessageDialog(this, "Se ha borrado al usuario correctamente.");
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
+        
+        Btn_Borrar.setEnabled(false);
     }//GEN-LAST:event_Btn_BorrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -507,11 +536,8 @@ public class BorrarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_Contrasena;
     private javax.swing.JTextField Txt_Correo;
     private javax.swing.JTextField Txt_Direccion;
-    private javax.swing.JTextField Txt_Edad;
-    private javax.swing.JTextField Txt_Escolaridad;
-    private javax.swing.JTextField Txt_Genero;
+    private javax.swing.JTextField Txt_IdUsuario;
     private javax.swing.JTextField Txt_Nombre;
-    private javax.swing.JTextField Txt_Ocupacion;
     private javax.swing.JTextField Txt_RespRecuperacion;
     private javax.swing.JTextField Txt_Telefono;
     private javax.swing.JTextField Txt_Usuario;
