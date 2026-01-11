@@ -21,7 +21,7 @@ public class AnadirPaciente extends javax.swing.JFrame {
     }
 
     public AnadirPaciente(Usuario usuario) {
-        this.usuario=usuario;
+        this.usuario = usuario;
         initComponents();
         cargarTabla();
 
@@ -55,10 +55,10 @@ public class AnadirPaciente extends javax.swing.JFrame {
         }
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -97,38 +97,36 @@ public class AnadirPaciente extends javax.swing.JFrame {
 
         Tbl_Pacientes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Tbl_Pacientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][] {
 
-            },
-            new String [] {
-                "ID", "Nombre", "Apellidos"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                },
+                new String[] {
+                        "ID", "Nombre", "Apellidos"
+                }) {
+            Class[] types = new Class[] {
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+            boolean[] canEdit = new boolean[] {
+                    false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
-        javax.swing.table.DefaultTableCellRenderer headerRenderer =
-        new javax.swing.table.DefaultTableCellRenderer();
+        javax.swing.table.DefaultTableCellRenderer headerRenderer = new javax.swing.table.DefaultTableCellRenderer();
 
         headerRenderer.setFont(new java.awt.Font("Roboto", java.awt.Font.BOLD, 14));
         headerRenderer.setHorizontalAlignment(javax.swing.JLabel.CENTER);
 
         for (int i = 0; i < Tbl_Pacientes.getColumnModel().getColumnCount(); i++) {
             Tbl_Pacientes.getColumnModel()
-            .getColumn(i)
-            .setHeaderRenderer(headerRenderer);
+                    .getColumn(i)
+                    .setHeaderRenderer(headerRenderer);
         }
         jScrollPane1.setViewportView(Tbl_Pacientes);
 
@@ -150,6 +148,7 @@ public class AnadirPaciente extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_AnadirPacienteMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Btn_AnadirPacienteMouseExited(evt);
             }
@@ -184,27 +183,54 @@ public class AnadirPaciente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Btn_AnadirPacienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AnadirPacienteMouseEntered
+    private void Btn_AnadirPacienteMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_AnadirPacienteMouseEntered
         Btn_AnadirPaciente.setBackground(hover);
-    }//GEN-LAST:event_Btn_AnadirPacienteMouseEntered
+    }// GEN-LAST:event_Btn_AnadirPacienteMouseEntered
 
-    private void Btn_AnadirPacienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_AnadirPacienteMouseExited
+    private void Btn_AnadirPacienteMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_AnadirPacienteMouseExited
         Btn_AnadirPaciente.setBackground(azul);
-    }//GEN-LAST:event_Btn_AnadirPacienteMouseExited
+    }// GEN-LAST:event_Btn_AnadirPacienteMouseExited
 
-    private void Btn_AnadirPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_AnadirPacienteActionPerformed
-        //Dlg_Tratamientos.pack();
-        //Dlg_Tratamientos.setLocationRelativeTo(this);
-        //Dlg_Tratamientos.setVisible(true);
-    }//GEN-LAST:event_Btn_AnadirPacienteActionPerformed
+    private void Btn_AnadirPacienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Btn_AnadirPacienteActionPerformed
+        String idStr = Txt_Idpaciente.getText().trim();
+        if (idStr.isEmpty() || idStr.equals("Ingrese el ID del Paciente")) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un ID de paciente válido.");
+            return;
+        }
 
-    private void Txt_IdpacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_IdpacienteMousePressed
+        try {
+            int idPaciente = Integer.parseInt(idStr);
+            Pacientes p = new Pacientes();
+            p.setIdusuario(idPaciente);
+
+            if (p.Buscar_paciente()) {
+                // Verificar si ya tiene ese mismo entrenador o ya tiene uno
+                if (p.getEntrenadores_usuario_idusuario() == this.usuario.getIdusuario()) {
+                    JOptionPane.showMessageDialog(this, "Este paciente ya está asignado a usted.");
+                    return;
+                }
+
+                p.AsignarEntrenador(this.usuario.getIdusuario());
+                JOptionPane.showMessageDialog(this, "Paciente añadido exitosamente.");
+                cargarTabla();
+                Txt_Idpaciente.setText("Ingrese el ID del Paciente ");
+            } else {
+                JOptionPane.showMessageDialog(this, "Paciente no encontrado.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ID inválido. Por favor ingrese un número.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error de base de datos: " + e.getMessage());
+        }
+    }// GEN-LAST:event_Btn_AnadirPacienteActionPerformed
+
+    private void Txt_IdpacienteMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_IdpacienteMousePressed
         Txt_Idpaciente.setText("");
-    }//GEN-LAST:event_Txt_IdpacienteMousePressed
+    }// GEN-LAST:event_Txt_IdpacienteMousePressed
 
-    private void Txt_IdpacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_IdpacienteActionPerformed
+    private void Txt_IdpacienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Txt_IdpacienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Txt_IdpacienteActionPerformed
+    }// GEN-LAST:event_Txt_IdpacienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_AnadirPaciente;
