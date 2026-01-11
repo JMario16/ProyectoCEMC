@@ -14,8 +14,9 @@ import javax.swing.JOptionPane;
 
 public class ActPaciente extends javax.swing.JFrame {
     private Usuario usuario;
-    private Pacientes paciente;
+    private Pacientes p;
     private Menu Menu;
+    private int id;
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ActPaciente.class.getName());
@@ -29,6 +30,7 @@ public class ActPaciente extends javax.swing.JFrame {
     }
     public ActPaciente(Usuario usuario, int idAeditar) throws SQLException {//edicion de admin
         this.usuario=usuario;
+        this.id = idAeditar;
         initComponents();
         Btn_Actualizar.setFocusPainted(false);
         Btn_Actualizar.setBorderPainted(false);
@@ -36,9 +38,9 @@ public class ActPaciente extends javax.swing.JFrame {
         Btn_Tratamientos.setFocusPainted(false);
         Btn_Tratamientos.setBorderPainted(false);
         Btn_Tratamientos.setOpaque(true);
-        Pacientes p= new Pacientes();
+            p= new Pacientes();
         if (idAeditar != -1){
-            p.setIdusuario(idAeditar);
+            p.setIdusuario(id);
         }else{
             p.setIdusuario(this.usuario.getIdusuario());
         }
@@ -715,7 +717,61 @@ public class ActPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_ActualizarMouseExited
 
     private void Btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ActualizarActionPerformed
+        if (Txt_Nombre.getText().trim().isEmpty() ||
+        Txt_ApePaterno.getText().trim().isEmpty() ||
+        Txt_ApeMaterno.getText().trim().isEmpty() ||
+        Txt_Correo.getText().trim().isEmpty() ||
+        Txt_Contrasena.getText().trim().isEmpty() ||
+        Txt_Direccion.getText().trim().isEmpty() ||
+        Txt_Telefono.getText().trim().isEmpty() ||
+        Txt_Usuario.getText().trim().isEmpty() ||
+        Txt_PregRecuperacion.getText().trim().isEmpty() ||
+        Txt_RespRecuperacion.getText().trim().isEmpty() ||
+        Txt_Edad.getText().trim().isEmpty() ||
+        Txt_Genero.getText().trim().isEmpty() ||
+        Txt_Ocupacion.getText().trim().isEmpty() ||
+        Txt_Escolaridad.getText().trim().isEmpty() ||
+        Txt_AntecedentesMedicos.getText().trim().isEmpty()||
+        Txt_Observaciones.getText().trim().isEmpty() ||
+        Txt_Alergias.getText().trim().isEmpty() || 
+        Txt_EstadoTratamiento.getText().trim().isEmpty()) {
+            
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados");
+        return;
+    }
+        p.setNombre(Txt_Nombre.getText().trim());
+        p.setAp_paterno(Txt_ApePaterno.getText().trim());
+        p.setAp_materno(Txt_ApeMaterno.getText().trim());
+        p.setCorreo(Txt_Correo.getText().trim());
+        p.setContrasena(Txt_Contrasena.getText().trim());
+        p.setDireccion(Txt_Direccion.getText().trim());
+        p.setTelefono(Txt_Telefono.getText().trim());
+        p.setUsuario(Txt_Usuario.getText().trim());
+        p.setPregunta_recuperacion(Txt_PregRecuperacion.getText().trim());
+        p.setRespuesta_recuperacion(Txt_RespRecuperacion.getText().trim());
+        int ed = Integer.parseInt(Txt_Edad.getText().trim());
+        p.setEdad(ed);
+        p.setGenero(Txt_Genero.getText().trim());
+        p.setOcupacion(Txt_Ocupacion.getText().trim());
+        p.setEscolaridad(Txt_Escolaridad.getText().trim());
+        p.setAntecedentes_medicos(Txt_AntecedentesMedicos.getText().trim());
+        p.setAlergias(Txt_Alergias.getText().trim());
+        p.setObservaciones(Txt_Observaciones.getText().trim());
+        p.setEstado_tratamiento(Txt_EstadoTratamiento.getText().trim());
         
+        boolean actUsuario = p.Actualizar();
+        boolean actPaciente;
+        try {
+            actPaciente = p.Actualizar_paciente();
+        } catch (SQLException ex) {
+            System.getLogger(ActPaciente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
+        if (actUsuario) {
+            JOptionPane.showMessageDialog(this, "Datos actualizados correctamente");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos");
+        }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -198,20 +198,27 @@ public class Pacientes extends Usuario {
         }
     }
 
-    public void Actualizar_paciente() throws SQLException {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
-        PreparedStatement Sen = CON.prepareStatement(
-                "UPDATE pacientes SET edad = ?, genero = ?, escolaridad = ?, ocupacion = ?, antecedentes_medicos = ?, alergias = ?, observaciones = ?, estado_tratamiento = ? WHERE usuario_idusuario = ?");
-        Sen.setInt(1, edad);
-        Sen.setString(2, genero);
-        Sen.setString(3, escolaridad);
-        Sen.setString(4, ocupacion);
-        Sen.setString(5, antecedentes_medicos);
-        Sen.setString(6, alergias);
-        Sen.setString(7, observaciones);
-        Sen.setString(8, estado_tratamiento);
-        Sen.setInt(9, idusuario);
-        Sen.executeUpdate();
+    public boolean Actualizar_paciente() throws SQLException {
+        try {
+            Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+            PreparedStatement Sen = CON.prepareStatement(
+                    "UPDATE pacientes SET edad = ?, genero = ?, escolaridad = ?, ocupacion = ?, antecedentes_medicos = ?, alergias = ?, observaciones = ?, estado_tratamiento = ? WHERE usuario_idusuario = ?");
+            Sen.setInt(1, edad);
+            Sen.setString(2, genero);
+            Sen.setString(3, escolaridad);
+            Sen.setString(4, ocupacion);
+            Sen.setString(5, antecedentes_medicos);
+            Sen.setString(6, alergias);
+            Sen.setString(7, observaciones);
+            Sen.setString(8, estado_tratamiento);
+            Sen.setInt(9, idusuario);
+            Sen.executeUpdate();
+
+                return true;
+        } catch (SQLException e) {
+           e.printStackTrace();
+        return false;
+        }
     }
 
     public void AsignarEntrenador(int idEntrenador) throws SQLException {
