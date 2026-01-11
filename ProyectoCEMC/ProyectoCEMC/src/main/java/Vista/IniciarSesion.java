@@ -214,23 +214,47 @@ public class IniciarSesion extends javax.swing.JFrame {
         try {
             if (!(Txt_Usuario.getText().isEmpty()) && !(String.valueOf(Txt_Contrasena.getPassword()).isEmpty())) {
                 Usuario usuario = new Usuario();
-                usuario.setUsuario(String.valueOf(Txt_Usuario.getText()));
+                usuario.setUsuario(Txt_Usuario.getText().trim());
                 boolean resultado = usuario.BuscarPorUsuario();
-                int intentos = 0;
 
                 if (resultado == true) {
                     if (String.valueOf(Txt_Contrasena.getPassword()).equals(usuario.getContrasena())) {
+                        // Exito: Resetear intentos y entrar
+                        usuario.setIntentos_fallidos(0);
+                        usuario.ActualizarIntentosFallidos();
+
                         Menu menu = new Menu(usuario);
                         menu.setVisible(true);
                         usuario.ActualizarUltimoAcceso();
                         this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
-
-                        intentos++;
+                        // Fallo: Incrementar intentos
+                        int intentos = usuario.getIntentos_fallidos() + 1;
                         usuario.setIntentos_fallidos(intentos);
+                        usuario.ActualizarIntentosFallidos();
 
-                        // Lógica para intentos fallidos
+                        if (intentos >= 3) {
+                            String respuesta = JOptionPane.showInputDialog(this,
+                                    "HAS FALLADO 3 VECES.\nPregunta de Recuperación:\n"
+                                            + usuario.getPregunta_recuperacion(),
+                                    "Recuperación de Contraseña", JOptionPane.QUESTION_MESSAGE);
+
+                            if (respuesta != null
+                                    && respuesta.trim().equalsIgnoreCase(usuario.getRespuesta_recuperacion())) {
+                                JOptionPane.showMessageDialog(this,
+                                        "RESPUESTA CORRECTA.\nTu contraseña es: " + usuario.getContrasena());
+                            } else {
+                                JOptionPane.showMessageDialog(this,
+                                        "Respuesta incorrecta. Contacta al admin para recuperar tu cuenta.");
+                            }
+
+                            // Resetear intentos en ambos casos de recuperación
+                            usuario.setIntentos_fallidos(0);
+                            usuario.ActualizarIntentosFallidos();
+                        } else {
+                            JOptionPane.showMessageDialog(this,
+                                    "Contraseña incorrecta. Intento " + intentos + " de 3.");
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontro el usuario.");
