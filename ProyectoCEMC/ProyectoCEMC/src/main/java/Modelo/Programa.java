@@ -171,7 +171,11 @@ public class Programa {
             fecha_actualizacion = rs.getDate("fecha_actualizacion");
             entrenadores_usuario_idusuario = rs.getInt("entrenadores_usuario_idusuario");
             
-            return true;
+            if(version.equals("Eliminada")) {
+                return false;
+            }else{
+                return true;
+            }
         }else {
             return false;
         }
@@ -198,7 +202,11 @@ public class Programa {
             fecha_actualizacion = rs.getDate("fecha_actualizacion");
             entrenadores_usuario_idusuario = rs.getInt("entrenadores_usuario_idusuario");
             
-            return true;
+            if(version.equals("Eliminada")) {
+                return false;
+            }else{
+                return true;
+            }
         }else {
             return false;
         }
