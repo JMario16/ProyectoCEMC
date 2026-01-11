@@ -5,9 +5,10 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class IniciarSesion extends javax.swing.JFrame {
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IniciarSesion.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger
+            .getLogger(IniciarSesion.class.getName());
     private Login login;
-    
+
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);
 
@@ -23,7 +24,8 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -59,16 +61,16 @@ public class IniciarSesion extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(72, Short.MAX_VALUE)));
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-        );
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -77,13 +79,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 130, Short.MAX_VALUE));
         jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 42, Short.MAX_VALUE)
-        );
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 42, Short.MAX_VALUE));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 0, 130, -1));
 
@@ -111,15 +111,14 @@ public class IniciarSesion extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Lbl_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Lbl_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 400,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)));
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Lbl_Volver, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Lbl_Volver, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 400, 40));
 
@@ -152,6 +151,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 Btn_SesionMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 Btn_SesionMouseExited(evt);
             }
@@ -177,81 +177,81 @@ public class IniciarSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverMouseClicked
+    private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Lbl_VolverMouseClicked
         login.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_Lbl_VolverMouseClicked
+    }// GEN-LAST:event_Lbl_VolverMouseClicked
 
-    private void Btn_SesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_SesionMouseEntered
+    private void Btn_SesionMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_SesionMouseEntered
         Btn_Sesion.setBackground(hover);
-    }//GEN-LAST:event_Btn_SesionMouseEntered
+    }// GEN-LAST:event_Btn_SesionMouseEntered
 
-    private void Btn_SesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_SesionMouseExited
+    private void Btn_SesionMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Btn_SesionMouseExited
         Btn_Sesion.setBackground(azul);
-    }//GEN-LAST:event_Btn_SesionMouseExited
+    }// GEN-LAST:event_Btn_SesionMouseExited
 
-    private void Txt_UsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_UsuarioMousePressed
-        if(Txt_Usuario.getText().equals("Ingrese su Usuario")) {
+    private void Txt_UsuarioMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_UsuarioMousePressed
+        if (Txt_Usuario.getText().equals("Ingrese su Usuario")) {
             Txt_Usuario.setText("");
         }
-        
-        if(String.valueOf(Txt_Contrasena.getPassword()).isEmpty()) {
+
+        if (String.valueOf(Txt_Contrasena.getPassword()).isEmpty()) {
             Txt_Contrasena.setText("***********");
         }
-    }//GEN-LAST:event_Txt_UsuarioMousePressed
+    }// GEN-LAST:event_Txt_UsuarioMousePressed
 
-    private void Txt_ContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_ContrasenaMousePressed
-        if(Txt_Usuario.getText().isEmpty()) {
+    private void Txt_ContrasenaMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_ContrasenaMousePressed
+        if (Txt_Usuario.getText().isEmpty()) {
             Txt_Usuario.setText("Ingrese su Usuario");
         }
-        
-        if(String.valueOf(Txt_Contrasena.getPassword()).equals("***********")) {
+
+        if (String.valueOf(Txt_Contrasena.getPassword()).equals("***********")) {
             Txt_Contrasena.setText("");
         }
-    }//GEN-LAST:event_Txt_ContrasenaMousePressed
+    }// GEN-LAST:event_Txt_ContrasenaMousePressed
 
-    private void Btn_SesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_SesionActionPerformed
+    private void Btn_SesionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Btn_SesionActionPerformed
         try {
-            if(!(Txt_Usuario.getText().isEmpty()) && !(String.valueOf(Txt_Contrasena.getPassword()).isEmpty())) {
+            if (!(Txt_Usuario.getText().isEmpty()) && !(String.valueOf(Txt_Contrasena.getPassword()).isEmpty())) {
                 Usuario usuario = new Usuario();
                 usuario.setUsuario(String.valueOf(Txt_Usuario.getText()));
-                boolean resultado = usuario.Buscar();
+                boolean resultado = usuario.BuscarPorUsuario();
                 int intentos = 0;
-                
-                if(resultado==true) {
-                    if(String.valueOf(Txt_Contrasena.getPassword()).equals(usuario.getContrasena())) {
+
+                if (resultado == true) {
+                    if (String.valueOf(Txt_Contrasena.getPassword()).equals(usuario.getContrasena())) {
                         Menu menu = new Menu(usuario);
                         menu.setVisible(true);
                         usuario.ActualizarUltimoAcceso();
                         this.dispose();
-                    }else {
+                    } else {
                         JOptionPane.showMessageDialog(this, "Contraseña incorrecta.");
-                        
+
                         intentos++;
                         usuario.setIntentos_fallidos(intentos);
-                        
+
                         // Lógica para intentos fallidos
                     }
-                }else {
+                } else {
                     JOptionPane.showMessageDialog(this, "No se encontro el usuario.");
                 }
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Faltan datos por ingresar.");
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.toString());
         }
-    }//GEN-LAST:event_Btn_SesionActionPerformed
+    }// GEN-LAST:event_Btn_SesionActionPerformed
 
-    private void Txt_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_UsuarioActionPerformed
+    private void Txt_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Txt_UsuarioActionPerformed
         // TODO add your handling code here:
         Txt_Usuario.setText("");
-    }//GEN-LAST:event_Txt_UsuarioActionPerformed
+    }// GEN-LAST:event_Txt_UsuarioActionPerformed
 
-    private void Txt_ContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Txt_ContrasenaActionPerformed
+    private void Txt_ContrasenaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Txt_ContrasenaActionPerformed
         // TODO add your handling code here:
         Txt_Contrasena.setText("");
-    }//GEN-LAST:event_Txt_ContrasenaActionPerformed
+    }// GEN-LAST:event_Txt_ContrasenaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Sesion;

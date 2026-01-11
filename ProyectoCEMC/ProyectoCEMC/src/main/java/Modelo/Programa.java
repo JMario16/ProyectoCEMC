@@ -179,7 +179,7 @@ public class Programa {
     
     public void Actualizar() throws SQLException {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement sen = con.prepareStatement("UPDATE programas_cognitivos SET nombre=?, descripcion=?, tipo=?, nivel=?, duracion_semanas=?, numero_sesiones=?, costo=?, objetivos=?, version=?, fecha_actalizacion=? WHERE idprogramas_cognitivos=?");
+        PreparedStatement sen = con.prepareStatement("UPDATE programas_cognitivos SET nombre=?, descripcion=?, tipo=?, nivel=?, duracion_semanas=?, numero_sesiones=?, costo=?, objetivos=?, version=?, fecha_actualizacion=? WHERE idprogramas_cognitivos=?");
 
         sen.setString(1, nombre);
         sen.setString(2, descripcion);
