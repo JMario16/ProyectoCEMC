@@ -38,6 +38,8 @@ public class Entrenadores extends Usuario {
     }
 
     public void Guardar_entrenador() throws SQLException {
+        int id = super.Guardar();  // Guarda en usuario
+        this.idusuario = id;      // Usa el mismo ID
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement Sen = CON
                 .prepareStatement("INSERT INTO entrenadores (especialidad, usuario_idusuario) VALUES (?, ?)");
