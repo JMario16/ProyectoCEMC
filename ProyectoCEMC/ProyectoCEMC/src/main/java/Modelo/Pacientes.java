@@ -214,6 +214,15 @@ public class Pacientes extends Usuario {
         Sen.executeUpdate();
     }
 
+    public void AsignarEntrenador(int idEntrenador) throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement Sen = CON.prepareStatement(
+                "UPDATE pacientes SET entrenadores_usuario_idusuario = ? WHERE usuario_idusuario = ?");
+        Sen.setInt(1, idEntrenador);
+        Sen.setInt(2, idusuario);
+        Sen.executeUpdate();
+    }
+
     public void Borrar_paciente() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement Sen = CON.prepareStatement("DELETE FROM pacientes WHERE usuario_idusuario = ?");
