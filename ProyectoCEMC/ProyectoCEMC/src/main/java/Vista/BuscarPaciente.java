@@ -1,6 +1,13 @@
 package Vista;
 
+import Modelo.Pacientes;
+import Modelo.Tratamientos;
+import Modelo.Usuario;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class BuscarPaciente extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscarPaciente.class.getName());
@@ -33,7 +40,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
         Dlg_Tratamientos = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tbl_Tratamientos = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -64,6 +71,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Txt_Contrasena = new javax.swing.JTextField();
         Txt_RespRecuperacion = new javax.swing.JTextField();
+        Txt_IdUsuario = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Txt_Usuario = new javax.swing.JTextField();
@@ -85,9 +93,9 @@ public class BuscarPaciente extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(250, 250, 250));
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(41, 51, 92));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tbl_Tratamientos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Tbl_Tratamientos.setForeground(new java.awt.Color(41, 51, 92));
+        Tbl_Tratamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -95,7 +103,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
                 "Tratamiento", "Medicación", "Descripción"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tbl_Tratamientos);
 
         jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 360, 220));
 
@@ -443,6 +451,13 @@ public class BuscarPaciente extends javax.swing.JFrame {
         Txt_RespRecuperacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         Txt_RespRecuperacion.setEnabled(false);
 
+        Txt_IdUsuario.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_IdUsuario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_IdUsuario.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_IdUsuario.setText("ID del paciente");
+        Txt_IdUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_IdUsuario.setEnabled(false);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -450,6 +465,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Txt_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -466,10 +482,12 @@ public class BuscarPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Txt_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 350, 90));
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 350, 130));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
@@ -493,23 +511,23 @@ public class BuscarPaciente extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel4)
+                .addGap(28, 28, 28)
+                .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, 350, 90));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 760, 60));
 
         Btn_Limpiar.setBackground(new java.awt.Color(41, 51, 92));
         Btn_Limpiar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -643,7 +661,66 @@ public class BuscarPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_BuscarMouseExited
 
     private void Btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BuscarActionPerformed
+        try {
+            if(Txt_Usuario.getText().isEmpty() && Txt_Usuario.getText().equals("Ingrese el usuario")) {
+                JOptionPane.showMessageDialog(this, "Falta datos por ingresar.");
+            }else {
+                Usuario usuario = new Usuario();
+                usuario.setUsuario(Txt_Usuario.getText());
+                boolean resultado1 = usuario.Buscar();
 
+                Pacientes paciente = new Pacientes();
+                paciente.setUsuario_idusuario(usuario.getIdusuario());
+                boolean resultado2;
+                
+                if(menu.getUsuario().getRol().equals("Entrenador")){
+                    paciente.setEntrenadores_usuario_idusuario(menu.getUsuario().getIdusuario());
+                    resultado2 = paciente.Buscar_paciente_entrenador();
+                }else {
+                    resultado2 = paciente.Buscar_paciente();
+                }
+
+                cargarTabla(paciente);
+                
+                if(resultado1==true && resultado2==true) {
+                    Txt_Nombre.setText(usuario.getNombre());
+                    Txt_ApePaterno.setText(usuario.getAp_paterno());
+                    Txt_ApeMaterno.setText(usuario.getAp_materno());
+                    Txt_Edad.setText(String.valueOf(paciente.getEdad()));
+                    Txt_Genero.setText(paciente.getGenero());
+                    Txt_Escolaridad.setText(paciente.getEscolaridad());
+                    Txt_Ocupacion.setText(paciente.getOcupacion());
+
+                    Txt_Correo.setText(usuario.getCorreo());
+                    Txt_Telefono.setText(usuario.getTelefono());
+                    Txt_Direccion.setText(usuario.getDireccion());
+                    
+                    Txt_AntecedentesMedicos.setText(paciente.getAntecedentes_medicos());
+                    Txt_Observaciones.setText(paciente.getObservaciones());
+                    Txt_Alergias.setText(paciente.getAlergias());
+                    Txt_EstadoTratamiento.setText(paciente.getEstado_tratamiento());
+                    
+                    if(menu.getUsuario().getRol().equals("Entrenador")){
+                        Txt_Contrasena.setText(" - - - ");
+                        Txt_RespRecuperacion.setText(" - - - ");
+                        Txt_IdUsuario.setText(" - - - ");
+                    }else {
+                        Txt_Contrasena.setText(usuario.getContrasena());
+                        Txt_RespRecuperacion.setText(usuario.getRespuesta_recuperacion());
+                        Txt_IdUsuario.setText(String.valueOf(usuario.getIdusuario()));
+                    }
+                    
+
+                    Txt_Usuario.setText(usuario.getUsuario());
+                    
+                    JOptionPane.showMessageDialog(this, "Se encontro el paciente.");
+                }else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el paciente.");
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }    
     }//GEN-LAST:event_Btn_BuscarActionPerformed
 
     private void Txt_UsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_UsuarioMousePressed
@@ -651,21 +728,66 @@ public class BuscarPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_UsuarioMousePressed
 
     private void Btn_LimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarMouseEntered
-        // TODO add your handling code here:
+        Btn_Limpiar.setBackground(hover);
     }//GEN-LAST:event_Btn_LimpiarMouseEntered
 
     private void Btn_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarMouseExited
-        // TODO add your handling code here:
+        Btn_Limpiar.setBackground(azul);
     }//GEN-LAST:event_Btn_LimpiarMouseExited
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
-        // TODO add your handling code here:
+        Txt_Nombre.setText("Nombre");
+        Txt_ApePaterno.setText("Primer apellido");
+        Txt_ApeMaterno.setText("Segundo apellido");
+        Txt_Edad.setText("Edad");
+        Txt_Genero.setText("Género");
+        Txt_Escolaridad.setText("Escolaridad");
+        Txt_Ocupacion.setText("Ocupación");
+
+        Txt_Correo.setText("Correo");
+        Txt_Telefono.setText("Teléfono");
+        Txt_Direccion.setText("Dirección");
+        
+        Txt_AntecedentesMedicos.setText("Antecedentes");
+        Txt_Observaciones.setText("Observaciones");
+        Txt_Alergias.setText("Alergias");
+        Txt_EstadoTratamiento.setText("Tratamiento");
+
+        Txt_Contrasena.setText("Contraseña");
+        Txt_RespRecuperacion.setText("Respuesta de recuperación");
+        Txt_IdUsuario.setText(String.valueOf("ID del paciente"));
+        
+        DefaultTableModel model = (DefaultTableModel) Tbl_Tratamientos.getModel();
+        model.setRowCount(0);
+
+        Txt_Usuario.setText("Ingrese el usuario");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Lbl_VolverCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverCrearMouseClicked
         Dlg_Tratamientos.dispose();
     }//GEN-LAST:event_Lbl_VolverCrearMouseClicked
 
+    private void cargarTabla(Pacientes paciente) {
+        DefaultTableModel model = (DefaultTableModel) Tbl_Tratamientos.getModel();
+        model.setRowCount(0);
+        
+        Tratamientos tratamientos = new Tratamientos();
+        tratamientos.setPacientes_usuario_idusuario(paciente.getUsuario_idusuario());
+        
+        try {
+            ResultSet rs = tratamientos.Mostrar_paciente();
+            while (rs.next()) {
+                int idtratamientos = rs.getInt("idtratamientos");
+                String medicacion = rs.getString("medicacion");
+                String descripcion = rs.getString("descripcion");
+
+                model.addRow(new Object[] { idtratamientos, medicacion, descripcion });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Buscar;
     private javax.swing.JButton Btn_Limpiar;
@@ -673,6 +795,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
     private javax.swing.JDialog Dlg_Tratamientos;
     private javax.swing.JLabel Lbl_Volver;
     private javax.swing.JLabel Lbl_VolverCrear;
+    private javax.swing.JTable Tbl_Tratamientos;
     private javax.swing.JTextField Txt_Alergias;
     private javax.swing.JTextField Txt_AntecedentesMedicos;
     private javax.swing.JTextField Txt_ApeMaterno;
@@ -684,6 +807,7 @@ public class BuscarPaciente extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_Escolaridad;
     private javax.swing.JTextField Txt_EstadoTratamiento;
     private javax.swing.JTextField Txt_Genero;
+    private javax.swing.JTextField Txt_IdUsuario;
     private javax.swing.JTextField Txt_Nombre;
     private javax.swing.JTextField Txt_Observaciones;
     private javax.swing.JTextField Txt_Ocupacion;
@@ -710,6 +834,5 @@ public class BuscarPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

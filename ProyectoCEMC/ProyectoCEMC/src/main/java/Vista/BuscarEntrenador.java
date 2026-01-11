@@ -1,6 +1,13 @@
 package Vista;
 
+import Modelo.Certificaciones;
+import Modelo.Usuario;
+import Modelo.Entrenadores;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class BuscarEntrenador extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BuscarEntrenador.class.getName());
@@ -33,7 +40,7 @@ public class BuscarEntrenador extends javax.swing.JFrame {
         Dlg_Certificaciones = new javax.swing.JDialog();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tbl_Certificaciones = new javax.swing.JTable();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -49,10 +56,6 @@ public class BuscarEntrenador extends javax.swing.JFrame {
         Txt_Nombre = new javax.swing.JTextField();
         Txt_ApePaterno = new javax.swing.JTextField();
         Txt_ApeMaterno = new javax.swing.JTextField();
-        Txt_Edad = new javax.swing.JTextField();
-        Txt_Genero = new javax.swing.JTextField();
-        Txt_Escolaridad = new javax.swing.JTextField();
-        Txt_Ocupacion = new javax.swing.JTextField();
         Txt_Especialidad = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -65,6 +68,7 @@ public class BuscarEntrenador extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Txt_Contrasena = new javax.swing.JTextField();
         Txt_RespRecuperacion = new javax.swing.JTextField();
+        Txt_IdUsuario = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         Txt_Usuario = new javax.swing.JTextField();
@@ -79,9 +83,9 @@ public class BuscarEntrenador extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(250, 250, 250));
 
-        jTable1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(41, 51, 92));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tbl_Certificaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Tbl_Certificaciones.setForeground(new java.awt.Color(41, 51, 92));
+        Tbl_Certificaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,7 +93,7 @@ public class BuscarEntrenador extends javax.swing.JFrame {
                 "Numero", "Certificacion"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tbl_Certificaciones);
 
         jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 360, 220));
 
@@ -270,34 +274,6 @@ public class BuscarEntrenador extends javax.swing.JFrame {
         Txt_ApeMaterno.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         Txt_ApeMaterno.setEnabled(false);
 
-        Txt_Edad.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Edad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Edad.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Edad.setText("Edad");
-        Txt_Edad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Edad.setEnabled(false);
-
-        Txt_Genero.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Genero.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Genero.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Genero.setText("Género");
-        Txt_Genero.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Genero.setEnabled(false);
-
-        Txt_Escolaridad.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Escolaridad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Escolaridad.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Escolaridad.setText("Escolaridad");
-        Txt_Escolaridad.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Escolaridad.setEnabled(false);
-
-        Txt_Ocupacion.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_Ocupacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Ocupacion.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_Ocupacion.setText("Ocupación");
-        Txt_Ocupacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Ocupacion.setEnabled(false);
-
         Txt_Especialidad.setBackground(new java.awt.Color(250, 250, 250));
         Txt_Especialidad.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         Txt_Especialidad.setForeground(new java.awt.Color(156, 156, 156));
@@ -312,26 +288,18 @@ public class BuscarEntrenador extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Txt_Ocupacion, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(Txt_Nombre)
-                            .addComponent(Txt_Edad, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(Txt_Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Txt_Genero, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(Txt_Escolaridad, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Txt_ApePaterno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Txt_ApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Txt_Especialidad))))
+                        .addComponent(Txt_ApePaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Txt_ApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(10, 10, 10))))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -344,18 +312,11 @@ public class BuscarEntrenador extends javax.swing.JFrame {
                     .addComponent(Txt_ApePaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Txt_ApeMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_Genero, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Txt_Ocupacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_Escolaridad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(Txt_Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 530, 170));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 530, 130));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
@@ -468,6 +429,13 @@ public class BuscarEntrenador extends javax.swing.JFrame {
         Txt_RespRecuperacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         Txt_RespRecuperacion.setEnabled(false);
 
+        Txt_IdUsuario.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_IdUsuario.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_IdUsuario.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_IdUsuario.setText("ID del entrenador");
+        Txt_IdUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_IdUsuario.setEnabled(false);
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -479,8 +447,10 @@ public class BuscarEntrenador extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                        .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Txt_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,11 +460,12 @@ public class BuscarEntrenador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Txt_Contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Txt_RespRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txt_IdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 470, 90));
+        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 530, 90));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(156, 156, 156)));
 
@@ -522,7 +493,7 @@ public class BuscarEntrenador extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Txt_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -534,7 +505,7 @@ public class BuscarEntrenador extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 260, 270, 90));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, 210, 90));
 
         Btn_Limpiar.setBackground(new java.awt.Color(41, 51, 92));
         Btn_Limpiar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -598,7 +569,44 @@ public class BuscarEntrenador extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_BuscarMouseExited
 
     private void Btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BuscarActionPerformed
+        try {
+            if(Txt_Usuario.getText().isEmpty() && Txt_Usuario.getText().equals("Ingrese el usuario")) {
+                JOptionPane.showMessageDialog(this, "Falta datos por ingresar.");
+            }else {
+                Usuario usuario = new Usuario();
+                usuario.setUsuario(Txt_Usuario.getText());
+                boolean resultado1 = usuario.Buscar();
 
+                Entrenadores entrenador = new Entrenadores();
+                entrenador.setUsuario_idusuario(usuario.getIdusuario());
+                boolean resultado2 = entrenador.Buscar_entrenador();
+
+                cargarTabla(entrenador);
+                
+                if(resultado1==true && resultado2==true) {
+                    Txt_Nombre.setText(usuario.getNombre());
+                    Txt_ApePaterno.setText(usuario.getAp_paterno());
+                    Txt_ApeMaterno.setText(usuario.getAp_materno());
+                    Txt_Especialidad.setText(entrenador.getEspecialidad());
+
+                    Txt_Correo.setText(usuario.getCorreo());
+                    Txt_Telefono.setText(usuario.getTelefono());
+                    Txt_Direccion.setText(usuario.getDireccion());
+
+                    Txt_Contrasena.setText(usuario.getContrasena());
+                    Txt_RespRecuperacion.setText(usuario.getRespuesta_recuperacion());
+                    Txt_IdUsuario.setText(String.valueOf(usuario.getIdusuario()));
+
+                    Txt_Usuario.setText(usuario.getUsuario());
+                    
+                    JOptionPane.showMessageDialog(this, "Se encontro el entrenador.");
+                }else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el entrenador.");
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
     }//GEN-LAST:event_Btn_BuscarActionPerformed
 
     private void Txt_UsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_UsuarioMousePressed
@@ -606,21 +614,57 @@ public class BuscarEntrenador extends javax.swing.JFrame {
     }//GEN-LAST:event_Txt_UsuarioMousePressed
 
     private void Btn_LimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarMouseEntered
-        // TODO add your handling code here:
+        Btn_Limpiar.setBackground(hover);
     }//GEN-LAST:event_Btn_LimpiarMouseEntered
 
     private void Btn_LimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_LimpiarMouseExited
-        // TODO add your handling code here:
+        Btn_Limpiar.setBackground(azul);
     }//GEN-LAST:event_Btn_LimpiarMouseExited
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
-        // TODO add your handling code here:
+        Txt_Nombre.setText("Nombre");
+        Txt_ApePaterno.setText("Primer apellido");
+        Txt_ApeMaterno.setText("Segundo apellido");
+        Txt_Especialidad.setText("Especialidad");
+
+        Txt_Correo.setText("Correo");
+        Txt_Telefono.setText("Teléfono");
+        Txt_Direccion.setText("Dirección");
+
+        Txt_Contrasena.setText("Contraseña");
+        Txt_RespRecuperacion.setText("Respuesta de recuperación");
+        Txt_IdUsuario.setText(String.valueOf("ID del usuario"));
+        
+        DefaultTableModel model = (DefaultTableModel) Tbl_Certificaciones.getModel();
+        model.setRowCount(0);
+
+        Txt_Usuario.setText("Ingrese el usuario");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Lbl_VolverCrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverCrearMouseClicked
         Dlg_Certificaciones.dispose();
     }//GEN-LAST:event_Lbl_VolverCrearMouseClicked
 
+    private void cargarTabla(Entrenadores entrenador) {
+        DefaultTableModel model = (DefaultTableModel) Tbl_Certificaciones.getModel();
+        model.setRowCount(0);
+        
+        Certificaciones certificacion = new Certificaciones();
+        certificacion.setEntrenadores_usuario_idusuario(entrenador.getUsuario_idusuario());
+        
+        try {
+            ResultSet rs = certificacion.Mostrar_entrenador();
+            while (rs.next()) {
+                int idcertificaciones = rs.getInt("idcertificaciones");
+                String certificaciones = rs.getString("certificaciones");
+
+                model.addRow(new Object[] { idcertificaciones, certificaciones });
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar certificaciones: " + ex.getMessage());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Buscar;
     private javax.swing.JButton Btn_Certificaciones;
@@ -628,17 +672,15 @@ public class BuscarEntrenador extends javax.swing.JFrame {
     private javax.swing.JDialog Dlg_Certificaciones;
     private javax.swing.JLabel Lbl_Volver;
     private javax.swing.JLabel Lbl_VolverCrear;
+    private javax.swing.JTable Tbl_Certificaciones;
     private javax.swing.JTextField Txt_ApeMaterno;
     private javax.swing.JTextField Txt_ApePaterno;
     private javax.swing.JTextField Txt_Contrasena;
     private javax.swing.JTextField Txt_Correo;
     private javax.swing.JTextField Txt_Direccion;
-    private javax.swing.JTextField Txt_Edad;
-    private javax.swing.JTextField Txt_Escolaridad;
     private javax.swing.JTextField Txt_Especialidad;
-    private javax.swing.JTextField Txt_Genero;
+    private javax.swing.JTextField Txt_IdUsuario;
     private javax.swing.JTextField Txt_Nombre;
-    private javax.swing.JTextField Txt_Ocupacion;
     private javax.swing.JTextField Txt_RespRecuperacion;
     private javax.swing.JTextField Txt_Telefono;
     private javax.swing.JTextField Txt_Usuario;
@@ -660,6 +702,5 @@ public class BuscarEntrenador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

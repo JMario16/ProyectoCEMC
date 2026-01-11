@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Login extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
     private IniciarSesion sesion = new IniciarSesion();
-    private CrearUsuario crearUsr = new CrearUsuario();
+    private CrearPaciente crearUsr = new CrearPaciente();
     
     Color azul = new Color(41, 51, 92);
     Color hover = new Color(49, 69, 168);

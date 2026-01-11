@@ -1,6 +1,8 @@
 package Vista;
 
+import Modelo.Asigna_ejecuta;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class BorrarAsigna extends javax.swing.JFrame {   
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BorrarAsigna.class.getName());
@@ -33,7 +35,7 @@ public class BorrarAsigna extends javax.swing.JFrame {
         Txt_FechaInicio = new javax.swing.JTextField();
         Txt_FechaFin = new javax.swing.JTextField();
         Txt_EstatusPago = new javax.swing.JTextField();
-        Txt_MetPago = new javax.swing.JTextField();
+        Txt_MetodoPago = new javax.swing.JTextField();
         Txt_MontoPago = new javax.swing.JTextField();
         Txt_FechaPago = new javax.swing.JTextField();
         Txt_Estatus = new javax.swing.JTextField();
@@ -43,7 +45,7 @@ public class BorrarAsigna extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         Txt_IdPaciente = new javax.swing.JTextField();
         Txt_IdEntrenador = new javax.swing.JTextField();
-        Txt_IdAsignacion = new javax.swing.JTextField();
+        Txt_IdPrograma = new javax.swing.JTextField();
         Btn_Buscar = new javax.swing.JButton();
         Btn_Borrar = new javax.swing.JButton();
 
@@ -156,13 +158,13 @@ public class BorrarAsigna extends javax.swing.JFrame {
         Txt_EstatusPago.setEnabled(false);
         jPanel5.add(Txt_EstatusPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 77, 240, 29));
 
-        Txt_MetPago.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_MetPago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_MetPago.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_MetPago.setText("Método de pago");
-        Txt_MetPago.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_MetPago.setEnabled(false);
-        jPanel5.add(Txt_MetPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 77, 190, 29));
+        Txt_MetodoPago.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_MetodoPago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_MetodoPago.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_MetodoPago.setText("Método de pago");
+        Txt_MetodoPago.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_MetodoPago.setEnabled(false);
+        jPanel5.add(Txt_MetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 77, 190, 29));
 
         Txt_MontoPago.setBackground(new java.awt.Color(250, 250, 250));
         Txt_MontoPago.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -244,14 +246,14 @@ public class BorrarAsigna extends javax.swing.JFrame {
             }
         });
 
-        Txt_IdAsignacion.setBackground(new java.awt.Color(250, 250, 250));
-        Txt_IdAsignacion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_IdAsignacion.setForeground(new java.awt.Color(156, 156, 156));
-        Txt_IdAsignacion.setText("Ingrese el ID de la asignación");
-        Txt_IdAsignacion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_IdAsignacion.addMouseListener(new java.awt.event.MouseAdapter() {
+        Txt_IdPrograma.setBackground(new java.awt.Color(250, 250, 250));
+        Txt_IdPrograma.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Txt_IdPrograma.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_IdPrograma.setText("Ingrese el ID del programa");
+        Txt_IdPrograma.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_IdPrograma.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                Txt_IdAsignacionMousePressed(evt);
+                Txt_IdProgramaMousePressed(evt);
             }
         });
 
@@ -267,7 +269,7 @@ public class BorrarAsigna extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Txt_IdEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Txt_IdAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Txt_IdPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -280,7 +282,7 @@ public class BorrarAsigna extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Txt_IdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Txt_IdEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Txt_IdAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Txt_IdPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -353,7 +355,24 @@ public class BorrarAsigna extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_LimpiarMouseExited
 
     private void Btn_LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_LimpiarActionPerformed
+        Txt_Observaciones.setText("Observaciones");
+        Txt_FechaInicio.setText("Fecha inicio");
+        Txt_FechaFin.setText("Fecha fin");
+        Txt_EstatusPago.setText("Estatus del pago");
+        Txt_MetodoPago.setText("Método de pago");
+        Txt_MontoPago.setText("Monto del pago");
+        Txt_FechaPago.setText("Fecha del pago");
+        Txt_Folio.setText("Folio");
+        Txt_Estatus.setText("Estatus");
+        
+        Txt_IdPaciente.setEnabled(true);
+        Txt_IdEntrenador.setEnabled(true);
+        
+        Btn_Borrar.setEnabled(false);
 
+        Txt_IdPaciente.setText("Ingrese el ID del paciente");
+        Txt_IdEntrenador.setText("Ingrese el ID del entrenador");
+        Txt_IdPrograma.setText("Ingrese el ID del programa");
     }//GEN-LAST:event_Btn_LimpiarActionPerformed
 
     private void Txt_IdPacienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_IdPacienteMousePressed
@@ -364,9 +383,9 @@ public class BorrarAsigna extends javax.swing.JFrame {
         Txt_IdEntrenador.setText("");
     }//GEN-LAST:event_Txt_IdEntrenadorMousePressed
 
-    private void Txt_IdAsignacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_IdAsignacionMousePressed
-        Txt_IdAsignacion.setText("");
-    }//GEN-LAST:event_Txt_IdAsignacionMousePressed
+    private void Txt_IdProgramaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_IdProgramaMousePressed
+        Txt_IdPrograma.setText("");
+    }//GEN-LAST:event_Txt_IdProgramaMousePressed
 
     private void Btn_BuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Btn_BuscarMouseEntered
         Btn_Buscar.setBackground(hover);
@@ -378,9 +397,11 @@ public class BorrarAsigna extends javax.swing.JFrame {
 
     private void Btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BuscarActionPerformed
         if(menu.getUsuario().getRol().equals("Entrenador")) {
-            // Buscar asignaciones del entrenador
+            Txt_IdEntrenador.setEnabled(false);
+            Txt_IdEntrenador.setText(String.valueOf(menu.getUsuario().getIdusuario()));
+            buscar();
         }else{
-            // Buscar normal
+            buscar();
         }
     }//GEN-LAST:event_Btn_BuscarActionPerformed
 
@@ -393,13 +414,67 @@ public class BorrarAsigna extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_BorrarMouseExited
 
     private void Btn_BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_BorrarActionPerformed
-        // TODO add your handling code here:
+        Asigna_ejecuta asigna_ejecuta = new Asigna_ejecuta();
+        
+        asigna_ejecuta.setProgramas_cognitivos_idprogramas_cognitivos(Integer.parseInt(Txt_IdPrograma.getText()));
+        asigna_ejecuta.setEntrenadores_usuario_idusuario(Integer.parseInt(Txt_IdEntrenador.getText()));
+        asigna_ejecuta.setPacientes_usuario_idusuario(Integer.parseInt(Txt_IdPaciente.getText()));
+        
+        
+        try {
+            boolean resultado = asigna_ejecuta.Buscar();
+            
+            if(resultado==true) {
+                asigna_ejecuta.setEstatus("Eliminada");
+                asigna_ejecuta.Actualizar();
+                
+                JOptionPane.showMessageDialog(this, "Se ha borrado al usuario correctamente.");
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
+        
+        Btn_Borrar.setEnabled(false);
     }//GEN-LAST:event_Btn_BorrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-
+    public void buscar() {
+        try {
+            if(Txt_IdPaciente.getText().isEmpty() && Txt_IdPaciente.getText().equals("Ingrese el ID del paciente") 
+                    && Txt_IdEntrenador.getText().isEmpty() && Txt_IdEntrenador.getText().equals("Ingrese el ID del entrenador")
+                    && Txt_IdPrograma.getText().isEmpty() && Txt_IdPrograma.getText().equals("Ingrese el ID del programa")) {
+                JOptionPane.showMessageDialog(this, "Falta datos por ingresar.");
+            }else {
+                Asigna_ejecuta asigna = new Asigna_ejecuta();
+                asigna.setProgramas_cognitivos_idprogramas_cognitivos(Integer.parseInt(Txt_IdPrograma.getText()));
+                asigna.setEntrenadores_usuario_idusuario(Integer.parseInt(Txt_IdEntrenador.getText()));
+                asigna.setPacientes_usuario_idusuario(Integer.parseInt(Txt_IdPaciente.getText()));
+                boolean resultado = asigna.Buscar();
+                
+                if(resultado==true) {
+                    Txt_Observaciones.setText(asigna.getObservaciones());
+                    Txt_FechaInicio.setText(String.valueOf(asigna.getFecha_inicio()));
+                    Txt_FechaFin.setText(String.valueOf(asigna.getFecha_fin()));
+                    Txt_EstatusPago.setText(asigna.getEstatus_pago());
+                    Txt_MetodoPago.setText(asigna.getMetodo_pago());
+                    Txt_MontoPago.setText(String.valueOf(asigna.getMonto_pago()));
+                    Txt_FechaPago.setText(String.valueOf(asigna.getFecha_pago()));
+                    Txt_Folio.setText(asigna.getFolio());
+                    Txt_Estatus.setText(asigna.getEstatus());
+                    
+                    Txt_IdPaciente.setText(String.valueOf(asigna.getPacientes_usuario_idusuario()));
+                    Txt_IdEntrenador.setText(String.valueOf(asigna.getEntrenadores_usuario_idusuario()));
+                    Txt_IdPrograma.setText(String.valueOf(asigna.getProgramas_cognitivos_idprogramas_cognitivos()));
+                    
+                    JOptionPane.showMessageDialog(this, "Se encontro el usuario.");
+                }else {
+                    JOptionPane.showMessageDialog(this, "No se encontro el usuario.");
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, e.toString());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Borrar;
     private javax.swing.JButton Btn_Buscar;
@@ -411,10 +486,10 @@ public class BorrarAsigna extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_FechaInicio;
     private javax.swing.JTextField Txt_FechaPago;
     private javax.swing.JTextField Txt_Folio;
-    private javax.swing.JTextField Txt_IdAsignacion;
     private javax.swing.JTextField Txt_IdEntrenador;
     private javax.swing.JTextField Txt_IdPaciente;
-    private javax.swing.JTextField Txt_MetPago;
+    private javax.swing.JTextField Txt_IdPrograma;
+    private javax.swing.JTextField Txt_MetodoPago;
     private javax.swing.JTextField Txt_MontoPago;
     private javax.swing.JTextField Txt_Observaciones;
     private javax.swing.JLabel jLabel1;

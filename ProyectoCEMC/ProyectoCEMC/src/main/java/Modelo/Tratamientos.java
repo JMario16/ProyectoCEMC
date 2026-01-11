@@ -106,4 +106,12 @@ public class Tratamientos {
         ResultSet Res = SQL.executeQuery();
         return Res;
     }
+
+    public ResultSet Mostrar_paciente() throws SQLException{
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM tratamientos WHERE pacientes_usuario_idusuario=?");
+        SQL.setInt(1, pacientes_usuario_idusuario);
+        ResultSet Res = SQL.executeQuery();
+        return Res;
+    }
 }

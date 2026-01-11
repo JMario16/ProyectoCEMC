@@ -179,7 +179,7 @@ public class Usuario {
         PreparedStatement Sen = CON.prepareStatement(
                 "INSERT INTO usuario (nombre, ap_paterno, ap_materno, correo, telefono, direccion, usuario, contrasena, pregunta_recuperacion, respuesta_recuperacion, rol, estatus, fecha_registro, ultimo_acceso, intentos_fallidos) "
                         +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), 0)",
                 Statement.RETURN_GENERATED_KEYS);
         Sen.setString(1, nombre);
         Sen.setString(2, ap_paterno);
@@ -194,8 +194,8 @@ public class Usuario {
         Sen.setString(11, rol);
         Sen.setString(12, estatus);
         Sen.setDate(13, fecha_registro);
-        Sen.setTimestamp(14, Timestamp.valueOf(ultimo_acceso));
-        Sen.setInt(15, intentos_fallidos);
+        // Sen.setTimestamp(14, Timestamp.valueOf(ultimo_acceso));
+        // Sen.setInt(15, intentos_fallidos);
         Sen.executeUpdate();
         ResultSet rs = Sen.getGeneratedKeys();
         if (rs.next()) {
@@ -209,6 +209,36 @@ public class Usuario {
         PreparedStatement SQL = CON.prepareStatement("SELECT * FROM usuario WHERE idusuario = ?");
         SQL.setInt(1, idusuario);
         ResultSet RS = SQL.executeQuery();
+        if (RS.next()) {
+            idusuario = RS.getInt("idusuario");
+            nombre = RS.getString("nombre");
+            ap_paterno = RS.getString("ap_paterno");
+            ap_materno = RS.getString("ap_materno");
+            correo = RS.getString("correo");
+            telefono = RS.getString("telefono");
+            direccion = RS.getString("direccion");
+            usuario = RS.getString("usuario");
+            contrasena = RS.getString("contrasena");
+            pregunta_recuperacion = RS.getString("pregunta_recuperacion");
+            respuesta_recuperacion = RS.getString("respuesta_recuperacion");
+            rol = RS.getString("rol");
+            estatus = RS.getString("estatus");
+            fecha_registro = RS.getDate("fecha_registro");
+            ultimo_acceso = RS.getTimestamp("ultimo_acceso").toLocalDateTime();
+            intentos_fallidos = RS.getInt("intentos_fallidos");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean Buscar_id() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement SQL = CON.prepareStatement("SELECT * FROM usuario WHERE idusuario = ?");
+
+        SQL.setInt(1, idusuario);
+        ResultSet RS = SQL.executeQuery();
+
         if (RS.next()) {
             idusuario = RS.getInt("idusuario");
             nombre = RS.getString("nombre");
@@ -261,30 +291,30 @@ public class Usuario {
     }
 
     public boolean Actualizar() {
-    try {
-        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        try {
+            Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
 
-        PreparedStatement Sen = CON.prepareStatement(
-            "UPDATE usuario SET nombre=?, ap_paterno=?, ap_materno=?, correo=?, contrasena=?, direccion=?, telefono=?, usuario=?, pregunta_recuperacion=?, respuesta_recuperacion=? WHERE idusuario=?");
+            PreparedStatement Sen = CON.prepareStatement(
+                    "UPDATE usuario SET nombre=?, ap_paterno=?, ap_materno=?, correo=?, contrasena=?, direccion=?, telefono=?, usuario=?, pregunta_recuperacion=?, respuesta_recuperacion=? WHERE idusuario=?");
 
-        Sen.setString(1, nombre);
-        Sen.setString(2, ap_paterno);
-        Sen.setString(3, ap_materno);
-        Sen.setString(4, correo);
-        Sen.setString(5, contrasena);
-        Sen.setString(6, direccion);
-        Sen.setString(7, telefono);
-        Sen.setString(8, usuario);
-        Sen.setString(9, pregunta_recuperacion);
-        Sen.setString(10, respuesta_recuperacion);
-        Sen.setInt(11, idusuario);
+            Sen.setString(1, nombre);
+            Sen.setString(2, ap_paterno);
+            Sen.setString(3, ap_materno);
+            Sen.setString(4, correo);
+            Sen.setString(5, contrasena);
+            Sen.setString(6, direccion);
+            Sen.setString(7, telefono);
+            Sen.setString(8, usuario);
+            Sen.setString(9, pregunta_recuperacion);
+            Sen.setString(10, respuesta_recuperacion);
+            Sen.setInt(11, idusuario);
 
-        Sen.executeUpdate();
-        return true;
+            Sen.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
-        return false;
+            return false;
         }
     }
 
@@ -323,6 +353,14 @@ public class Usuario {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement Sen = CON.prepareStatement("UPDATE usuario SET ultimo_acceso = ? WHERE idusuario = ?");
         Sen.setTimestamp(1, Timestamp.valueOf(ultimo_acceso));
+        Sen.setInt(2, idusuario);
+        Sen.executeUpdate();
+    }
+
+    public void ActualizarIntentosFallidos() throws SQLException {
+        Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+        PreparedStatement Sen = CON.prepareStatement("UPDATE usuario SET intentos_fallidos = ? WHERE idusuario = ?");
+        Sen.setInt(1, intentos_fallidos);
         Sen.setInt(2, idusuario);
         Sen.executeUpdate();
     }

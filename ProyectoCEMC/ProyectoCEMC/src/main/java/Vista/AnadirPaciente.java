@@ -203,7 +203,7 @@ public class AnadirPaciente extends javax.swing.JFrame {
             Pacientes p = new Pacientes();
             p.setIdusuario(idPaciente);
 
-            if (p.Buscar_paciente()) {
+            if (p.Buscar()) {
                 // Verificar si ya tiene ese mismo entrenador o ya tiene uno
                 if (p.getEntrenadores_usuario_idusuario() == this.usuario.getIdusuario()) {
                     JOptionPane.showMessageDialog(this, "Este paciente ya está asignado a usted.");

@@ -57,6 +57,65 @@ public class AsignarPrograma extends javax.swing.JFrame {
                 Lbl_VolverMouseClicked(evt);
             }
         });
+
+        Cmb_Programas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cmb_ProgramasActionPerformed(evt);
+            }
+        });
+    }
+
+    private void Cmb_ProgramasActionPerformed(java.awt.event.ActionEvent evt) {
+        cargarDatosAsignacion();
+    }
+
+    private void cargarDatosAsignacion() {
+        int indexPaciente = Cmb_Pacientes.getSelectedIndex();
+        int indexPrograma = Cmb_Programas.getSelectedIndex();
+
+        // Si idPaciente no es nulo, estamos en modo editar, y el paciente está en el
+        // index 0
+        // Si idPaciente es nulo, el paciente real empieza desde el index 1
+        boolean pacienteSeleccionado = (idPaciente != null && indexPaciente >= 0)
+                || (idPaciente == null && indexPaciente > 0);
+
+        if (pacienteSeleccionado && indexPrograma > 0) {
+            int idPac = (idPaciente != null) ? idPaciente : pacienteIds.get(indexPaciente);
+            int idProg = programaIds.get(indexPrograma);
+
+            Asigna_ejecuta asignacion = new Asigna_ejecuta();
+            asignacion.setPacientes_usuario_idusuario(idPac);
+            asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idProg);
+            asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
+
+            try {
+                if (asignacion.Buscar()) {
+                    Txt_FechaInicio.setText(asignacion.getFecha_inicio().toString());
+                    Txt_FechaFin.setText(asignacion.getFecha_fin().toString());
+                    Txt_Observaciones.setText(asignacion.getObservaciones());
+                    Txt_Estatus.setText(asignacion.getEstatus());
+                    Txt_FechaPago.setText(asignacion.getFecha_pago() != null ? asignacion.getFecha_pago().toString()
+                            : java.time.LocalDate.now().toString());
+                    Txt_MontoPago.setText(String.valueOf(asignacion.getMonto_pago()));
+                    Txt_MetodoPago.setText(asignacion.getMetodo_pago());
+                    Txt_EstatusPago.setText(asignacion.getEstatus_pago());
+                    Txt_Folio.setText(asignacion.getFolio());
+                } else {
+                    // Reset placeholders if not found - use sensible defaults where possible
+                    Txt_FechaInicio.setText(java.time.LocalDate.now().toString());
+                    Txt_FechaFin.setText(java.time.LocalDate.now().plusMonths(1).toString());
+                    Txt_Observaciones.setText("Observaciones");
+                    Txt_Estatus.setText("Asignado");
+                    Txt_FechaPago.setText(java.time.LocalDate.now().toString());
+                    Txt_MontoPago.setText("0.0");
+                    Txt_MetodoPago.setText("Pendiente");
+                    Txt_EstatusPago.setText("Pendiente");
+                    Txt_Folio.setText("N/A");
+                }
+            } catch (SQLException ex) {
+                // Ignore or log
+            }
+        }
     }
 
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {
@@ -65,13 +124,13 @@ public class AsignarPrograma extends javax.swing.JFrame {
 
     private void cargarPacientes() {
         Pacientes modeloPacientes = new Pacientes();
-            try {
-                ResultSet rs = modeloPacientes.Mostrar_entrenador(this.usuario.getIdusuario());
-                Cmb_Pacientes.removeAllItems();
-                pacienteIds.clear();
+        try {
+            ResultSet rs = modeloPacientes.Mostrar_entrenador(this.usuario.getIdusuario());
+            Cmb_Pacientes.removeAllItems();
+            pacienteIds.clear();
 
-                Cmb_Pacientes.addItem("Seleccionar Paciente...");
-                pacienteIds.add(-1); // Dummy ID for index 0
+            Cmb_Pacientes.addItem("Seleccionar Paciente...");
+            pacienteIds.add(-1); // Dummy ID for index 0
 
             while (rs.next()) {
                 Integer id = rs.getInt("idusuario");
@@ -108,16 +167,18 @@ public class AsignarPrograma extends javax.swing.JFrame {
     private void cargarPaciente(Integer idPaciente) {
         Pacientes modeloPacientes = new Pacientes();
         try {
-            modeloPacientes.setUsuario_idusuario(idPaciente);
-            modeloPacientes.Buscar_paciente();
-            ResultSet rs = modeloPacientes.Mostrar_admin();
-            Cmb_Pacientes.removeAllItems();
-            pacienteIds.clear();
+            modeloPacientes.setIdusuario(idPaciente);
+            if (modeloPacientes.Buscar()) {
+                Cmb_Pacientes.removeAllItems();
+                pacienteIds.clear();
 
-            Cmb_Pacientes.addItem(rs.getString("nombre") + " " + rs.getString("ap_paterno"));
-            pacienteIds.add(rs.getInt("idusuario"));
+                Cmb_Pacientes.addItem(modeloPacientes.getNombre() + " " + modeloPacientes.getAp_paterno());
+                pacienteIds.add(modeloPacientes.getIdusuario());
+            } else {
+                JOptionPane.showMessageDialog(this, "Paciente no encontrado.");
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar paciente: " + ex.getMessage());
         }
     }
 
@@ -149,96 +210,67 @@ public class AsignarPrograma extends javax.swing.JFrame {
         int indexPaciente = Cmb_Pacientes.getSelectedIndex();
         int indexPrograma = Cmb_Programas.getSelectedIndex();
 
-        if (indexPaciente <= 0 || indexPrograma <= 0) {
+        if (indexPaciente <= 0 && idPaciente == null || indexPrograma <= 0) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un paciente y un programa.");
             return;
         }
 
         try {
+            int idPac = (idPaciente != null) ? idPaciente : pacienteIds.get(indexPaciente);
+            int idProg = (idPrograma != null) ? idPrograma : programaIds.get(indexPrograma);
 
-            if (idPaciente != null) {
-                Asigna_ejecuta asignacion = new Asigna_ejecuta();
-                asignacion.setPacientes_usuario_idusuario(idPaciente);
-                asignacion.setProgramas_cognitivos_idprogramas_cognitivos(programaIds.get(indexPrograma));
-                asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
-                asignacion.Buscar();
+            Asigna_ejecuta asignacion = new Asigna_ejecuta();
+            asignacion.setPacientes_usuario_idusuario(idPac);
+            asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idProg);
+            asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
 
-                Txt_FechaInicio.setText(asignacion.getFecha_inicio().toString());
-                Txt_FechaFin.setText(asignacion.getFecha_fin().toString());
-                Txt_Observaciones.setText(asignacion.getObservaciones());
-                Txt_Estatus.setText(asignacion.getEstatus());
+            boolean existe = asignacion.Buscar();
 
-                String fechaInicioStr = Txt_FechaInicio.getText();
-                String fechaFinStr = Txt_FechaFin.getText();
-                String observaciones = Txt_Observaciones.getText();
-                String estatus = Txt_Estatus.getText();
+            String fechaInicioStr = Txt_FechaInicio.getText();
+            String fechaFinStr = Txt_FechaFin.getText();
+            String observaciones = Txt_Observaciones.getText();
+            String estatus = Txt_Estatus.getText();
+            String fechaPagoStr = Txt_FechaPago.getText();
+            String montoPagoStr = Txt_MontoPago.getText();
+            String metPago = Txt_MetodoPago.getText();
+            String estPago = Txt_EstatusPago.getText();
+            String folio = Txt_Folio.getText();
 
-                Date fechaInicio = Date
-                        .valueOf(fechaInicioStr.equals("Fecha Inicio (YYYY-MM-DD)")
-                                ? java.time.LocalDate.now().toString()
-                                : fechaInicioStr);
-                Date fechaFin = Date.valueOf(
-                        fechaFinStr.equals("Fecha Fin (YYYY-MM-DD)")
-                                ? java.time.LocalDate.now().plusMonths(1).toString()
-                                : fechaFinStr);
+            Date fechaInicio = Date.valueOf(
+                    fechaInicioStr.contains("YYYY-MM-DD") ? java.time.LocalDate.now().toString() : fechaInicioStr);
+            Date fechaFin = Date
+                    .valueOf(fechaFinStr.contains("YYYY-MM-DD") ? java.time.LocalDate.now().plusMonths(1).toString()
+                            : fechaFinStr);
+            Date fechaPago = Date
+                    .valueOf(fechaPagoStr.contains("YYYY-MM-DD") ? java.time.LocalDate.now().toString() : fechaPagoStr);
 
-                asignacion.setPacientes_usuario_idusuario(idPaciente);
-                asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idPrograma);
-                asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
-                asignacion.setFecha_inicio(fechaInicio);
-                asignacion.setFecha_fin(fechaFin);
-                asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
-                asignacion.setEstatus(estatus.equals("Estatus (Activo/Pendiente)") ? "Asignado" : estatus);
-
-                asignacion.setFecha_pago(Date.valueOf(java.time.LocalDate.now()));
-                asignacion.setMonto_pago(0.0);
-                asignacion.setMetodo_pago("Pendiente");
-                asignacion.setEstatus_pago("Pendiente");
-                asignacion.setFolio("N/A");
-
-                asignacion.Guardar();
-                JOptionPane.showMessageDialog(this, "Programa actualizado exitosamente.");
-                this.dispose();
-            } else {
-                int idPaciente = pacienteIds.get(indexPaciente);
-                int idPrograma = programaIds.get(indexPrograma);
-
-                String fechaInicioStr = Txt_FechaInicio.getText();
-                String fechaFinStr = Txt_FechaFin.getText();
-                String observaciones = Txt_Observaciones.getText();
-                String estatus = Txt_Estatus.getText();
-
-                Date fechaInicio = Date
-                        .valueOf(fechaInicioStr.equals("Fecha Inicio (YYYY-MM-DD)")
-                                ? java.time.LocalDate.now().toString()
-                                : fechaInicioStr);
-                Date fechaFin = Date.valueOf(
-                        fechaFinStr.equals("Fecha Fin (YYYY-MM-DD)")
-                                ? java.time.LocalDate.now().plusMonths(1).toString()
-                                : fechaFinStr);
-
-                Asigna_ejecuta asignacion = new Asigna_ejecuta();
-                asignacion.setPacientes_usuario_idusuario(idPaciente);
-                asignacion.setProgramas_cognitivos_idprogramas_cognitivos(idPrograma);
-                asignacion.setEntrenadores_usuario_idusuario(this.usuario.getIdusuario());
-                asignacion.setFecha_inicio(fechaInicio);
-                asignacion.setFecha_fin(fechaFin);
-                asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
-                asignacion.setEstatus(estatus.equals("Estatus (Activo/Pendiente)") ? "Asignado" : estatus);
-
-                asignacion.setFecha_pago(Date.valueOf(java.time.LocalDate.now()));
-                asignacion.setMonto_pago(0.0);
-                asignacion.setMetodo_pago("Pendiente");
-                asignacion.setEstatus_pago("Pendiente");
-                asignacion.setFolio("N/A");
-
-                asignacion.Guardar();
-                JOptionPane.showMessageDialog(this, "Programa asignado exitosamente.");
-                this.dispose();
+            double monto = 0;
+            try {
+                monto = Double.parseDouble(montoPagoStr);
+            } catch (Exception e) {
             }
 
+            asignacion.setFecha_inicio(fechaInicio);
+            asignacion.setFecha_fin(fechaFin);
+            asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
+            asignacion.setEstatus(estatus.contains("(Activo/Pendiente)") ? "Asignado" : estatus);
+            asignacion.setFecha_pago(fechaPago);
+            asignacion.setMonto_pago(monto);
+            asignacion.setMetodo_pago(metPago.contains("Método") ? "Pendiente" : metPago);
+            asignacion.setEstatus_pago(estPago.contains("Estatus") ? "Pendiente" : estPago);
+            asignacion.setFolio(folio.contains("Folio") ? "N/A" : folio);
+
+            if (existe) {
+                asignacion.Actualizar();
+                JOptionPane.showMessageDialog(this, "Asignación actualizada exitosamente.");
+            } else {
+                asignacion.Guardar();
+                JOptionPane.showMessageDialog(this, "Programa asignado exitosamente.");
+            }
+            this.dispose();
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al asignar (Verifique fechas YYYY-MM-DD): " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al guardar (Verifique fechas YYYY-MM-DD): " + ex.getMessage());
         }
     }
 
@@ -362,7 +394,67 @@ public class AsignarPrograma extends javax.swing.JFrame {
         jLabel3.setText("Especificaciones");
         jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 460, 140));
+        Txt_FechaPago = new javax.swing.JTextField();
+        Txt_FechaPago.setFont(new java.awt.Font("Roboto", 0, 12));
+        Txt_FechaPago.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_FechaPago.setText("Fecha Pago (YYYY-MM-DD)");
+        Txt_FechaPago.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_FechaPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_FechaPagoMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_FechaPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 210, 30));
+
+        Txt_MontoPago = new javax.swing.JTextField();
+        Txt_MontoPago.setFont(new java.awt.Font("Roboto", 0, 12));
+        Txt_MontoPago.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_MontoPago.setText("Monto Pago");
+        Txt_MontoPago.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_MontoPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_MontoPagoMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_MontoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 190, 30));
+
+        Txt_MetodoPago = new javax.swing.JTextField();
+        Txt_MetodoPago.setFont(new java.awt.Font("Roboto", 0, 12));
+        Txt_MetodoPago.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_MetodoPago.setText("Método Pago");
+        Txt_MetodoPago.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_MetodoPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_MetodoPagoMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_MetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 210, 30));
+
+        Txt_EstatusPago = new javax.swing.JTextField();
+        Txt_EstatusPago.setFont(new java.awt.Font("Roboto", 0, 12));
+        Txt_EstatusPago.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_EstatusPago.setText("Estatus Pago");
+        Txt_EstatusPago.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_EstatusPago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_EstatusPagoMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_EstatusPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 190, 30));
+
+        Txt_Folio = new javax.swing.JTextField();
+        Txt_Folio.setFont(new java.awt.Font("Roboto", 0, 12));
+        Txt_Folio.setForeground(new java.awt.Color(156, 156, 156));
+        Txt_Folio.setText("Folio");
+        Txt_Folio.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        Txt_Folio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Txt_FolioMouseClicked(evt);
+            }
+        });
+        jPanel6.add(Txt_Folio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 210, 30));
+
+        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 460, 250));
 
         Btn_Asignar.setBackground(new java.awt.Color(41, 51, 92));
         Btn_Asignar.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
@@ -378,7 +470,7 @@ public class AsignarPrograma extends javax.swing.JFrame {
                 Btn_AsignarMouseExited(evt);
             }
         });
-        jPanel2.add(Btn_Asignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 200, 40));
+        jPanel2.add(Btn_Asignar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 450, 200, 40));
 
         Lbl_Volver.setFont(new java.awt.Font("Roboto Condensed", 0, 14)); // NOI18N
         Lbl_Volver.setForeground(new java.awt.Color(41, 51, 92));
@@ -401,9 +493,9 @@ public class AsignarPrograma extends javax.swing.JFrame {
                                 .addComponent(Lbl_Volver, javax.swing.GroupLayout.PREFERRED_SIZE, 42,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 500, 40));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 500, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 480));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 560));
 
         pack();
         setLocationRelativeTo(null);
@@ -418,20 +510,58 @@ public class AsignarPrograma extends javax.swing.JFrame {
     }// GEN-LAST:event_Btn_AsignarMouseExited
 
     private void Txt_FechaInicioMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_FechaInicioMouseClicked
-        Txt_FechaInicio.setText("");
+        if (Txt_FechaInicio.getText().contains("YYYY-MM-DD")) {
+            Txt_FechaInicio.setText("");
+        }
     }// GEN-LAST:event_Txt_FechaInicioMouseClicked
 
     private void Txt_FechaFinMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_FechaFinMouseClicked
-        Txt_FechaFin.setText("");
+        if (Txt_FechaFin.getText().contains("YYYY-MM-DD")) {
+            Txt_FechaFin.setText("");
+        }
     }// GEN-LAST:event_Txt_FechaFinMouseClicked
 
     private void Txt_EstatusMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_EstatusMouseClicked
-        Txt_Estatus.setText("");
+        if (Txt_Estatus.getText().contains("(Activo/Pendiente)") || Txt_Estatus.getText().equals("Asignado")) {
+            Txt_Estatus.setText("");
+        }
     }// GEN-LAST:event_Txt_EstatusMouseClicked
 
     private void Txt_ObservacionesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_ObservacionesMouseClicked
-        Txt_Observaciones.setText("");
+        if (Txt_Observaciones.getText().equals("Observaciones")) {
+            Txt_Observaciones.setText("");
+        }
     }// GEN-LAST:event_Txt_ObservacionesMouseClicked
+
+    private void Txt_FechaPagoMouseClicked(java.awt.event.MouseEvent evt) {
+        if (Txt_FechaPago.getText().contains("YYYY-MM-DD")) {
+            Txt_FechaPago.setText("");
+        }
+    }
+
+    private void Txt_MontoPagoMouseClicked(java.awt.event.MouseEvent evt) {
+        if (Txt_MontoPago.getText().equals("Monto Pago") || Txt_MontoPago.getText().equals("0.0")) {
+            Txt_MontoPago.setText("");
+        }
+    }
+
+    private void Txt_MetodoPagoMouseClicked(java.awt.event.MouseEvent evt) {
+        if (Txt_MetodoPago.getText().contains("Método") || Txt_MetodoPago.getText().equals("Pendiente")) {
+            Txt_MetodoPago.setText("");
+        }
+    }
+
+    private void Txt_EstatusPagoMouseClicked(java.awt.event.MouseEvent evt) {
+        if (Txt_EstatusPago.getText().contains("Estatus") || Txt_EstatusPago.getText().equals("Pendiente")) {
+            Txt_EstatusPago.setText("");
+        }
+    }
+
+    private void Txt_FolioMouseClicked(java.awt.event.MouseEvent evt) {
+        if (Txt_Folio.getText().equals("Folio") || Txt_Folio.getText().equals("N/A")) {
+            Txt_Folio.setText("");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Asignar;
@@ -442,6 +572,11 @@ public class AsignarPrograma extends javax.swing.JFrame {
     private javax.swing.JTextField Txt_FechaFin;
     private javax.swing.JTextField Txt_FechaInicio;
     private javax.swing.JTextField Txt_Observaciones;
+    private javax.swing.JTextField Txt_FechaPago;
+    private javax.swing.JTextField Txt_MontoPago;
+    private javax.swing.JTextField Txt_MetodoPago;
+    private javax.swing.JTextField Txt_EstatusPago;
+    private javax.swing.JTextField Txt_Folio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
