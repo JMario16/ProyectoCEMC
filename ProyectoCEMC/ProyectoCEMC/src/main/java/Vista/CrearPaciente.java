@@ -779,9 +779,7 @@ public class CrearPaciente extends javax.swing.JFrame {
 
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Lbl_VolverMouseClicked
         this.dispose();
-        if (this.Menu == null) {
-            this.Menu = new Menu(usuario);
-        }
+        
         Menu.setVisible(true);
         this.setVisible(false);
     }// GEN-LAST:event_Lbl_VolverMouseClicked
@@ -994,8 +992,7 @@ public class CrearPaciente extends javax.swing.JFrame {
 
                     // Guardar paciente (guarda usuario + paciente)
                     paciente.Guardar_paciente();
-                    this.usuario.setIdusuario(paciente.getIdusuario()); //usuario para inicializar menu directo despues de crear usuario.
-                    this.usuario.Buscar();
+                    
 
 
                     // Guardar tratamientos asociados

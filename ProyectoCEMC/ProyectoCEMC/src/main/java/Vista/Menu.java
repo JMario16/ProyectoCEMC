@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.Entrenadores;
 import Modelo.Usuario;
 import java.awt.Color;
 import java.sql.SQLException;
@@ -55,7 +56,8 @@ public class Menu extends javax.swing.JFrame {
             // Admin tiene acceso a todooo
             populateCombo(Cmb_Crear, "Entrenador", "Paciente", "Programa cognitivo", "Asignar programa",
                     "Añadir paciente");
-            populateCombo(Cmb_Consulta, "Buscar usuario", "Buscar paciente", "Buscar entrenador", "Buscar programa cognitivo", "Buscar asignación de programa",
+            populateCombo(Cmb_Consulta, "Buscar usuario", "Buscar paciente", "Buscar entrenador",
+                    "Buscar programa cognitivo", "Buscar asignación de programa",
                     "Mostrar usuarios", "Mostrar entrenadores", "Mostrar pacientes", "Mostrar programas cognitivos",
                     "Mostrar asignaciones de programa");
             if (Cmb_Actualizar != null) {
@@ -848,12 +850,49 @@ public class Menu extends javax.swing.JFrame {
             return;
 
         if ("Añadir paciente".equals(seleccion)) {
-
-            AnadirPaciente v = new AnadirPaciente(usuario);
-            v.setVisible(true);
+            if (usuario.getRol().equalsIgnoreCase("Administrador")) {
+                String idStr = javax.swing.JOptionPane
+                        .showInputDialog("Ingrese ID del entrenador asociado:");
+                if (idStr != null && !idStr.isEmpty()) {
+                    try {
+                        int id = Integer.parseInt(idStr);
+                        Entrenadores entrenador = new Entrenadores();
+                        entrenador.setUsuario_idusuario(id);
+                        entrenador.Buscar();
+                        AnadirPaciente v = new AnadirPaciente(entrenador);
+                        v.setVisible(true);
+                    } catch (NumberFormatException e) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
+                    } catch (SQLException ex) {
+                        System.getLogger(Menu.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    }
+                } else {
+                    AnadirPaciente v = new AnadirPaciente(usuario);
+                    v.setVisible(true);
+                }
+            }
         } else if ("Programa cognitivo".equals(seleccion)) {
-            CrearPrograma v = new CrearPrograma(usuario);
-            v.setVisible(true);
+            if (usuario.getRol().equalsIgnoreCase("Administrador")) {
+                String idStr = javax.swing.JOptionPane
+                        .showInputDialog("Ingrese ID del entrenador asociado:");
+                if (idStr != null && !idStr.isEmpty()) {
+                    try {
+                        int id = Integer.parseInt(idStr);
+                        Entrenadores entrenador = new Entrenadores();
+                        entrenador.setUsuario_idusuario(id);
+                        entrenador.Buscar();
+                        CrearPrograma v = new CrearPrograma(entrenador);
+                        v.setVisible(true);
+                    } catch (NumberFormatException e) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "ID inválido.");
+                    } catch (SQLException ex) {
+                        System.getLogger(Menu.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    }
+                }
+            } else {
+                CrearPrograma v = new CrearPrograma(usuario);
+                v.setVisible(true);
+            }
         } else if ("Asignar programa".equals(seleccion)) {
             AsignarPrograma v = new AsignarPrograma(usuario);
             v.setVisible(true);

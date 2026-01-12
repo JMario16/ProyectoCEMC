@@ -6,6 +6,14 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import javax.swing.BorderFactory;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 public class CrearPrograma extends javax.swing.JFrame {
     private Usuario usuario;
@@ -19,6 +27,7 @@ public class CrearPrograma extends javax.swing.JFrame {
         this.usuario = usuario;
         this.programaEdicion = programaEdicion; // Usar la misma vista al editar programa
         initComponents();
+        setupFields(); // Configurar títulos y placeholders
         if (programaEdicion != null) {
             cargarDatos();
         }
@@ -35,6 +44,58 @@ public class CrearPrograma extends javax.swing.JFrame {
         });
     }
 
+    private void setupFields() {
+        configureField(Txt_Nombre, "Nombre", "Nombre del Programa");
+        configureField(Txt_Tipo, "Tipo", "Tipo");
+        configureField(Txt_Nivel, "Nivel", "Nivel");
+        configureField(Txt_Version, "Versión", "Versión");
+        configureField(Txt_Objetivos, "Objetivos", "Objetivos");
+        configureField(Txt_Descripcion, "Descripción", "Descripción");
+        configureField(Txt_Duracion, "Duración", "Semanas");
+        configureField(Txt_Sesiones, "Sesiones", "No. Sesiones");
+        configureField(Txt_Costo, "Costo", "0.00");
+    }
+
+    private void configureField(JTextField field, String title, String placeholder) {
+        // Título pequeño sobre el recuadro con un poco de margen interno para que no se
+        // corte el texto
+        TitledBorder titledBorder = BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(new Color(156, 156, 156)),
+                title,
+                TitledBorder.LEFT,
+                TitledBorder.TOP,
+                new java.awt.Font("Roboto", 0, 10),
+                new Color(41, 51, 92));
+
+       // field.setBorder(new CompoundBorder(titledBorder, new EmptyBorder(0,0,5,0)));
+
+        // Placeholder logic
+        if (programaEdicion == null) {
+            field.setText(placeholder);
+            field.setForeground(new Color(156, 156, 156));
+        } else {
+            field.setForeground(Color.BLACK);
+        }
+
+        field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (field.getText().isEmpty()) {
+                    field.setText(placeholder);
+                    field.setForeground(new Color(156, 156, 156));
+                }
+            }
+        });
+    }
+
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {
         this.dispose();
     }
@@ -45,26 +106,26 @@ public class CrearPrograma extends javax.swing.JFrame {
         setTitle("Actualizar Programa");
         Btn_Guardar.setText("ACTUALIZAR PROGRAMA");
 
-        Txt_Nombre.setText("Nombre: " + programaEdicion.getNombre());
-        Txt_Tipo.setText("Tipo: " + programaEdicion.getTipo());
-        Txt_Nivel.setText("Nivel: " + programaEdicion.getNivel());
-        Txt_Version.setText("Version: " + programaEdicion.getVersion());
-        Txt_Objetivos.setText("Objetivos: " + programaEdicion.getObjetivos());
-        Txt_Descripcion.setText("Descripcion: " + programaEdicion.getDescripcion());
-        Txt_Duracion.setText("Duracion: " + String.valueOf(programaEdicion.getDuracion_semanas()));
-        Txt_Sesiones.setText("Sesiones: " + String.valueOf(programaEdicion.getNumero_sesiones()));
-        Txt_Costo.setText("Costo: " + String.valueOf(programaEdicion.getCosto()));
+        Txt_Nombre.setText(programaEdicion.getNombre());
+        Txt_Tipo.setText(programaEdicion.getTipo());
+        Txt_Nivel.setText(programaEdicion.getNivel());
+        Txt_Version.setText(programaEdicion.getVersion());
+        Txt_Objetivos.setText(programaEdicion.getObjetivos());
+        Txt_Descripcion.setText(programaEdicion.getDescripcion());
+        Txt_Duracion.setText(String.valueOf(programaEdicion.getDuracion_semanas()));
+        Txt_Sesiones.setText(String.valueOf(programaEdicion.getNumero_sesiones()));
+        Txt_Costo.setText(String.valueOf(programaEdicion.getCosto()));
     }
 
     private void Btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
 
-            String nombre = Txt_Nombre.getText();
-            String tipo = Txt_Tipo.getText();
-            String nivel = Txt_Nivel.getText();
-            String version = Txt_Version.getText();
-            String objetivos = Txt_Objetivos.getText();
-            String descripcion = Txt_Descripcion.getText();
+            String nombre = getCleanText(Txt_Nombre, "Nombre del Programa");
+            String tipo = getCleanText(Txt_Tipo, "Tipo");
+            String nivel = getCleanText(Txt_Nivel, "Nivel");
+            String version = getCleanText(Txt_Version, "Versión");
+            String objetivos = getCleanText(Txt_Objetivos, "Objetivos");
+            String descripcion = getCleanText(Txt_Descripcion, "Descripción");
 
             if (nombre.isEmpty() || tipo.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "El nombre y tipo son obligatorios.");
@@ -76,9 +137,13 @@ public class CrearPrograma extends javax.swing.JFrame {
             double costo = 0.0;
 
             try {
-                duracion = Integer.parseInt(Txt_Duracion.getText());
-                sesiones = Integer.parseInt(Txt_Sesiones.getText());
-                costo = Double.parseDouble(Txt_Costo.getText());
+                String dStr = getCleanText(Txt_Duracion, "Semanas");
+                String sStr = getCleanText(Txt_Sesiones, "No. Sesiones");
+                String cStr = getCleanText(Txt_Costo, "0.00");
+
+                duracion = dStr.isEmpty() ? 0 : Integer.parseInt(dStr);
+                sesiones = sStr.isEmpty() ? 0 : Integer.parseInt(sStr);
+                costo = cStr.isEmpty() ? 0.0 : Double.parseDouble(cStr);
             } catch (NumberFormatException e) {
 
             }
@@ -124,8 +189,17 @@ public class CrearPrograma extends javax.swing.JFrame {
         }
     }
 
+    private String getCleanText(JTextField field, String placeholder) {
+        String text = field.getText();
+        if (text.equals(placeholder)) {
+            return "";
+        }
+        return text;
+    }
+
     @SuppressWarnings("unchecked")
 
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -196,6 +270,11 @@ public class CrearPrograma extends javax.swing.JFrame {
         jPanel5.add(Txt_Objetivos);
 
         Txt_Descripcion.setText("Descripción");
+        Txt_Descripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Txt_DescripcionActionPerformed(evt);
+            }
+        });
         jPanel5.add(Txt_Descripcion);
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 740, 150));
@@ -231,6 +310,10 @@ public class CrearPrograma extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Txt_DescripcionActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Txt_DescripcionActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_Txt_DescripcionActionPerformed
 
     private void Txt_NombreActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_Txt_NombreActionPerformed
         // TODO add your handling code here:
