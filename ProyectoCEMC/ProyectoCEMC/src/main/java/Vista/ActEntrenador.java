@@ -566,11 +566,11 @@ public class ActEntrenador extends javax.swing.JFrame {
         boolean actUsuario = e.Actualizar();
         boolean actEntrenador = e.ActualizarEntrenador();
 
-    if (actUsuario && actEntrenador) {
-        JOptionPane.showMessageDialog(this, "Datos actualizados correctamente");
-    } else {
-        JOptionPane.showMessageDialog(this, "Error al actualizar los datos");
-    }
+        if (actUsuario && actEntrenador) {
+            JOptionPane.showMessageDialog(this, "Datos actualizados correctamente");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos");
+        }
     }//GEN-LAST:event_Btn_ActualizarActionPerformed
 
     private void Txt_EspecialidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Txt_EspecialidadMousePressed

@@ -424,9 +424,9 @@ public class BuscarAsigna extends javax.swing.JFrame {
                     Txt_IdEntrenador.setText(String.valueOf(asigna.getEntrenadores_usuario_idusuario()));
                     Txt_IdPrograma.setText(String.valueOf(asigna.getProgramas_cognitivos_idprogramas_cognitivos()));
                     
-                    JOptionPane.showMessageDialog(this, "Se encontro el usuario.");
+                    JOptionPane.showMessageDialog(this, "Se encontro la asignacion.");
                 }else {
-                    JOptionPane.showMessageDialog(this, "No se encontro el usuario.");
+                    JOptionPane.showMessageDialog(this, "No se encontro la asignacion.");
                 }
             }
         }catch(Exception e) {

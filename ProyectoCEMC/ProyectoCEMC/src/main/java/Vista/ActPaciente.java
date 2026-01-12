@@ -46,6 +46,9 @@ public class ActPaciente extends javax.swing.JFrame {
             p.setIdusuario(this.usuario.getIdusuario());
         }
         p.Buscar();
+        System.out.println("ID: " + p.getIdusuario());
+        System.out.println("Nombre: " + p.getAlergias());
+        
         int edad = p.getEdad();
         Txt_Edad.setText(String.valueOf(edad));
         Txt_Genero.setText(p.getGenero());
@@ -55,6 +58,7 @@ public class ActPaciente extends javax.swing.JFrame {
         Txt_Ocupacion.setText(p.getOcupacion());
         Txt_Observaciones.setText(p.getObservaciones());
         Txt_EstadoTratamiento.setText(p.getEstado_tratamiento());
+        
         Txt_Nombre.setText(p.getNombre());
         Txt_ApePaterno.setText(p.getAp_paterno());
         Txt_ApeMaterno.setText(p.getAp_materno());
@@ -830,7 +834,7 @@ public class ActPaciente extends javax.swing.JFrame {
             PreparedStatement ps = con.prepareStatement(
                 "SELECT t.idtratamiento, t.medicacion, t.descripcion " +
                 "FROM tratamientos t " +
-                "JOIN paciente_tratamiento pt ON t.id_tratamiento = pt.idtratamiento " +
+                "JOIN paciente_tratamiento pt ON t.idtratamiento = pt.idtratamiento " +
                 "WHERE pt.id_paciente = ?"
             );
 
@@ -892,6 +896,7 @@ public class ActPaciente extends javax.swing.JFrame {
         p.setUsuario(Txt_Usuario.getText().trim());
         p.setPregunta_recuperacion(Txt_PregRecuperacion.getText().trim());
         p.setRespuesta_recuperacion(Txt_RespRecuperacion.getText().trim());
+        
         int ed = Integer.parseInt(Txt_Edad.getText().trim());
         p.setEdad(ed);
         p.setGenero(Txt_Genero.getText().trim());
@@ -903,14 +908,9 @@ public class ActPaciente extends javax.swing.JFrame {
         p.setEstado_tratamiento(Txt_EstadoTratamiento.getText().trim());
         
         boolean actUsuario = p.Actualizar();
-        boolean actPaciente;
-        try {
-            actPaciente = p.Actualizar_paciente();
-        } catch (SQLException ex) {
-            System.getLogger(ActPaciente.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-        
-        if (actUsuario) {
+        boolean actPaciente = p.Actualizar_paciente();
+               
+        if (actUsuario &&  actPaciente) {
             JOptionPane.showMessageDialog(this, "Datos actualizados correctamente");
         } else {
             JOptionPane.showMessageDialog(this, "Error al actualizar los datos");

@@ -323,6 +323,25 @@ public class Usuario {
         }
     }
 
+    public boolean Actualizar_estatus() {
+        try {
+            Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
+
+            PreparedStatement Sen = CON.prepareStatement(
+                    "UPDATE usuario SET estatus=? WHERE idusuario=?");
+
+            Sen.setString(1, estatus);
+            Sen.setInt(2, idusuario);
+
+            Sen.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void Borrar() throws SQLException {
         Connection CON = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental", "root", "");
         PreparedStatement Sen = CON.prepareStatement("DELETE FROM usuario WHERE idusuario = ?");

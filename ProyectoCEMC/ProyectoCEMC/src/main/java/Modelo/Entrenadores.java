@@ -145,11 +145,9 @@ public class Entrenadores extends Usuario {
                         "especialidad\n" +
                         "FROM usuario JOIN entrenadores\n" +
                         "ON (usuario.idusuario = entrenadores.usuario_idusuario)\n" +
-                        "JOIN asigna_ejecuta \n" +
-                        "ON (entrenadores.usuario_idusuario = asigna_ejecuta.entrenadores_usuario_idusuario)\n" +
                         "JOIN pacientes\n" +
-                        "ON (pacientes.usuario_idusuario = asigna_ejecuta.pacientes_usuario_idusuario)\n" +
-                        "WHERE asigna_ejecuta.pacientes_usuario_idusuario = ? AND usuario.estatus = 'Activa'");
+                        "ON (pacientes.entrenadores_usuario_idusuario = entrenadores.usuario_idusuario)\n" +
+                        "WHERE pacientes.usuario_idusuario = ? AND usuario.estatus = 'Activa'");
         SQL.setInt(1, idusuario);
         ResultSet Res = SQL.executeQuery();
         return Res;

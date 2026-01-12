@@ -654,6 +654,8 @@ public class BorrarPrograma extends javax.swing.JFrame {
                     
                     Txt_IdPrograma.setText(String.valueOf(programa.getIdprogramas_cognitivos()));
                     
+                    Btn_Borrar.setEnabled(true);
+                    
                     Txt_NombreEntrenador.setText(usuario.getNombre());
                     Txt_UsuarioEntrenador.setText(usuario.getUsuario());
                     Txt_IdEntrenador.setText(String.valueOf(usuario.getIdusuario()));
