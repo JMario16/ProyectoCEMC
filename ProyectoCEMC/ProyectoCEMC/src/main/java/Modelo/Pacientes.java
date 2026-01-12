@@ -320,10 +320,8 @@ public class Pacientes extends Usuario {
                         "escolaridad, " +
                         "ocupacion, " +
                         "fecha_ingreso " +
-                        "FROM usuario JOIN asigna_ejecuta " +
-                        "ON (usuario.idusuario = asigna_ejecuta.pacientes_usuario_idusuario) " +
-                        "JOIN pacientes ON (usuario.idusuario = pacientes.usuario_idusuario) " +
-                        "WHERE asigna_ejecuta.entrenadores_usuario_idusuario = ? AND usuario.estatus = 'Activa'");
+                        "FROM usuario JOIN pacientes ON (usuario.idusuario = pacientes.usuario_idusuario) " +
+                        "WHERE pacientes.entrenadores_usuario_idusuario = ? AND usuario.estatus = 'Activa'");
         SQL.setInt(1, idEntrenador);
         ResultSet Res = SQL.executeQuery();
         return Res;
