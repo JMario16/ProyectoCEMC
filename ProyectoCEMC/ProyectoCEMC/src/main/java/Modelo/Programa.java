@@ -183,7 +183,7 @@ public class Programa {
 
     public boolean Buscar_entrenador() throws SQLException {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement sql = con.prepareStatement("SELECT * FROM programas_cognitivos WHERE idprogramas_cognitivos=?, entrenadores_usuario_idusuario=?");
+        PreparedStatement sql = con.prepareStatement("SELECT * FROM programas_cognitivos WHERE idprogramas_cognitivos=? AND entrenadores_usuario_idusuario=?");
         
         sql.setInt(1, idprogramas_cognitivos);
         sql.setInt(2, entrenadores_usuario_idusuario);
