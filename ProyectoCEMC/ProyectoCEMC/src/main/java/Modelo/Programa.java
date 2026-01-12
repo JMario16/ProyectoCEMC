@@ -170,6 +170,7 @@ public class Programa {
             version = rs.getString("version");
             fecha_actualizacion = rs.getDate("fecha_actualizacion");
             entrenadores_usuario_idusuario = rs.getInt("entrenadores_usuario_idusuario");
+            numero_sesiones = rs.getInt("numero_sesiones");
             
             if(version.equals("Eliminada")) {
                 return false;

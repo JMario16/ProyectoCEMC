@@ -30,6 +30,7 @@ public class AsignarPrograma extends javax.swing.JFrame {
         this.idEntrenador = usuario.getIdusuario();
         this.idPaciente = idPaciente;
         initComponents();
+        Txt_Estatus.setText("Activa");
         if (idPaciente == null) {
             cargarPacientes();
             cargarProgramas();
@@ -45,6 +46,8 @@ public class AsignarPrograma extends javax.swing.JFrame {
         Btn_Asignar.setOpaque(true);
         Cmb_Pacientes.setFocusable(false);
         Cmb_Programas.setFocusable(false);
+        Txt_Estatus.setEditable(false);
+        Txt_Estatus.setFocusable(false);
 
         Btn_Asignar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +93,10 @@ public class AsignarPrograma extends javax.swing.JFrame {
 
             try {
                 if (asignacion.Buscar()) {
+                    if (idPaciente != null && !asignacion.getEstatus().equals("Activa")) {
+                        JOptionPane.showMessageDialog(this, "Asignación eliminada.");
+                        this.dispose();
+                    }
                     Txt_FechaInicio.setText(asignacion.getFecha_inicio().toString());
                     Txt_FechaFin.setText(asignacion.getFecha_fin().toString());
                     Txt_Observaciones.setText(asignacion.getObservaciones());
@@ -105,7 +112,7 @@ public class AsignarPrograma extends javax.swing.JFrame {
                     Txt_FechaInicio.setText(java.time.LocalDate.now().toString());
                     Txt_FechaFin.setText(java.time.LocalDate.now().plusMonths(1).toString());
                     Txt_Observaciones.setText("Observaciones");
-                    Txt_Estatus.setText("Asignado");
+                    Txt_Estatus.setText("Activa");
                     Txt_FechaPago.setText(java.time.LocalDate.now().toString());
                     Txt_MontoPago.setText("0.0");
                     Txt_MetodoPago.setText("Pendiente");
@@ -229,7 +236,7 @@ public class AsignarPrograma extends javax.swing.JFrame {
             String fechaInicioStr = Txt_FechaInicio.getText();
             String fechaFinStr = Txt_FechaFin.getText();
             String observaciones = Txt_Observaciones.getText();
-            String estatus = Txt_Estatus.getText();
+            String estatus = "Activa";
             String fechaPagoStr = Txt_FechaPago.getText();
             String montoPagoStr = Txt_MontoPago.getText();
             String metPago = Txt_MetodoPago.getText();
@@ -253,7 +260,7 @@ public class AsignarPrograma extends javax.swing.JFrame {
             asignacion.setFecha_inicio(fechaInicio);
             asignacion.setFecha_fin(fechaFin);
             asignacion.setObservaciones(observaciones.equals("Observaciones") ? "" : observaciones);
-            asignacion.setEstatus(estatus.contains("(Activo/Pendiente)") ? "Asignado" : estatus);
+            asignacion.setEstatus(estatus);
             asignacion.setFecha_pago(fechaPago);
             asignacion.setMonto_pago(monto);
             asignacion.setMetodo_pago(metPago.contains("Método") ? "Pendiente" : metPago);
@@ -367,15 +374,8 @@ public class AsignarPrograma extends javax.swing.JFrame {
         });
         jPanel6.add(Txt_FechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 39, 190, 30));
 
-        Txt_Estatus.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Txt_Estatus.setForeground(new java.awt.Color(156, 156, 156));
         Txt_Estatus.setText("Estatus (Activo/Pendiente)");
         Txt_Estatus.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-        Txt_Estatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Txt_EstatusMouseClicked(evt);
-            }
-        });
         jPanel6.add(Txt_Estatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 210, 30));
 
         Txt_Observaciones.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -520,12 +520,6 @@ public class AsignarPrograma extends javax.swing.JFrame {
             Txt_FechaFin.setText("");
         }
     }// GEN-LAST:event_Txt_FechaFinMouseClicked
-
-    private void Txt_EstatusMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_EstatusMouseClicked
-        if (Txt_Estatus.getText().contains("(Activo/Pendiente)") || Txt_Estatus.getText().equals("Asignado")) {
-            Txt_Estatus.setText("");
-        }
-    }// GEN-LAST:event_Txt_EstatusMouseClicked
 
     private void Txt_ObservacionesMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_Txt_ObservacionesMouseClicked
         if (Txt_Observaciones.getText().equals("Observaciones")) {
