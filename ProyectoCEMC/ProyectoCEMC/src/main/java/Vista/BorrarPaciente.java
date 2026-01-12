@@ -25,7 +25,7 @@ public class BorrarPaciente extends javax.swing.JFrame {
         
         if(menu.getUsuario().getRol().equals("Paciente")) {
             Txt_Usuario.setEnabled(false);
-            Txt_Usuario.setText(String.valueOf(menu.getUsuario().getIdusuario()));
+            Txt_Usuario.setText(String.valueOf(menu.getUsuario().getUsuario()));
             Btn_Buscar.setEnabled(false);
             Btn_Borrar.setEnabled(true);
             Btn_Limpiar.setEnabled(false);
@@ -744,12 +744,12 @@ public class BorrarPaciente extends javax.swing.JFrame {
         usuario.setUsuario(Txt_Usuario.getText());
         
         try {
-            boolean resultado = usuario.Buscar();
+            boolean resultado = usuario.BuscarPorUsuario();
             
             if(resultado==true) {
                 
                 usuario.setEstatus("Eliminada");
-                usuario.Actualizar();
+                usuario.Actualizar_estatus();
                 
                 JOptionPane.showMessageDialog(this, "Se ha borrado al paciente correctamente.");
             }
@@ -812,7 +812,7 @@ public class BorrarPaciente extends javax.swing.JFrame {
 
             cargarTabla(paciente);
 
-            if (resultado1 && resultado2) {
+            if (resultado1==true && resultado2==true) {
                 Txt_Nombre.setText(usuario.getNombre());
                 Txt_ApePaterno.setText(usuario.getAp_paterno());
                 Txt_ApeMaterno.setText(usuario.getAp_materno());
@@ -837,9 +837,7 @@ public class BorrarPaciente extends javax.swing.JFrame {
                 Btn_Borrar.setEnabled(true);
                 Txt_Usuario.setText(usuario.getUsuario());
 
-                if (menu.getUsuario().getRol().equals("Paciente")) {
-                    JOptionPane.showMessageDialog(this, "Se encontró el paciente.");
-                }
+                JOptionPane.showMessageDialog(this, "Se encontró el paciente.");
 
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró el paciente.");

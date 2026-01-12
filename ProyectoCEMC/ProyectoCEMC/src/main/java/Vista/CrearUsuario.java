@@ -911,13 +911,13 @@ public class CrearUsuario extends javax.swing.JFrame {
                 } else {
                     //Instanciar usuario
                     Usuario usuario = new Usuario(Nombre,ApePaterno,ApeMaterno,Correo,Telefono,Direccion,Usuario,Contrasena,PregRecuperacion,RespRecuperacion,"Paciente");
-                    Pacientes paciente = new Pacientes(Edad,Gen,Escolaridad,Ocupacion,AntecedentesMedicos,Alergias,Observaciones,EstadoTratamiento,-1,Nombre,ApePaterno,ApeMaterno,Correo,Telefono,Direccion,Usuario,Contrasena,PregRecuperacion,RespRecuperacion,"Paciente");
                     // Guardar usuario
                     int aux = usuario.Guardar();
+                    Pacientes paciente = new Pacientes(Edad,Gen,Escolaridad,Ocupacion,AntecedentesMedicos,Alergias,Observaciones,EstadoTratamiento, -1);
                     //Añadir claves foraneas
                     paciente.setUsuario_idusuario(aux);
                     //Guardar paciente
-                    paciente.Guardar_paciente();
+                    paciente.Guardar_SoloPaciente();
                     //Guardar tratamientos del paciente
                     for (int i=0; i<tratamientos.size(); i++){
                         tratamientos.get(i).setPacientes_usuario_idusuario(aux);

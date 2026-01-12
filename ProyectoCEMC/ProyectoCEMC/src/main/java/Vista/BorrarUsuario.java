@@ -513,7 +513,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
             
             if(resultado==true) {
                 usuario.setEstatus("Eliminada");
-                usuario.Actualizar();
+                usuario.Actualizar_estatus();
                 
                 JOptionPane.showMessageDialog(this, "Se ha borrado al usuario correctamente.");
             }

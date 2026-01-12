@@ -674,11 +674,11 @@ public class BorrarEntrenador extends javax.swing.JFrame {
         usuario.setUsuario(Txt_Usuario.getText());
         
         try {
-            boolean resultado = usuario.Buscar();
+            boolean resultado = usuario.BuscarPorUsuario();
             
             if(resultado==true) {
                 usuario.setEstatus("Eliminada");
-                usuario.Actualizar();
+                usuario.Actualizar_estatus();
                 
                 JOptionPane.showMessageDialog(this, "Se ha borrado al entrenador correctamente.");
             }
