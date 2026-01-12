@@ -804,7 +804,7 @@ public class BorrarPaciente extends javax.swing.JFrame {
 
             Usuario usuario = new Usuario();
             usuario.setUsuario(Txt_Usuario.getText());
-            boolean resultado1 = usuario.Buscar();
+            boolean resultado1 = usuario.BuscarPorUsuario();
 
             Pacientes paciente = new Pacientes();
             paciente.setUsuario_idusuario(usuario.getIdusuario());
@@ -837,7 +837,7 @@ public class BorrarPaciente extends javax.swing.JFrame {
                 Btn_Borrar.setEnabled(true);
                 Txt_Usuario.setText(usuario.getUsuario());
 
-                if (!menu.getUsuario().getRol().equals("Paciente")) {
+                if (menu.getUsuario().getRol().equals("Paciente")) {
                     JOptionPane.showMessageDialog(this, "Se encontró el paciente.");
                 }
 

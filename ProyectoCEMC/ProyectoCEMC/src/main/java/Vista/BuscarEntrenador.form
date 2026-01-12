@@ -5,7 +5,6 @@
     <Container class="javax.swing.JDialog" name="Dlg_Certificaciones">
       <Properties>
         <Property name="title" type="java.lang.String" value="Certificaciones"/>
-        <Property name="locationByPlatform" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 

@@ -171,7 +171,11 @@ public class Programa {
             fecha_actualizacion = rs.getDate("fecha_actualizacion");
             entrenadores_usuario_idusuario = rs.getInt("entrenadores_usuario_idusuario");
             
-            return true;
+            if(version.equals("Eliminada")) {
+                return false;
+            }else{
+                return true;
+            }
         }else {
             return false;
         }
@@ -198,7 +202,11 @@ public class Programa {
             fecha_actualizacion = rs.getDate("fecha_actualizacion");
             entrenadores_usuario_idusuario = rs.getInt("entrenadores_usuario_idusuario");
             
-            return true;
+            if(version.equals("Eliminada")) {
+                return false;
+            }else{
+                return true;
+            }
         }else {
             return false;
         }
@@ -234,7 +242,7 @@ public class Programa {
     //Metodo para mostrar cuando el usuario actual es admin
     public ResultSet Mostrar_admin() throws SQLException {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/centro_mental","root","");
-        PreparedStatement sql = con.prepareStatement("SELECT * FROM programas_cognitivos");
+        PreparedStatement sql = con.prepareStatement("SELECT * FROM programas_cognitivos WHERE version <> 'Eliminada'");
         
         ResultSet res = sql.executeQuery();
         return res;
@@ -248,7 +256,7 @@ public class Programa {
         "FROM programas_cognitivos pc\n" +
         "JOIN asigna_ejecuta ae\n" +
         "  ON pc.idprogramas_cognitivos = ae.programas_cognitivos_idprogramas_cognitivos\n" +
-        "WHERE ae.entrenadores_usuario_idusuario = ?");
+        "WHERE ae.entrenadores_usuario_idusuario = ? AND pc.version <> 'Eliminada'");
         
         sql.setInt(1, id_entrenador);
         ResultSet res = sql.executeQuery();

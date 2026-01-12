@@ -21,6 +21,7 @@ public class MostrarProgramasCognitivos extends javax.swing.JFrame {
     public MostrarProgramasCognitivos(Usuario usuario) {
         this.usuario=usuario;
         initComponents();
+        setTitle("Mostrar Programas Cognitivos");
         cargarTabla();
 
         Lbl_Volver.addMouseListener(new java.awt.event.MouseAdapter() {

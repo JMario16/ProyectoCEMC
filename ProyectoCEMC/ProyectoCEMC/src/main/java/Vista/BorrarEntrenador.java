@@ -591,7 +591,7 @@ public class BorrarEntrenador extends javax.swing.JFrame {
             }else {
                 Usuario usuario = new Usuario();
                 usuario.setUsuario(Txt_Usuario.getText());
-                boolean resultado1 = usuario.Buscar();
+                boolean resultado1 = usuario.BuscarPorUsuario();
 
                 Entrenadores entrenador = new Entrenadores();
                 entrenador.setUsuario_idusuario(usuario.getIdusuario());

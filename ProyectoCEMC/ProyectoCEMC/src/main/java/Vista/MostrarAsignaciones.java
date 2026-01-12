@@ -67,7 +67,7 @@ public class MostrarAsignaciones extends javax.swing.JFrame {
                 String observaciones = rs.getString("observaciones");
                 String fecha_inicio = rs.getString("fecha_inicio");
                 String fecha_fin = rs.getString("fecha_fin");
-                String estatus = ("estatus");
+                String estatus = rs.getString("estatus");
 
                 model.addRow(new Object[] { idprograma, idpaciente, identrenador, fecha_pago, monto_pago, metodo_pago, estatus_pago, folio, observaciones, fecha_inicio, fecha_fin, estatus });
             }

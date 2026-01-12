@@ -1,9 +1,7 @@
 package Vista;
 
-import Modelo.Tratamientos;
 import Modelo.Usuario;
 import java.awt.Color;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class BorrarUsuario extends javax.swing.JFrame {    
@@ -465,7 +463,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
             }else {
                 Usuario usuario = new Usuario();
                 usuario.setUsuario(Txt_Usuario.getText());
-                boolean resultado = usuario.Buscar();
+                boolean resultado = usuario.BuscarPorUsuario();
                 
                 if(resultado==true) {
                     Txt_Nombre.setText(usuario.getNombre());
@@ -511,7 +509,7 @@ public class BorrarUsuario extends javax.swing.JFrame {
         usuario.setUsuario(Txt_Usuario.getText());
         
         try {
-            boolean resultado = usuario.Buscar();
+            boolean resultado = usuario.BuscarPorUsuario();
             
             if(resultado==true) {
                 usuario.setEstatus("Eliminada");

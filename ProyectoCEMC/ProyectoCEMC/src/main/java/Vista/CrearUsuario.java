@@ -726,6 +726,7 @@ public class CrearUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Lbl_VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Lbl_VolverMouseClicked
+        this.dispose();
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Lbl_VolverMouseClicked

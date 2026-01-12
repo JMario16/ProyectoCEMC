@@ -428,7 +428,7 @@ public class BuscarUsuario extends javax.swing.JFrame {
             }else {
                 Usuario usuario = new Usuario();
                 usuario.setUsuario(Txt_Usuario.getText());
-                boolean resultado = usuario.Buscar();
+                boolean resultado = usuario.BuscarPorUsuario();
                 
                 if(resultado==true) {
                     Txt_Nombre.setText(usuario.getNombre());
