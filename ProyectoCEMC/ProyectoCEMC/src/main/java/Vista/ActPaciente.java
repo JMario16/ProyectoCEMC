@@ -44,9 +44,7 @@ public class ActPaciente extends javax.swing.JFrame {
             p.setIdusuario(this.usuario.getIdusuario());
         }
         p.Buscar();
-        System.out.println("ID: " + p.getIdusuario());
-        System.out.println("Nombre: " + p.getAlergias());
-        
+
         int edad = p.getEdad();
         Txt_Edad.setText(String.valueOf(edad));
         Txt_Genero.setText(p.getGenero());
@@ -204,7 +202,15 @@ public class ActPaciente extends javax.swing.JFrame {
             new String [] {
                 "Tratamientos", "Medicación", "Descripción"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(Tbl_Tratamientos);
 
         jPanel9.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 350, 190));
@@ -929,6 +935,9 @@ public class ActPaciente extends javax.swing.JFrame {
     
     private void Btn_GuardarTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_GuardarTratamientosActionPerformed
         try {
+            if (Tbl_Tratamientos.isEditing()) {
+                Tbl_Tratamientos.getCellEditor().stopCellEditing();
+            }
             int fila = Tbl_Tratamientos.getSelectedRow();
 
             if (fila == -1) {
@@ -990,26 +999,6 @@ public class ActPaciente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_Btn_GuardarTratamientosActionPerformed
 
-    private void cargarTabla(Pacientes paciente) {
-        DefaultTableModel model = (DefaultTableModel) Tbl_Tratamientos.getModel();
-        model.setRowCount(0);
-        
-        Tratamientos tratamientos = new Tratamientos();
-        tratamientos.setPacientes_usuario_idusuario(paciente.getUsuario_idusuario());
-        
-        try {
-            ResultSet rs = tratamientos.Mostrar_paciente();
-            while (rs.next()) {
-                int idtratamientos = rs.getInt("idtratamientos");
-                String medicacion = rs.getString("medicacion");
-                String descripcion = rs.getString("descripcion");
-
-                model.addRow(new Object[] { idtratamientos, medicacion, descripcion });
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar pacientes: " + ex.getMessage());
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Actualizar;
     private javax.swing.JButton Btn_GuardarTratamientos;
