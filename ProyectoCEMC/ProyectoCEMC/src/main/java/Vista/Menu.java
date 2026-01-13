@@ -849,7 +849,7 @@ public class Menu extends javax.swing.JFrame {
         if (seleccion == null)
             return;
 
-        if ("Añadir paciente".equals(seleccion)) {
+        if ("Añadir paciente".equals(seleccion)) {            
             if (usuario.getRol().equalsIgnoreCase("Administrador")) {
                 String idStr = javax.swing.JOptionPane
                         .showInputDialog("Ingrese ID del entrenador asociado:");
@@ -866,11 +866,13 @@ public class Menu extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         System.getLogger(Menu.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                     }
-                } else {
+                }
+                } else  {
+                    
                     AnadirPaciente v = new AnadirPaciente(usuario);
                     v.setVisible(true);
                 }
-            }
+            
         } else if ("Programa cognitivo".equals(seleccion)) {
             if (usuario.getRol().equalsIgnoreCase("Administrador")) {
                 String idStr = javax.swing.JOptionPane
